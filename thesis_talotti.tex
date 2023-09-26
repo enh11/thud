@@ -38,6 +38,35 @@
 %% big: Come "sfbig", solo serif.
 %% plain: Apertura delle parti e dei capitoli tradizionali di LaTeX; intestazioni di pagina come "big".
 
+%%%%%%%5Definizioni,teoremi, proposizioni ...
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Fp}{\mathbb{F}_{p}}
+\newcommand{\Fq}{\mathbb{F}_{q}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\clF}{\overline{\F}}
+\newcommand{\Complessi}{\mathbb{C}}
+\newcommand{\infp}{\mathcal{O}}
+\theoremstyle{plain}
+\newtheorem{teorema}{Theorem}[section]
+\newtheorem{proposizione}[teorema]{Proposition}
+\newtheorem{lemma}[teorema]{Lemma}
+\newtheorem{corollario}[teorema]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definizione}[teorema]{Definition}
+\newtheorem{esempio}[teorema]{Exemple}
+
+\theoremstyle{remark}
+\newtheorem{osservazione}[teorema]{Remark}
+\DeclareMathOperator{\aut}{Aut}
+\DeclareMathOperator{\id}{id}
+
+
+
 \begin{document}
 \maketitle
 
@@ -72,8 +101,47 @@
 
 %% Capitolo
 \chapter{Arithmetic of Elliptic Curves}
+We start with a practical definition of the concept of an elliptic curve. In the following we use the letters $\F,\mathbb{K}\dots$ to denote fields and the $\clF,\overline{\mathbb{K}}\dots$ for the corresponding algebraic closure.
+\begin{definizione}
 
+An elliptic curve $E$ over a field $\F$ is a curve that is given by an equation of the
+form
+\begin{equation}\label{ell}
+	y^2 + a_1xy + a_3y = x^3 + a_2x^2+a_4x + a_6,
+\end{equation}
+where the coefficients $a_1,a_2,a_3,a_4,a_5,a_6\in\F$ are such that for each point $(x_1,y_1)\in\clF$ satisfying (\ref{ell}), the partial derivatives do not vanish simultaneously. In other words the two equations
+\begin{equation}\label{jacobi}
+	2y+a_1x+a_3=0,\qquad 3x^2+a_2x+a_4-a_1y=0,
+\end{equation}
+cannot be simultaneously satisfied by any point  $(x_1,y_1)\in\clF$.
+\end{definizione}
+The last condition says that an elliptic curve is $non$ $singular$ (or $smooth$). A point on a curve is called $singular$ if booth partial derivatives vanish.
+We let $E(\F)$ denote the set of points $(x,y)\in\F^2$ that satisfy this equation, along with a "point at infinity" denoted $\infp$. If $\mathbb{K}$ is any extension field of $\F$, then $E(\mathbb{K})$ denotes the set of $(x,y)\in\mathbb{K}^2$ that satisfy (\ref{ell}), along with $\infp$. 
+In odd characteristic, the transformation $$y\mapsto y-(a_1x+a_3)/2,$$
+leads to an isomorphic curve given by 
+\begin{equation}
+	y^2=x^3+\dfrac{b_2}{4}x^2+\dfrac{b_4}{2}x+\dfrac{b_6}{4},
+\end{equation}
+where the coefficients $b_2, b_4, b_6\in\F$ are define as $$b_2=a_1^2+4a_2,\qquad b_4=a_1a_3+2a_4,\qquad b_6=a_3^2+4a_6.$$ Moreover, if the characteristic of $\F$ is neither 2 nor 3, then we can also apply the transformation $$x\mapsto x-\dfrac{b_2}{12},$$ which leads to the $Weirstrass$ $equation:$
+\begin{equation}\label{Weierstrass}
+y^2=x^3+ax+b\qquad a,b\in\F.
+\end{equation}
 
+\begin{teorema}
+	teorema ok $\F\Fp\Fq$
+\end{teorema}
+\begin{proof}
+	dimostrazione ok
+\end{proof}
+\begin{proposizione}
+	proposizione ok
+\end{proposizione}
+\begin{esempio}
+	esempio ok
+\end{esempio}
+\begin{osservazione}
+	osservaizone ok
+\end{osservazione}
 %% Sezione
 \section{Titolo della Sezione}
 
