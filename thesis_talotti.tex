@@ -47,7 +47,9 @@
 \newcommand{\Fp}{\mathbb{F}_{p}}
 \newcommand{\Fq}{\mathbb{F}_{q}}
 \newcommand{\F}{\mathbb{F}}
+\newcommand{\K}{\mathbb{K}}
 \newcommand{\clF}{\overline{\F}}
+\newcommand{\clK}{\overline{\K}}
 \newcommand{\Complessi}{\mathbb{C}}
 \newcommand{\infp}{\mathcal{O}}
 \theoremstyle{plain}
@@ -101,58 +103,156 @@
 
 %% Capitolo
 \chapter{Arithmetic of Elliptic Curves}
-We start with a practical definition of the concept of an elliptic curve. In the following we use the letters $\F,\mathbb{K}\dots$ to denote fields and the $\clF,\overline{\mathbb{K}}\dots$ for the corresponding algebraic closure.
+introduzione......
+\section{Background on elliptic curves}
+\subsection{Affine equation and group law}
+We start with a practical definition of the concept of an elliptic curve. In the following we use the letters $\F,\mathbb{K}\dots$ to denote perfect fields and the $\clF,\overline{\mathbb{K}}\dots$ for the corresponding algebraic closure.
 \begin{definizione}
 
-An elliptic curve $E$ over a field $\F$ is a curve that is given by an equation of the
-form
+An elliptic curve $E$ over a field $\K$ is a curve that is given by the $Weierstrass$ $equation$ 
 \begin{equation}\label{ell}
-	y^2 + a_1xy + a_3y = x^3 + a_2x^2+a_4x + a_6,
+	E:y^2 + a_1xy + a_3y = x^3 + a_2x^2+a_4x + a_6,
 \end{equation}
-where the coefficients $a_1,a_2,a_3,a_4,a_5,a_6\in\F$ are such that for each point $(x_1,y_1)\in\clF$ satisfying (\ref{ell}), the partial derivatives do not vanish simultaneously. In other words the two equations
+where the coefficients $a_1,a_2,a_3,a_4,a_5,a_6\in\K$ are such that for each point $(x_1,y_1)\in\clK$ satisfying (\ref{ell}), the partial derivatives do not vanish simultaneously. In other words the two equations
 \begin{equation}\label{jacobi}
 	2y+a_1x+a_3=0,\qquad 3x^2+a_2x+a_4-a_1y=0,
 \end{equation}
-cannot be simultaneously satisfied by any point  $(x_1,y_1)\in\clF$.
+cannot be simultaneously satisfied by any point  $(x_1,y_1)\in\clK$.
 \end{definizione}
 The last condition says that an elliptic curve is $non$ $singular$ (or $smooth$). A point on a curve is called $singular$ if booth partial derivatives vanish.
-We let $E(\F)$ denote the set of points $(x,y)\in\F^2$ that satisfy this equation, along with a "point at infinity" denoted $\infp$. If $\mathbb{K}$ is any extension field of $\F$, then $E(\mathbb{K})$ denotes the set of $(x,y)\in\mathbb{K}^2$ that satisfy (\ref{ell}), along with $\infp$. 
-In odd characteristic, the transformation $$y\mapsto y-(a_1x+a_3)/2,$$
+We let $E(\K)$ denote the set of points $(x,y)\in\clK^2$ that satisfy this equation, along with a "point at infinity" denoted $\infp$. 
+In odd characteristic, the transformation $$x\mapsto x'=x\qquad y\mapsto y'=y+(a_1x+a_3)/2,$$
 leads to an isomorphic curve given by 
 \begin{equation}
 	y^2=x^3+\dfrac{b_2}{4}x^2+\dfrac{b_4}{2}x+\dfrac{b_6}{4},
 \end{equation}
-where the coefficients $b_2, b_4, b_6\in\F$ are define as $$b_2=a_1^2+4a_2,\qquad b_4=a_1a_3+2a_4,\qquad b_6=a_3^2+4a_6.$$ Moreover, if the characteristic of $\F$ is neither 2 nor 3, then we can also apply the transformation $$x\mapsto x-\dfrac{b_2}{12},$$ which leads to the $Weirstrass$ $equation:$
-\begin{equation}\label{Weierstrass}
-y^2=x^3+ax+b\qquad a,b\in\F.
+where the coefficients $b_2, b_4, b_6\in\K$ are define as $$b_2=a_1^2+4a_2,\qquad b_4=a_1a_3+2a_4,\qquad b_6=a_3^2+4a_6.$$
+Moreover, if the characteristic of $\F$ is neither 2 nor 3, then we can also apply the transformation $$x\mapsto x'=x+\dfrac{b_2}{12},\qquad y\mapsto y'=y$$ which leads to the equation
+\begin{equation}
+y^2=x^3-\dfrac{c_4}{48}x-\dfrac{c_6}{864},
 \end{equation}
+where $c_4=b^2-24b_4$ and $c_6=-b_2^3+36b_2b_4-216b_6$. So if char($\K$) is prime to 6, we can always assume that an elliptic curve is given by a short Weierstrass equation of the type
+\begin{equation}\label{ShortWeierstrass}
+	y^2=x^3+a_4x+a_6.
+\end{equation}
+In this case the condition that the curve be smooth is equivalent to requiring that the cubic on the right have no multiple roots. This holds if and only if the discriminant of $x^3+a_4x+a_6$, which is $-(4a_4^3+27a_6^2)$, is nonzero.
 
+We now turn the set of points $E(\K)$ into a group, with operation denoted by $\oplus$. We define the point $\infp$ to be the identity element, it can be visualized as lying far out of the $y$-axis such that any line $x=c$, for some constant $c$, passes through it. If $P=(x,y)$ is any other point then the opposite $\ominus P$ is the point with the same $x$-coordinate as P, but negative $y$-coordinate, i.e., $\ominus P=(x,-y)$. The most natural way to describe the addition law on elliptic curves is to use geometry. To add two generic points $P=(x_1,y_1)$ and $Q=(x_2,y_2)$, we  draw a line connecting them. This line intercept the curve in tree points, namely, $P,Q$ and a third one $R$. We take the point $R$ and we reflect it across the $x$-axis to get a new point $R'$. We define $P\oplus Q=R'$. The same construction can be applied to double a point $P$ where the connecting line is replaced by the tangent at $P$. \\The above set of rules can be summarized in the following succinct manner:
+$$\textit{\text{the sum of the three points where a line intersects the curve is zero}}.$$
+If the line passes through the point at infinity $\infp$, then this relation has the form $P\oplus(\ominus P)\oplus\infp=\infp$, otherwise it has the form $P\oplus Q\oplus R=\infp$.
+
+We now show why there is exactly one more point where the line through $P$ and $Q$ intersects the curve; at the same time we will derive a formula for the coordinates of this third point, and hence for the coordinates of $P\oplus Q$. Let $\K$ be a field and $E(\K)$ the set of points of an elliptic curve of the form (\ref{ell}). Let $(x_1,y_1),(x_2,y_2)$ and $(x_3,y_3)$ denote the coordinates of $P,Q$ and $P\oplus Q$ respectively. We want to express $x_3$ and $y_3$ 	in terms of $x_1,x_2,y_1,y_2$. Suppose that $P\neq Q$ and $x_1\neq x_2$, than the line through them is not the vertical one, and has slope $$\lambda=\dfrac{y_1-y_2}{x_1-x_2}$$ and passes through $P$, thus its equation is $$y=\lambda x+\dfrac{x_1y_2-x_2y_1}{x_1-x_2}.$$ We denote the constante term by $\mu$ and remark $\mu=y_1+\lambda x_1$. The intersection points with the curve are the solution of the following cubic equation $$(\lambda x+\mu)^2+(a_1x+a_3)(\lambda x+\mu)=x^3+a_2x^2+a_4x+a_6.$$
+This leads to the equation $r(x)=0$ where $$r(x)=x^3+(a_2-\lambda^2-a_1\lambda)x^2+(a_4-2\lambda\mu-a_3\lambda-a_1\mu)x+a_6-\mu^2-a_3\mu.$$ We already know two roots of $r(x)$, namely the $x$-coordinates of the two points $P$ and $Q$, because they lying on the curve and on the line as well. Since the sum of the roots of a monic polynomial is equal to minus the coefficient of the second-to-highest power, we conclude that the third root in this case is $x_3 = \lambda^2+a_1\lambda -a_2-x_1-x_2$. As $x_1,x_2$ are define over $\K$ so is $x_3$ and $\overline{y}_3=\lambda x + \mu$, thus we found the point $R'=(x_3,\overline{y}_3)$. The inflection at the $x$-axis has to be translated to the condition that the second point has the same $x$-coordinate and also satisfies the curve equation. We observe that if $P=(x_1,y_1)$ is on the curve then so is $(x_1,y_1-a_1x_1-a_3)$, which corresponds to $\ominus P$. Hence we fine $y_3=-\lambda x_3-\mu-a_1x_3-a_3$. 
+
+Doubling $P=(x_1,y_1)$ works in te same way with the slope obtained by implicit derivating. Thus we have $P\oplus Q=(x_3,y_3)$ and 
+\begin{align*}
+%2x - 5y &=  8 \\ 
+%3x + 9y &=  -12
+\ominus P &= (x_1,-y_1-a_1x_1-a_3) \\
+P\oplus Q &= (\lambda^2+a_1\lambda -a_2-x_1-x_2,\lambda (x_1-x_3)-y_1-a_1x_3-a_3), \text{where}\\
+\lambda &=
+\begin{cases}
+	\dfrac{y_1-y_2}{x_1-x_2} & \text{if } P\neq Q,\\
+	\dfrac{3x_1^2+2a_2x_1+a_4-a_1x_1}{2y_1+a_1x_1+a_3} &\text{if } P=Q.
+\end{cases}
+\end{align*}
+The associativity can be shown to hold by simply applying the group law and comparing elements. We have not yet said much about the "point at infinity" $\infp$. It can be motivated by giving an alternative description of elliptic curves and this is the purpose of the next subsection.
+\subsection{Projective coordinates}
+\begin{definizione}
+Let $\K$ be a field as above and $\clK$ its algebraic clousure. The $2-dimentional$ $projective$ $space$ $\mathbb{P}^2/\K:=\mathbb{P}^2$ $over$ $\K$ is the set of clalsses  of triples $(X,Y,Z)\in\clK^3\setminus \left\{(0,0,0)\right\}$ where two triples are said to be equivalent if they are a scalar multiple of one another; in other words,$$(X_1,Y_1,Z_1)\sim(X_2,Y_2,Z_3)\Leftrightarrow (X_2,Y_2,Z_2)=(kX_1,kY_1,kZ_1)\text{ for some }k\in\clK^*.$$
+The equivalence classes are called $projective$ $point$ and we denote it $(X_1:Y_1:Z_1)$.
+\end{definizione}
+If a projective point $(X:Y:Z)$ has nonzero $Z$, then there is one and only one triple in its equivalence class of the form $(x,y,1)$ which is obtained by the formula $x=X/Z,y=Y/Z$. Thus, the projective plane can be identified with all points $(x,y)$ of the ordinary ("affine") plane plus the points for which $Z = 0$. The latter points make up what is called the line at infinity. Any equation $F(x,y) = 0$ of a
+curve in the affine plane corresponds to a $homogeneous$ $equation$ $F(X, Y, Z) = 0$ satisfied by the corresponding projective points: simply replace $x$ by $X/Z$ and $y$ by $Y/Z$ and multiply by a power of $Z$ to clear the denominators. 
+Equatione $(\ref{ell})$ express the curve in affine coordinates. We can consider the same elliptic curve in projective coordinates; in this case the equation is given by
+\begin{equation}\label{ell_proj}
+Y^2Z+a_1XYZ+a_3YZ^2=X^3+a_2X^2Z+a_4XZ^2+a_6Z^3.
+\end{equation}
+\begin{esempio}
+In $\Fp$ with prime $p=2857$ the short weierstrass equation $$E:y^2=x^3+3x+7$$ is an elliptic curve, indeed $\Delta=2817\neq 0 \mod p$. The points $P(2760,720)$ and $Q=(688,1288)$ lie on the curve $E(\Fp)$. Then
+\begin{align*}
+\ominus P &= (2760,2137)\\
+P\oplus Q &=(324,1392)\\
+[2]P &= (339,494)
+\end{align*}
+are on $E(\Fp)$. The corresponding projective curve is $$E':ZY^2=x^3+3Z^2X+7Z^3$$. The point $P'=(596,1025,1172)$ lies on the projective curve, in fact it is in the same class as $(2760:720:1)$. 
+\end{esempio}
+\subsection{Scalar multiplication}
+Let $n\in\N\setminus\left\{0\right\}$. We denote the $scalar$ $multiplication$ $by$ $n$ $on$ $E$ by $\left[n\right]$; namley,
+\begin{align*}
+\left[n\right]:E/&\K\to E/\K\\
+&P\mapsto \left[n\right]P=\underbrace{P\oplus P\oplus\dots\oplus P}_{n\ \text{times}}
+\end{align*}
+This definition extends trivially to $n\in\Z$ , setting $\left[0\right]P=\infp$ and $\left[n\right]P=\left[-n\right]\ominus P$ for $n$ negative. The kernel of $\left[n\right]$ is $ker\left[n\right]=\left\{P\in E(\clK):\left[n\right]P=\infp\right\}$ and it is denoted by $E\left[n\right]$. An element in $E\left[n\right]$ is called $n-torsion$ $point$.
+
+We want to describe an algorithm to efficently compute the scalar multiplication $\left[n\right]P$, which is very important for cryptographic applications. The underlying idea is to write $n$ in binary form as $\sum_{i=0}^{k}2^in_{i}$ with $n_{i}\in\left\{0,1\right\}$ and $k=\lceil\log_2n\rceil$. Next we compute the following quantity:
+$$Q_0=P, Q_1=2Q_0=2P,Q_2=2Q_1=2^2Q_0=4P,\ldots Q_r=2Q_{r-1}=2^rP.$$ Notice that $Q_i$ is simply twice the previus $Q_{i-1}$, so $$Q_i=2^iP.$$
+This point are referred to as 2-power multiples of $P$, and computing them requires $k$ doublings. Finally, we compute $\left[n\right]P$ using at most $k$ additions,
+$$\left[n\right]P=\left[n_0\right]Q_0\oplus\left[n_1\right]Q_1\ldots\oplus\left[n_k\right]Q_k.$$
+We'll refer to the addition of two points in $E(\clK)$ as $point operation$.
+Thus the total time to compute $\left[n\right]P$ is at most $2k$ point operations in $E(\clK)$. Notice that $2^k\leq n$, so it takes no more than $2log_2n$ point operations to compute $\left[n\right]P$. This make it feasible to compute $\left[n\right]P$ even for very large values of $n$. We summarize in the following:
 \begin{teorema}
-	teorema ok $\F\Fp\Fq$
+Let $E$ be an elliptic curve over $\K$, let $P\in E(\clK)$ and let $n\geq 2$ be an integer. The algorithm described in the table (\ref{doubadd}) computes $\left[n\right]P$ using no more than $\log_2n$ point doublings and no more than $\log_2n$ point additions.
 \end{teorema}
 \begin{proof}
-	dimostrazione ok
+During the $i^{th}$ iteration of the loop, the value of $Q$ is $\left[2^i\right
+]P$. Since $R$ is
+incremented by $Q$ if and only if $n_i = 1$, the final value of $R$ is
+$$\bigoplus_{i\text{ whit }n_i=1}\left[2^i\right]P=\bigoplus_{i=0}^{k}\left[n_i2^i\right]P=\left[\sum_{i=0}^{k}n_i2^i\right]P=\left[n\right]P.$$
+Each iteration of the loop requires one point duplication and at most one point addition, and since $k\leq\log_2n$, the running time of the algorithm is as stated.
 \end{proof}
-\begin{proposizione}
-	proposizione ok
-\end{proposizione}
+\begin{table}
+\caption {Double-and-add algorithm}\label{doubadd}
+\begin{center}
+\begin{tabular}{|ll|}
+\hline
+ & INPUT: Point $P\in E(\clK)$ and $n\in\Z$\\
+1.& Set $Q=P$ and $R=\infp$.\\
+2.&If $n=0$ retunr $\infp$ and terminate the algorithm \\
+3.& Loop while $n>0$\\
+ & 4. If $n\equiv 1\mod 2$, set $R=R\oplus Q$.\\
+ & 5. Set $Q=\left[2Q\right]$ and $n=\lfloor n/2\rfloor$\\
+ & 6. If $n>0$ go to step 2.\\
+7.& Return $R$, which is $\left[n\right]P.$\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+The average running time of the double-and-add algorithm to compute $\left[n\right]P$ is $\log_2n$ doublings and $\frac{1}{2}\log_2n$ additions, since the binary expansion of a random integer $n$ has an equal number of 1's and 0's. However we can reduce the average time by using the following expansion of $n$.
+\begin{definizione}
+A binary representation $(n_{k-1},\dots\,n_1,n_0)$ of an integer $n$ is said to be in $non$ $adiacent$ $form$ provided that no two consecutive $n_i$ are non-zero. Such a representation is denote $NAF$ $representation$.
+\end{definizione} 
+It is possible to compute the multiple $[n]P$ of the elliptic curve point $P$ by a series of doublings,
+additions, and subtractions, using the algorithm in table (\ref{doubaddsub}).
+
+\begin{table}
+	\caption {Double-and-add algorithm}\label{doubaddsub}
+	\begin{center}
+		\begin{tabular}{|ll|}
+			\hline
+			& INPUT: Point $P\in E(\clK)$ and $(n_{l-1},\dot,n_1,n_0)$ NAF representation on the integer $n$\\
+			1.& Set $R=\infp$. \\
+			2.& If $n=0$ return $Q$ and terminate the algorithm \\
+			3.& For $i$ in $l-1$ downto $0$ \\
+			& 4. Set $R=[2]R.$\\
+			& 5. If $n_i=1$ then $R=R\oplus P$.\\
+			& 6. Else if $n_i=-1$ then $R=R\ominus P.$\\
+			7.& Return $R$, which is $\left[n\right]P.$\\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+It is a simple matter to transform a binary representation of a positive integer $n$ into a NAF representation. The basis of this transformation is to replace sub-strings of the form $(0,1,\dots,1)$ in the binary representation by sub-strings of the form $(1,0,\dots,0,-1)$. Such a substitutions do not change the value of $n$, due to the identity $$2^i+2^{i-1}+\dots+2^j=2^{i+1}-2^j$$ where $i>j$. This process is repeated as often as needed, starting with the rightmost (i.e., low-order) bits and proceeding to the left.
 \begin{esempio}
-	esempio ok
+The binary expansion of $n=3895$ is $[1, 1, 1,1, 0,0, 1, 1,\underline{0, 1, 1, 1}]$. Starting from the right we substitute the underlined sub-string $[0,1\dots,1]$ with $[1,0,\dots,0,-1]$ and we obtain:
+$$[1, 1, 1,1,0,\underline{0, 1, 1, 1}, 0, 0, -1]$$
+$$[\underline{1,1,1,1},0, 1,0,0,-1,0,0,- 1,]$$ 
+$$[1,0,0,0,-1,0, 1,0,0,-1,0,0,- 1,].$$ This corresponds to $2^12-2^8+2^6-2^3-1=3895$.
 \end{esempio}
-\begin{osservazione}
-	osservaizone ok
-\end{osservazione}
-%% Sezione
-\section{Titolo della Sezione}
-
-
-%% Sottosezione
-\subsection{Sottosezione}
-
-
-
-
-
+In a NAF representation, there do not exist two consecutive non-zero coefficients. We might expect that, on average, a NAF representation contains more zeroes than the traditional binary representation of a positive integer. This is indeed
+the case: it can be shown [\cite{Coh1}],[\cite{Stin}] that, on average, an $k$-bit integer contains $\frac{k}{2}$ zeroes in
+its binary representation and $\frac{2k}{3}$ zeroes in its NAF representation.
+These results make it easy to compare the average efficiency of the double-and-add using a binary representation to the double-and-add-or-subtract using the NAF representation. Each algorithm requires $k$ doublings, but the number of additions (or subtractions) is $\frac{k}{2}$ in the first case, and $\frac{2k}{3}$ in the second case. If we assume that a doubling takes roughly the same amount of time as an addition (or subtraction), then the ratio of the average times required by the two algorithms is approximately $$\dfrac{k+\frac{k}{2}}{k+\frac{2k}{3}}=\dfrac{9}{8}.$$ We have therefore obtained a (roughly) $11\%$ speedup, on average, by this simple technique.
 %% Fine dei capitoli normali, inizio dei capitoli-appendice (opzionali)
 \appendix
 
