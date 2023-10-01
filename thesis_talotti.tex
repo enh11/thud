@@ -50,6 +50,7 @@
 \newcommand{\K}{\mathbb{K}}
 \newcommand{\clF}{\overline{\F}}
 \newcommand{\clK}{\overline{\K}}
+\newcommand{\Fpe}{\F_{p^e}}
 \newcommand{\Complessi}{\mathbb{C}}
 \newcommand{\infp}{\mathcal{O}}
 \theoremstyle{plain}
@@ -105,8 +106,8 @@
 \chapter{Arithmetic of Elliptic Curves}
 Elliptic curves come up naturally in several branches of mathematics. Here we will follow their development as a branch of arithmetic. 
 \section{Background on elliptic curves}
-\subsection{Affine equation and group law}
-We start with a practical definition of the concept of an elliptic curve. In the following we use the letters $\F,\mathbb{K}\dots$ to denote perfect fields and $\clF,\overline{\mathbb{K}}\dots$ for the corresponding algebraic closure.
+\subsection{Affine equation}
+We start with a practical definition of the concept of an elliptic curve. In the following we use the letters $\F,\mathbb{K}\dots$ to denote fields and $\clF,\overline{\mathbb{K}}\dots$ for their algebraic closures.
 \begin{definizione}
 
 An elliptic curve $E$ over a field $\K$, denoted $E/\K$, is given by the $Weierstrass$ $equation$ 
@@ -133,7 +134,7 @@ where $c_4=b_2^2-24b_4$ and $c_6=-b_2^3+36b_2b_4-216b_6$. So if char($\K$) is pr
 	y^2=x^3+a_4x+a_6.
 \end{equation}
 In this case the smoothness condition is equivalent to requiring that the cubic on the right have no multiple roots. This holds if and only if the discriminant of $x^3+a_4x+a_6$, is nonzero.
-\subsection{Projective coordinates}
+\subsection{Projective coordinates}\label{projective}
 \begin{definizione}
 	Let $\K$ be a field as above and $\clK$ its algebraic closure. The $2-dimentional$ $projective$ $space$ $\mathbb{P}^2/\K:=\mathbb{P}^2$ $over$ $\K$ is the set of classes  of triples $(X,Y,Z)\in\clK^3\setminus \left\{(0,0,0)\right\}$ where two triples are said to be equivalent if they are a scalar multiple of one another; in other words,$$(X_1,Y_1,Z_1)\sim(X_2,Y_2,Z_3)\Leftrightarrow (X_2,Y_2,Z_2)=(kX_1,kY_1,kZ_1)\text{ for some }k\in\clK^*.$$
 	The equivalence classes are called $projective$ $point$ and we denote it $(X_1:Y_1:Z_1)$.
@@ -149,8 +150,8 @@ Equation $(\ref{ell})$ express the curve in affine coordinates. We can consider 
  E_{hom}:Y^2Z+a_1XYZ+a_3YZ^2=X^3+a_2X^2Z+a_4XZ^2+a_6Z^3.
 \end{equation}
 So we have a correspondence between point of $E_{hom}$ and point of $E$. 
-
-Now we have to decide which Weierstrass equations define isomorphic elliptic curves. We can restrict ourselves to isomorphisms that fix the point at infinity. We shall continue to assume that the characteristic of $\K$ is prime to 6, but actually completely analogous discussions can be done for characteristics 2 and 3 and can be found in [\cite{Sil2}]. We look for invertible transformation of the affine coordinates for
+\section{Short normal forms and invariants}
+Now we have to decide which Weierstrass equations define isomorphic elliptic curves. We can restrict ourselves to isomorphisms that fix the point at infinity. We shall continue to assume that the characteristic of $\K$ is prime to 6, so we can deal with short Weierstrass form. However completely analogous discussions can be done for characteristics 2 and 3 and can be found in \cite{Sil2}. We look for invertible transformation of the affine coordinates for
 which the transformed equation is again a short Weierstrass form. It easy to see this conditions imposed imply 
 $$x\mapsto x'=u^{-2}x\ \text{and}\ y\mapsto y'=u^{-3}y\ \text{with}\ u\in\K^*$$ and the resulting equation is $$E': y'^2=x'^3+u^4a_4x+u^6a_6.$$ We have the following:
 \begin{proposizione}\label{classificazione1}
@@ -199,12 +200,12 @@ Let $E$ be an elliptic curve over a field $K$ define by the Weierstrass equation
 We now turn the set of points of $E/\K$ into a group, with operation denoted by $\oplus$. We define the point $\infp$ to be the identity element, it can be visualized as lying far out of the $y$-axis such that any line $x=c$, for some constant $c$, passes through it. If $P=(x,y)$ is any other point then the opposite $\ominus P$ is the point with the same $x$-coordinate as P, but negative $y$-coordinate, i.e., $\ominus P=(x,-y)$. The most natural way to describe the addition law on elliptic curves is to use geometry. To add two generic points $P=(x_1,y_1)$ and $Q=(x_2,y_2)$, we  draw a line connecting them. This line intercept the curve in tree points, namely, $P,Q$ and a third one $R$. We take the point $R$ and we reflect it across the $x$-axis to get a new point $R'$. We define $P\oplus Q=R'$. The same construction can be applied to double a point $P$ where the connecting line is replaced by the tangent at $P$. The above set of rules can be summarized in the following succinct manner:
 $$\textit{\text{the sum of the three points where a line intersects the curve is zero}}.$$
 If the line passes through the point at infinity $\infp$, then this relation has the form $P\oplus(\ominus P)\oplus\infp=\infp$, otherwise it has the form $P\oplus Q\oplus R=\infp$.\\
-We now show why there is exactly one more point where the line through $P$ and $Q$ intersects the curve; at the same time we will derive a formula for the coordinates of this third point, and hence for the coordinates of $P\oplus Q$. Let $\K$ be a field and $E(\K)$ the set of points of an elliptic curve of the form (\ref{ell}). Let $(x_1,y_1),(x_2,y_2)$ and $(x_3,y_3)$ denote the coordinates of $P,Q$ and $P\oplus Q$ respectively. We want to express $x_3$ and $y_3$ 	in terms of $x_1,x_2,y_1,y_2$. Suppose that $P\neq Q$ and $x_1\neq x_2$, than the line through them is not the vertical one, and has slope $$\lambda=\dfrac{y_1-y_2}{x_1-x_2}$$ and passes through $P$, thus its equation is $$y=\lambda x+\dfrac{x_1y_2-x_2y_1}{x_1-x_2}.$$ We denote the constant term by $\mu$ and remark $\mu=y_1+\lambda x_1$. The intersection points with the curve are the solutions of the following cubic equation $$(\lambda x+\mu)^2+(a_1x+a_3)(\lambda x+\mu)=x^3+a_2x^2+a_4x+a_6.$$
-This leads to the equation $r(x)=0$ where $$r(x)=x^3+(a_2-\lambda^2-a_1\lambda)x^2+(a_4-2\lambda\mu-a_3\lambda-a_1\mu)x+a_6-\mu^2-a_3\mu.$$ We already know two roots of $r(x)$, namely the $x$-coordinates of the two points $P$ and $Q$, because they lying on the curve and on the line as well. Since the sum of the roots of a monic polynomial is equal to minus the coefficient of the second-to-highest power of the indeterminate $x$, we conclude that the third root in this case is $x_3 = \lambda^2+a_1\lambda -a_2-x_1-x_2$. As $x_1,x_2$ are define over $\K$ so is $x_3$ and $\overline{y}_3=\lambda x + \mu$, thus we found the point $R'=(x_3,\overline{y}_3)$. The inflection at the $x$-axis has to be translated to the condition that the second point has the same $x$-coordinate and also satisfies the curve equation. We observe that if $P=(x_1,y_1)$ is on the curve then so is $(x_1,y_1-a_1x_1-a_3)$, which corresponds to $\ominus P$. Hence we find $y_3=-\lambda x_3-\mu-a_1x_3-a_3$. \\
+We now show why there is exactly one more point where the line through $P$ and $Q$ intersects the curve; at the same time we will derive a formula for the coordinates of this third point, and hence for the coordinates of $P\oplus Q$. Let $\K$ be a field and $E(\K)$ the set of points of an elliptic curve of the form (\ref{ell}). Let $(x_1,y_1),\ (x_2,y_2)$ and $(x_3,y_3)$ denote the coordinates of $P,Q$ and $P\oplus Q$ respectively. We want to express $x_3$ and $y_3$ 	in terms of $x_1,\ x_2,\ y_1,\ y_2$. Suppose that $P\neq Q$ and $x_1\neq x_2$, then the line through them is not the vertical one, and has slope $$\lambda=\dfrac{y_1-y_2}{x_1-x_2}$$ and passes through $P$, thus its equation is $$y=\lambda x+\dfrac{x_1y_2-x_2y_1}{x_1-x_2}.$$ We denote the constant term by $\mu$ and remark $\mu=y_1+\lambda x_1$. The intersection points with the curve are the solutions of the following cubic equation $$(\lambda x+\mu)^2+(a_1x+a_3)(\lambda x+\mu)=x^3+a_2x^2+a_4x+a_6.$$
+This leads to the equation $r(x)=0$ where $$r(x)=x^3+(a_2-\lambda^2-a_1\lambda)x^2+(a_4-2\lambda\mu-a_3\lambda-a_1\mu)x+a_6-\mu^2-a_3\mu.$$ We already know two roots of $r(x)$, namely the $x$-coordinates of the two points $P$ and $Q$, because they lying on the curve and on the line as well. Since the sum of the roots of a monic polynomial is equal to minus the coefficient of the second-to-highest power of the indeterminate $x$, we conclude that the third root in this case is $x_3 = \lambda^2+a_1\lambda -a_2-x_1-x_2$. As $x_1,\ x_2$ are define over $\K$ so is $x_3$ and $\overline{y}_3=\lambda x + \mu$, thus we found the point $R'=(x_3,\overline{y}_3)$. The inflection at the $x$-axis has to be translated to the condition that the second point has the same $x$-coordinate and also satisfies the curve equation. We observe that if $P=(x_1,y_1)$ is on the curve then so is $(x_1,y_1-a_1x_1-a_3)$, which corresponds to $\ominus P$. Hence we find $y_3=-\lambda x_3-\mu-a_1x_3-a_3$. \\
 Doubling $P=(x_1,y_1)$ works in te same way with the slope obtained by implicit derivation. Thus we have $P\oplus Q=(x_3,y_3)$ and 
 \begin{align*}
-\ominus P &= (x_1,-y_1-a_1x_1-a_3) \\
-P\oplus Q &= (\lambda^2+a_1\lambda -a_2-x_1-x_2,\lambda (x_1-x_3)-y_1-a_1x_3-a_3), \text{where}\\
+\ominus P &= (x_1,\ -y_1-a_1x_1-a_3) \\
+P\oplus Q &= (\lambda^2+a_1\lambda -a_2-x_1-x_2,\ \lambda (x_1-x_3)-y_1-a_1x_3-a_3), \text{where}\\
 \lambda &=
 \begin{cases}
 	\dfrac{y_1-y_2}{x_1-x_2} & \text{if } P\neq Q,\\
@@ -215,8 +216,8 @@ The associativity can be shown to hold by simply applying the group law and comp
 \begin{proposizione}
 	Let $E$ be an elliptic curve over a field $\K$. Then $(E(\clK),\oplus,\infp)$ is an abelian group.
 \end{proposizione}
-\begin{osservazione}
-	 When we consider a point $P$ on $E/\K$, it is implicit that $P$ has its coordinates in $\clK$. To stress that $P$ has its coordinates in $K$. The points lying on $E$ with coordinates in the base field $K$ form the set of $\K-rational$ $points$ $of$ $E$ and we denote it by $E(\K)$. Thus we have $E(\K)=\left\{(x_1,y_1)\in\K^2\ :\ y_1^2+a_1y_1+a_3y_1=x_1^3+a_2x_1^2+a_4x_1+a_6\right\}$, and it is an abelian group as well.
+\begin{osservazione}\label{Kpunti}
+	 When we consider a point $P$ on $E/\K$, it is implicit that $P$ has its coordinates in $\clK$; we denote this set by $E(\clK)$. The points lying on $E$ with coordinates in the base field $\K$ form the set of $\K-rational$ $points$ $of$ $E$ and we denote it by $E(\K)$. Thus we have $E(\K)=\left\{(x_1,y_1)\in\K^2\ :\ y_1^2+a_1y_1+a_3y_1=x_1^3+a_2x_1^2+a_4x_1+a_6\right\}$. In general, for any field extension $\K\subset\mathbb{L}\subset\clK$ we denote by $E(\mathcal{L})$ the set of $\mathcal{L}-points$ of $E$. As already stated, $E(\clK)$ carries the structure of an abelian group and the sets of $\L$- points, as well as the $K$-rational points, are subgroup of $E(\clK)$.
 \end{osservazione}
 %\begin{esempio}
 %In $\Fp$ with prime $p=2857$ the short weierstrass equation $$E:y^2=x^3+3x+7$$ is an elliptic curve, indeed $\Delta=2817\neq 0 \mod p$. The points $P(2760,720)$ and $Q=(688,1288)$ lie on the curve $E(\Fp)$. Then
@@ -299,22 +300,90 @@ $$[\underline{1,1,1,1},0, 1,0,0,-1,0,0,- 1,]$$
 $$[1,0,0,0,-1,0, 1,0,0,-1,0,0,- 1,].$$ This corresponds to $2^12-2^8+2^6-2^3-1=3895$.
 \end{esempio}
 In a NAF representation, there do not exist two consecutive non-zero coefficients. We might expect that, on average, a NAF representation contains more zeroes than the traditional binary representation of a positive integer. This is indeed
-the case: it can be shown [\cite{CiJo}] that, on average, an $k$-bit integer contains $\frac{k}{2}$ zeroes in
+the case: it can be shown \cite{CiJo} that, on average, an $k$-bit integer contains $\frac{k}{2}$ zeroes in
 its binary representation and $\frac{2k}{3}$ zeroes in its NAF representation.
 These results make it easy to compare the average efficiency of the double-and-add using a binary representation to the double-and-add-or-subtract using the NAF representation. Each algorithm requires $k$ doublings, but the number of additions (or subtractions) is $\frac{k}{2}$ in the first case, and $\frac{2k}{3}$ in the second case. If we assume that a doubling takes roughly the same amount of time as an addition (or subtraction), then the ratio of the average times required by the two algorithms is approximately $$\dfrac{k+\frac{k}{2}}{k+\frac{2k}{3}}=\dfrac{9}{8}.$$ We have therefore obtained a (roughly) $11\%$ speedup, on average, by this simple technique.
 \section{Elliptic curves over finite field}
 For cryptographic applications we are mostly interested in elliptic curves over finite fields. For simplicity, we only consider elliptic curves defined over a finite field $\Fp$ where $p > 3$ is a prime, so we can always assume that $E/\F_p$ is given by a short Weierstrass equation. 
 \begin{definizione}
 	Let $p > 3$ be a prime. An elliptic curve $E$ over $\Fp$ is given by the short Weierstrass equation
-	$$y^2 = x^3 + a_4x + a_6,$$ where $\ a_4,a_6\in\Fp$ satisfy $4a_4^3+27a_6^2\neq 0 \mod p.$ 
+\begin{equation}\label{ellff}
+y^2 = x^3 + a_4x + a_6,\ \text{where}\ a_4,a_6\in\Fp 
+\end{equation}
+satisfy $4a_4^3+27a_6^2\neq 0 \mod p.$ 
 \end{definizione}
-In the previous section \ref{grplaw} we explained the group law in general. Here we shall give formulas for determine the coordinates of the result of the 
-\begin{itemize}
-	\item addition of two points $P$ and $Q$ in $E(\Fp)$ provided that $P\neq Q$ and $P\neq\ominus Q$,
-	\item doubling of $P$.
-	%\footnote{You can find and implementation of these formulas written in Rust on my repository [\cite{repo}]. I used at first the affine coordinates formulas  }
-\end{itemize} 
+As stated in remark \ref{Kpunti}, points on the curve are solutions $(x,y)$ of \ref{ellff}, lying on $\clF_p^2$. If $e\geq 1$ is an integer we can consider the field extension $\F_{p^e}$ of $\Fp$. Thus $\F_{p^e}-points$ are the solutions $(x,y)$ of \ref{ellff}, lying on $\Fpe$.  It is clear that an elliptic curve over a finite field has only finitely many points with
+coordinates in that finite field. Therefore, we obtain a finite abelian group in this case. A classic result of Hasse, \cite{Wash},\cite{Sil2}, shows that  $|E(\Fpe)|=p^e+1-t$, for some integer $t$ such that $|t|\leq 2\sqrt{p^e}$.  This shows that the number of points on $E(\Fpe)$ is close to $p^e + 1.$ An algorithm due to Schoof \cite{Sch} can be used to compute the number of points in $E(\Fpe)$ in time polynomial in $log(p^e)$. Hence, $|E(\Fpe)|$ can be computed efficiently even for a large prime $p$. Elkies and Atkin showed how to reduce the running time, and the resulting point counting method is called the Schoof-Elkies-Atkin algorithm, or
+simply, the $SEA$ $algorithm$.
+In the previous section we explained the group law in general with emphasis on algorithms \ref{doubadd} and \ref{doubaddsub}, which state that the multiplication by an integer is base on the addition and doubling. For cryptographic purposes is very important for this operation to be as fast as possible. Here we present some technique to achieve the goal. We summarize the formulas for addition and doubling; now the operations are performed in $\Fpe$ and because of the short Weierstrass form, if $P = (x,y)$ is a point of the curve, then we have $\ominus P = (x,-y)$.
 
+Let $P = (x_1, y_1)$ and $Q = (x_2, y_2)$ be two points in $E(\Fpe)$. The sum $P\oplus Q= (x_3, y_3)$ is defined using one of the following three rules:
+\begin{itemize}
+	\item if $x_1\neq x_2$, we use the chord method. Let $\lambda=\dfrac{y_1-y_2}{x_1-x_2}$, then we have 
+	$$x_3 = \lambda^2-x_1-x_2,\quad y_3 = \lambda(x_1-x_3)-y_1;$$
+	\item if $x_1 = x_2$ and  $y_1 = y_2$ (i.e., $P = Q$), we use the tangent method. Let $\lambda=\dfrac{3x_1^2+a_4}{2y_1}$, then we have
+	$$x_3=\lambda^2-2x_1,\quad y_3=\lambda(x_1-x_3)-y_1;$$
+	\item if $x_1 = x_2$ and $y_1 = -y_2$ then we have $P\oplus Q=\infp.$
+\end{itemize}
+We denote an elementary multiplication in $\Fpe$ (resp. a squaring and an inversion) by $\mathcal{M}$ (resp. $\mathcal{S},\mathcal{I})$. In the following analysis we neglect addition, subtraction and scalar multiplication because they are must faster. From the formulas above one can easily read off that an addition and a doubling require $\mathcal{I}+2\mathcal{M}+\mathcal{S}$ and $\mathcal{I}+2\mathcal{M}+2\mathcal{S}$ respectively. Although
+finding inverses in finite field is fast, it is much slower than multiplication. In \cite{Coh1} the authors estimated that inversion takes between 9 and 40 times as long as multiplication, while, squaring takes about 0.8 the time of multiplication. Therefore, it is sometimes advantageous to prefer squaring rather than inversion
+in the formulas for point addition and doubling.
+
+Let's consider the projective curve corresponding to $E$. As we saw in section \ref{projective}, it has equation of form $$E_{hom}:Y^2Z=X^3+a_4XZ^2+a_6Z^3.$$
+The point $(X_1:Y_1:Z_1)$ on $E_{hom}$ corresponds to the affine point $(X_1/Y_1,Y_1/Y_1)$ when $Z_1\neq=0$ and to the point at infinity $\infp$ otherwise. The opposite of $(X_1:Y_1:Z_1)$ is $(X_1:-Y_1:Z_1).$ By a simply computation from the rules above, we obtain the following:
+\subsection*{Addition}
+Let $P(X_1:Y_1:Z_1),Q=(X_2:Y_2:Z_2)$ such that $P\neq Q$, $P\neq\ominus Q$ and let $P\oplus Q=(X_3:Y_3:Z_3)$. Then set 
+$$A=Y_2Z_1-Y_1Z_2,\qquad B=X_2Z_1-X_1Z2,\qquad C=A^2Z_1Z_2-B^3-2B^2X_1Z_2.$$ So we have
+$$X_3=BC,\qquad Y_3=A(B^2X_1Z_2-C)-B^3Y_1Z_2,\qquad Z_3=B^3Z_1Z_2.$$
+\subsection*{Doubling}
+Let $[2]P=(X_3:Y_3:Z_3)$. Then set 
+$$A=a_4Z_1^2+3X_1^2,\qquad B=Y_1Z_1,\qquad C=X_1Y_1B,\qquad D=A^2-8C.$$ So we have
+$$X_3=2BD,\qquad Y_3=A(4C-D)-8Y_1^2B^2,\qquad Z_3=8B^3.$$
+We note that no inversion is needed and the computations times are $12\mathcal{M}+2\mathcal{S}$ and $7\mathcal{M}+5\mathcal{S}$. Moreover, if one of the input points is given by $(X_1:Y_1:1)$, i.e., directly transformed from affine coordinates), then the operation for the addition decrease to $9\mathcal{M}+2\mathcal{S}$. Things even goes better if one use the Jacobian and Chudnovsky coordinates or their modification proposed by Henri Cohen et al. in \cite{Coh3}.
+\footnote{You can find an implementation of the above formulas written in Rust on my repository \cite{repo}. I really appreciated the efficiency of the projective coordinates formulas when running the implicit baby-step-giant-step which we describe in the next chapter.}
+
+We conclude this chapter by giving a brief description of $Montgomery$ $curveS$ and $Edwards$ $curves$, which are better suited for computation than the
+Weierstrass form; for more details we refer to \cite{Wash},\cite{Coh1},\cite{mong}. Then we introduce some curves we will need for our analysis. They are recommended by NIST \cite{nist} and are of common use in cryptography. In next chapters we will study some weakness of these curves.
+\newpage
+\subsection{Montgomery curves}
+A Montgomery curve $E/\Fp$ in the variables $u,v$ is define by the equation 
+\begin{equation}
+	E_M:\ By^2=x^3+Ax^2+x,
+\end{equation}
+for some $A,B\in\Fp$ and $B(A^2-4)\neq 0$. It is always possible to converted a curve in Montgomery form into short Weierstrass equation by the transformation $$x\mapsto x'=Bx-A/3,\quad y\mapsto y'=By.$$ The order of the group of elliptic curve group of $E_M$ is divisible by 4 \cite{mong}, therefore not all Weierstrass form can be converted into a Montgomery form. The arithmetic on $E_M$ relies on an efficient $x$-coordinate only computation and can be easily implemented to resist side-channel attacks. We refer to \cite{mong}, \cite{Coh1} for the formulas.
+\subsection{Edwards curves}
+Edwards curves. Another way to describe an elliptic curve E/Fp is in Edwards form, which is
+\begin{equation}
+	x^2+y^2=1+dx^2z^2,
+\end{equation}
+where $d\in\Fp$ and $d\neq0,1$ is not a square in $\Fp$. Again, this curve can be put into Weierstrass form via a simple rational change of variable. The chord and tangent addition
+law is extremely easy to describe for an Edwards curve. For points $P=(x_1,y_1)$ and $Q=(x_2,y_2)$ in $E(\Fpe)$, we have 
+$$P\oplus Q= \left(\dfrac{x_1y_1+x_2y_1}{1+dx_1x_2y_1y_2},\dfrac{y_1y_2-x_1x_2}{1-dx_1x_2y_1y_2}\right).
+$$
+An interesting feature is that  There is no need for three separate rules for $[2]P$ and
+$P+Q$ when $P\neq Q)$. The formula for adding points can be written in projective coordinates. The
+resulting computation takes $10\mathcal{M}$ and $1\mathcal{S}$ for both point addition and point doubling.
+\section{Some example of NIST recommended curves}
+Two widely used elliptic curves, called $\mathbf{secp256r1}$ and $\mathbf{secp256k1}$ \cite{nist}. They both are
+defined over a 256-bit prime field. The curve secp256r1
+is widely used in Internet protocols, while secp256k1 is widely used in blockchain systems.
+\subsection*{The curve secp256r1}
+This curve was approved by the U.S. National Institute of Standards
+(NIST) for federal government use in a standard published in 1999. The NIST standard refers to this curve as $\mathbf{Curve P256}$. The curve secp256r1 is defined as follows:
+\begin{itemize}
+	\item The base field is $\F_q$ where $q=2^{256}-2^{224}+2^{192} +2^{96}?1.$
+	\item The curve has the Weierstrass form $y^2 = x^3-3x+^b,$ where $b\in\Fp$ is generated by a public deterministic algorithm.
+	\item The group $E(\F_q)$ is cyclic of prime order $$p=115792089210356248762697446949407573529996955224135760342422259061068512044369.$$ The standard also specifies a generator $G$.
+\end{itemize}
+\subsection*{The curve secp256k1}
+ This curve was selected for the digital signature scheme in the Bitcoin blockchain. Subsequent blockchains
+inherited the same curve. It is the one used to map users' private keys to Ethereum and Bitcoin public addresses. The curve secp256k1 is defined as follows:
+\begin{itemize}
+	\item The base field is $\F_q$ where $q=2^{256}-2^{32}-2^9-2^8-2^7-2^6-2^4-1.$
+	\item The curve has the Weierstrass form $y^2 = x^3+7,$ where $b\in\Fp$ is generated by a public deterministic algorithm.
+	\item The group $E(\F_q)$ is cyclic of prime order $$p=115792089237316195423570985008687907852837564279074904382605163141518161494337.$$ The standard also specifies a generator $G$.
+\end{itemize}
+This curve has some interesting properties. First of all it is a $Koblitz$ $curve$, so there is a useful map define on it. Let $E:\ y^2=X^3+7$ the curve define over $\mathbb{F}_q$ with $q$ the prime above and le $p$ the prime order of the group of $\mathbb{F}_q$ rational points. We have that $q\equiv 1\mod 3$, therefore there exists $1\neq\omega\in\mathbb{F}_q$ such that $w^3=1$. Now, consider the map $\phi:\mathbb{F}_q^2\to\mathbb{F}_q^2$ define by $\phi(x,y):=(\omega x,y)$. We note that if $(x,y)\in E(\mathbb{F}_q)$, then so does $\phi(x,y)\in E(\mathbb{F}_q)$; this is obvious since $\omega^3=1$. We define $\phi(\infp)=\infp$ and if $P=(x_1,y_1)$ and $Q=(x_2,y_2)$ are points in $E(\mathbb{F}_q)$, then we have $$\phi(P)\oplus\phi(Q)=(\omega x_1,y_1)\oplus(\omega x_2,y_2)=(\omega(\lambda^2- x_1-x_2), \lambda(x_1-x_3)-y_1)=\phi(P\oplus Q),$$ where we used the formula from section \ref{grplaw} together with the identity $\omega^{-2}=\omega$. Thus $\phi$ is a group homomorphism, and since $E(\mathbb{F}_q)$ is cyclic, there must be a constant $\lambda\in\Z_p$ such that for all $P\in E(\mathbb{F}_q)$, we have $\phi(P)=[\lambda]P$.  We can find such an $\lambda$. We note that the tree points $P$, $\phi(P)$ and $\phi^2(P)$ all have the same $y$-coordinate and as stated in section \ref{grplaw}, this means that for all $P\in E(\mathbb{F}_q)$, we must have $$\infp=P+\phi(P)+\phi^2(P)=\infp=[1+\lambda+\lambda^2]P.$$ There for we can conclude that $1 + \lambda+\lambda^2 = 0$ in $\Z_p$. Hence,$\lambda$ must be one of the two non-trivial cube roots of unity in $\Z_q$. Indeed, $p\equiv 1\mod 3$, such a non-trivial root exists in $\Z_p$. This could be useful to speed up scalar multiplication. Suppose we want to calculate $[\alpha]P$ for some $\alpha\in\Z_p$. For most $\alpha$ in $Z_p$ one can find $\tau_0,\tau_1,\tau_2$, suche that $$\alpha=\tau_0+\tau_1\lambda+\tau_2\lambda^2,\ \text{with}\ \tau_i\leq2p^{1/3}\ \text{for}\ i=0,1,2.$$ Thus, we have $[\alpha] P = [\tau_0] P+[\tau_1]\phi(P)+[\tau_2]\phi^2(P).$ This equality converts a multiplication by $\alpha$ into three multiplications where the multipliers $\tau_0,\tau_1\tau_2$ are much smaller than $\alpha$.
 %% Fine dei capitoli normali, inizio dei capitoli-appendice (opzionali)
 \appendix
 
