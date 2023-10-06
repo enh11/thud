@@ -46,6 +46,7 @@
 \newcommand{\R}{\mathbb{R}}
 %\newcommand{\Fp}{\mathbb{F}_{p}}
 \newcommand{\Fq}{\mathbb{F}_{q}}
+\newcommand{\Zpstar}{\Z_p^*}
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\K}{\mathbb{K}}
 \newcommand{\clF}{\overline{\F}}
@@ -409,7 +410,7 @@ The curve P-224 is defined as follows:
 \end{itemize}
 The quadratic twist of this curve has order $h\cdot r$,
 where $h=3^2\cdot11\cdot47\cdot3015283\cdot40375823\cdot267983539294927$, and $r$ is a $117$-bit prime number. This value
-is significantly smaller than the order n of the base-point $G$ of P-224. As a result, it is essential to verify domain parameter validity
+is significantly smaller than the order $n$ of the base-point $G$ of P-224. As a result, it is essential to verify domain parameter validity
 to ensure that users are performing operations on P-224 and not on its quadratic twist. See next chapter for details.
 \subsection*{The curve P-384}
 The curve P-384 is defined as follows:
@@ -427,36 +428,36 @@ The curve P-384 is defined as follows:
 \chapter{Implicit baby step giant step algorithm}
 Public-key cryptography is based on the idea of one-way functions: in rough terms these are functions, whose inverse functions cannot be computed in any reasonable amount of time. If we use such a function for encryption, an adversary will in principle not be able to decrypt the encrypted messages. Once we establish a one way function, we can instantiate protocols for authentication, signature, etc. The resulting systems are called $public$ $key$ $cryptosystems$. 
 
-In the first chapter we saw that the set of points of an elliptic curve is a finite abelian group. We also described some algorithm scalar multiplication as well as some technique to speed up the computation. In a general setting, however, the inverse operation, called $discrete$ $logarithm$, is not as fast; there is no known algorithm that can compute discrete logarithm in $E(\Fq)$ much faster than $O(\sqrt{p})$  where $p$ is the order of $P$ in $E(\Fq)$. This makes the scalar multiplication a one way function from the group $E(\Fq)$ to itself and we can build the $public$ $key$ $elliptic$ $curve$ $cryptosystem.$ 
+In the first chapter we saw that the set of points of an elliptic curve is a finite abelian group. We also described algorithms for scalar multiplication as well as some technique to speed up the computation. In a general setting, however, the inverse operation, called $discrete$ $logarithm$, is not as fast; there is no known algorithm that can compute discrete logarithm in $E(\Fq)$ much faster than $O(\sqrt{p})$  where $p$ is the order of $P$ in $E(\Fq)$. This makes the scalar multiplication a one way function from the group $E(\Fq)$ to itself and we can build the $public$ $key$ $elliptic$ $curve$ $cryptosystem.$ 
 
-In this chapter we present an algorithm to solve the discrete logarithm problem. Such an algorithm can be use to determine whether a public key comes from a weak private key subject to a given computational bound, and if so, recover the private key from the corresponding public key. We follow the work of M. J. Jacobson and P. Kushwaha, \cite{Pra1},\cite{Pra2} whose result are inspired by the work of Maurer and Wolf \cite{Mau}.
+In this chapter we present an algorithm to solve the discrete logarithm problem. Such an algorithm can be use to determine whether a public key comes from a weak private key subject to a given computational bound, and if so, recover the private key from the corresponding public key. We follow the work of M. J. Jacobson and P. Kushwaha, \cite{Pra1},\cite{Pra2} whose results are inspired by the work of Maurer and Wolf \cite{Mau}.
 \section{Discrete logarithm problem}
-Since our main focus are elliptic curves, we write our group $G$ additively. Results applies in more general cases $mutatis$ $mutandis$.
+Since our main focus are elliptic curves, we write our group $(G,\oplus)$ additively. Results applies to multiplicative groups $mutatis$ $mutandis$.
 \begin{definizione}
 Let $(G,\oplus)$ be an additive cyclic group of prime order $p$ and generator $P$. The map
 \begin{align*}
 	\varphi:\ &\Z\ \to\ G\\
 	&n\ \mapsto\ [n]P=\underbrace{P\oplus P\oplus\dots\oplus P}_{n\ \text{times}}
 \end{align*}
-has kernel $p\Z$, thus $\varphi$ leads to an isomorphism between $(G,\oplus)$ and $(\Z/p\Z,+):=\Z_p.$ The problem of computing the inverse map is called the $discrete$ $logarithm$ $problem$ ($DLP$) to the base of $P$. It is the problem, given $P$ and $Q$, to determine $k\in\Z$ such that $Q = [k]P$. Note, that it $k$ is
-unique only modulo $p$ where $p$ is the group order.
+has kernel $p\Z$, thus $\varphi$ leads to an isomorphism between $(G,\oplus)$ and $(\Z/p\Z,+):=\Z_p.$ The problem of computing the inverse map is called the $discrete$ $logarithm$ $problem$ ($DLP$) to the base of $P$. It is the problem, given $P$ and $Q$, to determine $\alpha\in\Z$ such that $Q = [\alpha]P$. Note, that it $\alpha$ is
+unique only modulo the group order.
 \end{definizione}
-The complexity of this problem depends on the choice of $G$ its operation. If $G=\Z_p$ with generator $1$, the discrete logarithm of $n\in\Z_p$
-is $n$ it self. Also, if the generator is chosen to be $a\in\Z_p$, this problem is easy to solve as it is nothing but computing the inverse modulo $p$.
-\section{Baby step giant step algorithm}
-The baby-step giant-step algorithm was first published by Shanks,the first application of this method was to compute ideal class numbers of quadratic number fields \cite{Sha},\cite{Coh2}. It can be used for discrete logarithm computation and we shall present it in this form, which is more general. Order computation is then solving $[n]P=\infp$ with $n\neq 0$ (and of course with unknown order). The baby-step giant-step method is based on the following observation: 
-\begin{lemma}
+The complexity of this problem depends on the choice of $G$ and its operation. If $G=\Z_p$ with generator $1$, the discrete logarithm of $n\in\Z_p$
+is $n$ it self. Also, if the generator is chosen to be $a\in\Z_p$, this problem is easy to solve as it is nothing but computing the inverse modulo $p$. In the following section we present a deterministic algorithm that solves the $DLP$.
+\section{Baby step, giant step algorithm}
+The baby-step giant-step algorithm was first published by Shanks \cite{Sha}, the first application of this method was to compute ideal class numbers of quadratic number fields \cite{Sha},\cite{Coh2}. It can be used for discrete logarithm computation and we shall present it in this form, which is more general. Order computation is then solving $[n]P=\infp$ with $n\neq 0$ (and of course with unknown order). The baby-step giant-step method is based on the following: 
+\begin{lemma}\label{diveuc}
 	Let $n$ be a positive integer. Put $m:=\lfloor \sqrt{n}\rfloor+1$. Then for any $\alpha$ with $0\leq \alpha<p$ there are integers $i,j$, with $0\leq i,j\leq m-1$, such that $\alpha=i+jm$.
 \end{lemma}
 \begin{proof}
-	If we divide $\alpha$ by $m$ we have $\alpha=km+i$ with $0\leq i\leq m-1$. We note that $\alpha\leq n-1 = m^2-1=m(m-1)+(m-1)$ and we know that $i\leq m-1$ so it follow that $0\leq j\leq m-1$
+	If we divide $\alpha$ by $m$ we have $\alpha=jm+i$ with $0\leq i\leq m-1$. We note that $\alpha\leq n-1 = m^2-1=m(m-1)+(m-1)$ and we know that $i\leq m-1$. Hence we have $0\leq j\leq m-1$.
 \end{proof}
-Assume now that the order of $P\in G$ is $n$ and $k$ an integer modulus $n$. Let $Q=[k]P$, then we have $$Q\oplus[-jm]P=[i]P$$ for some $i,j$ as in the lemma. We have the following.
-\begin{proposizione}
+Assume now that the order of $P\in G$ is $n$ and $\alpha$ an integer modulus $n$. Let $Q=[\alpha]P$, then we have $$Q\oplus[-jm]P=[i]P$$ for some $i,j$ as in the lemma \ref{diveuc}. We have the following.
+\begin{proposizione}\label{bsgs}
 	Let $(G,\oplus)$ be a finite, additive, cyclic group of order $n$ and let $P$ be a
 	generator of $G$. The following algorithm solves the discrete logarithm problem $[\alpha]P = Q$ in $O( n \log n)$ steps.
 \begin{enumerate}
-	\item Let $m=\lfloor n\rfloor +1$.
+	\item Let $m:=\lfloor \sqrt{n}\rfloor +1$.
 	\item Create the two lists:
 		\begin{center}
 		\begin{tabular}{ll} 
@@ -468,9 +469,52 @@ Assume now that the order of $P\in G$ is $n$ and $k$ an integer modulus $n$. Let
 Then there exists $0\leq i, j < m$ such that $Q\oplus[-jm]P = [i]P$ and $\alpha=jm+i$ is the solution to the discrete logarithm problem.
 \end{proposizione}
 \begin{proof}
-	Calculating the two lists takes at most $2m$ group operations. By the lemma above there exists a match between the two lists, whose can be found in $\log m$ steps by using standard searching algorithms or hash tables. Hence the total running	time for the algorithm is $O( n \log n)$ steps.
+	To compute the two lists we take at most $2m$ group operations. By lemma \ref{diveuc}, there exists a match between the two lists, whose can be found in $\log m$ steps by using standard searching algorithms or hash tables. Hence, the total running	time for the algorithm is $O( \sqrt{n} \log\sqrt{n})$ steps.
 \end{proof}
+\subsection{Implicit baby step, giant step}
+In this section we describe an implicit version of the baby step giant step algorithm, which comes from an idea of Maurer and Wolf \cite{Mau}. We use the multiplicative group $\Zpstar$ as $auxiliary$ $group$, thus we reduce the discrete logarithm problem of $(G,\oplus)$ to a problem in $\Zpstar$. The advantage of this approach is that $\Zpstar$ has many subgroup and one can exploit its rich and well understood subgroup structure. 
 
+Assume $(G,\oplus)$ to be a finite, additive, cyclic group of prime order $p$ and let $P$ be a generator. We define the following map:
+\begin{alignat*}{3}
+	\rho: \Zpstar &\longrightarrow \aut(G) \\
+	\alpha &\longmapsto\rho_\alpha:&G&\longrightarrow G\\
+	&&P& \longmapsto {}[\alpha]P
+\end{alignat*}
+It is easy to see that $\rho$ is an homomorphism with $\ker\rho=\{\alpha\in\Zpstar:\rho_\alpha(P)=P\}=\{1\}$. If $\varphi\in\aut(G)$ and $P$ is a generator for $G$, then $\varphi(P)=[\lambda]P$ for some $\lambda\in\Zpstar$. Thus we have an isomorphism $\Zpstar\simeq\aut(G)$ and we can identify the element $[\alpha]P\in G$ with $\alpha\in\Zpstar$. 
+
+We want to solve the discrete logarithm problem in $G$, i.e., given a generator $P$ and an element $Q\in G$, we have to find the integer $\alpha$ modulus $p$ such that $Q=[\alpha]P$. Let $z$ be a primitive element of $\Zpstar$, then $\alpha=z^k$ for some $0\leq k<p$ and $Q=[z^k]P$. Let $m:=\lfloor \sqrt{p}\rfloor+1$, if we divide $k$ by $m$ we get $i,j$ with $0\leq i,j\leq m-1$ such that $k=i+mj$, as in Lemma \ref{diveuc}. It follows that $Q=[z^k]P=[z^{i+jm}]P=[z^i][z^{jm}]P$, which leads to $[z^{-jm}]Q=[z^i]P$. But we now that $Q=[\alpha]P$, thus we have $[z^{-jm}][\alpha]P=[i]P$ and this implies $z^{-jm}\alpha=z^i\mod p$. Hence if we find such an $i$ and $j$, we can compute $\alpha=z^{i+jm}$ and we solved the discrete logarithm problem. Now we can proceed as in Proposition \ref{bsgs}. We put $m:=\lfloor\sqrt{p}\rfloor$ and we build the two following lists:
+\begin{center}
+\begin{tabular}{ll} 
+	baby-step: & $[z]P,\ [z^{2}],\ldots,\ [z^m]P$ \\ 
+	giant-step: & $[z^{-m}]Q,\ [z^{-2m}]Q,\ \ldots,\ [z^{-m^2}]Q$.\\ 
+\end{tabular}
+\end{center}
+In time $O( m \log m)$ we will find a match that solves our discrete logarithm problem. The algorithm described above is what we call $implicit$ $baby$ $step$ $giant$ $step$. It is interesting to note that this idea can be improved if a divisor $d$ of $p-1$ is known. 
+
+Let $z_d=z^{\frac{p-1}{d}}$ a generator for the order $d$ subgroup of $\Zpstar$. We can put $m:=\lfloor \sqrt{d}\rfloor+1$ and run the implicit baby step giant step by using $z_d$ instead of $z$. If happens that the unknown $\alpha$ lies in the $d$ order subgroup of $\Zpstar$, then $\alpha$ will be equal to $z_d^k$ for some $k$ modulus $d$ and the algorithm will find a match $[z_d^{-jm}]Q=[z_d^i]P$. Hence, $[z_d^{-jm}][\alpha]P=[z_d^i]P$, which lead to $\alpha=z_d^{+jm}$ and the discrete logarithm is solved in times $O(m\log m)$, where now $m=\lfloor\sqrt{d}\rfloor+1$. The difference here is that after at most $d$ iterations we will have either found $\alpha$ or verified that $\alpha$ is not in the order $d$ subgroup. Thus, if $d$ is sufficiently small, the discrete logarithm problem can be solved much easier then would otherwise. On the other hand, if $\alpha$ is not in the $d$ order subgroup, then the algorithm will not find a match. We summarize in the following.
+\begin{teorema}
+	Let $G$ be an additive, cyclic group of prime order $p$, with generator $P$. Let $Q=[\alpha]P$ be another given element of $G$ (with $\alpha$ unknown). For a given divisor $d$ of $p-1$, let $D$ be the subgroup of $\Zpstar$ of order $d$. Then, one can decide whether or not $\alpha$ belong to $D$ in $O(\sqrt{d})$ steps. Moreover, if $\alpha$ belong to $D$, the same algorithm will find the discrete logarithm $\alpha$ in $O(\sqrt{d})$ steps.
+\end{teorema} 
+In an elliptic curve cryptosystem, the integer $\alpha$ represent the $private key$, while the point $Q=[\alpha]P$ is the $public key$. Every public key for which the corresponding private key lies  in a small subgroup of $\Zpstar$ is deemed to be weak.
+\subsection{Testing whether a key is weak}
+A simple approach to test whether the private key corresponding to a public key is weak is to set a bound $B$ for the order of the subgroups of $\Zpstar$. One can run the implicit baby step giant step algorithm on all divisors of $p-1$ that are less than $B$. However, this would be inefficient and redundant, because testing wether a key is in a subgroup of order $d$ also covers all subgroups of order divisible by $d$. Thus, we instead generate a list of integers $d_1<d_2<\dots<d_t\leq B$ dividing $p-1$ such that $d_i\nmid d_j$ for all $1\leq i<j\leq t$. 
+As an example consider the elliptic curve secp256k1 introduced in the previous chapter. The standard \cite{nist} specify the generator 
+\begin{align*}
+	P=&(550662630222773436695787188951685\\
+	&34326250603453777594175500187360389116729240,\\
+	&3267051002075881697808308513050704\\
+	&3184471273380659243275938904335757337482424)
+\end{align*}
+and its order, which is the prime $$p=115792089237316195423570985008687907852837564279074904382605163141518161494337.$$
+By using a computer algebra system (e.g., pari-gp or sagemath,\cite{pari},\cite{sage}), one can factor $p-1$ in few seconds and compute the primitive element $z=7$. There are 10 divisor of $p-1$ below $B=48$, namely 2,3,4,6,8,12,16,24,32,48. In order to test whether a given private key is in any of the subgroups of these orders, it suffices to test only the subgroups of order $d_1=32$ and $d_2=48$, as the firs eight subgroup orders divide 48, and thus any element of one of these smaller orders is also an element of the subgroup of order 48. Let $Q$ be the point 
+\begin{align*}
+	P=&(100760202697161893004335214126591\\
+	&116800117319792545458764085267675326325395621,\\
+	&7519344431816503114635930462106279\\
+	&7862272142296678797285916994295833810377664,).
+\end{align*}
+If we run the implicit baby step giant step algorithm, we will find a match in a couple of second. This give us the base $P$ discrete logarithm of $Q$  $$\alpha=648268771218401016825236294626749677029376795
+80369334126295633893540044112329.$$
 %% Fine dei capitoli normali, inizio dei capitoli-appendice (opzionali)
 \appendix
 
