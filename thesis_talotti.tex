@@ -118,11 +118,11 @@ An elliptic curve $E$ over a field $\K$, denoted $E/\K$, is given by the $Weiers
 \end{equation}
 where the coefficients $a_1,a_2,a_3,a_4,a_5,a_6\in\K$ are such that for each point $(x_1,y_1)\in\clK^2$ satisfying (\ref{ell}), the partial derivatives do not vanish simultaneously. In other words the two equations
 \begin{equation}\label{jacobi}
-	2y+a_1x+a_3=0,\qquad 3x^2+a_2x+a_4-a_1y=0,
+	2y+a_1x+a_3=0,\qquad 3x^2+2a_2x+a_4-a_1y=0,
 \end{equation}
 cannot be simultaneously satisfied by any point  $(x_1,y_1)\in\clK^2$.
 \end{definizione}
-The last condition says that an elliptic curve is $non$ $singular$ (or $smooth$). A point on a curve is called $singular$ if booth partial derivatives vanish. We can express the smoothness condition more intrinsically. In odd characteristic, the transformation $$x\mapsto x'=x\qquad y\mapsto y'=y+(a_1x+a_3)/2,$$
+The last condition says that an elliptic curve is $non$ $singular$ (or $smooth$). A point on a curve is called $singular$ if both partial derivatives vanish. We can express the smoothness condition more intrinsically. In odd characteristic, the transformation $$x\mapsto x'=x\qquad y\mapsto y'=y+(a_1x+a_3)/2,$$
 leads to an isomorphic curve given by 
 \begin{equation}
 	y^2=x^3+\dfrac{b_2}{4}x^2+\dfrac{b_4}{2}x+\dfrac{b_6}{4},
@@ -131,7 +131,7 @@ where $$b_2=a_1^2+4a_2,\qquad b_4=a_1a_3+2a_4,\qquad b_6=a_3^2+4a_6.$$ Moreover,
 \begin{equation}
 y^2=x^3-\dfrac{c_4}{48}x-\dfrac{c_6}{864},
 \end{equation}
-where $c_4=b_2^2-24b_4$ and $c_6=-b_2^3+36b_2b_4-216b_6$. So if char($\K$) is prime to 6, we can always assume that an elliptic curve is given by a short Weierstrass equation of the type
+where $c_4=b_2^2-24b_4$ and $c_6=-b_2^3+36b_2b_4-216b_6$. So, if $\K$ has characteristic prime to 6, we can always assume that an elliptic curve is given by a $short$ $Weierstrass$ equation of the type
 \begin{equation}\label{ShortWeierstrass}
 	y^2=x^3+a_4x+a_6.
 \end{equation}
@@ -139,35 +139,35 @@ In this case the smoothness condition is equivalent to requiring that the cubic 
 \subsection{Projective coordinates and point at infinity}\label{projective}
 \begin{definizione}
 	Let $\K$ be a field as above and $\clK$ its algebraic closure. The $2-dimentional$ $projective$ $space$ $\mathbb{P}^2/\K:=\mathbb{P}^2$ $over$ $\K$ is the set of classes  of triples $(X,Y,Z)\in\clK^3\setminus \left\{(0,0,0)\right\}$ where two triples are said to be equivalent if they are a scalar multiple of one another; in other words,$$(X_1,Y_1,Z_1)\sim(X_2,Y_2,Z_3)\Leftrightarrow (X_2,Y_2,Z_2)=(kX_1,kY_1,kZ_1)\text{ for some }k\in\clK^*.$$
-	The equivalence classes are called $projective$ $point$ and we denote it $(X_1:Y_1:Z_1)$.
+	The equivalence classes are called $projective$ $point$ and we denote them with $(X_1:Y_1:Z_1)$.
 \end{definizione}
 If a projective point $(X:Y:Z)$ has nonzero $Z$, then there is one and only one triple in its equivalence class of the form $(x,y,1)$ which is obtained by the formula $x=X/Z,y=Y/Z$. Thus, the projective plane can be identified with all points $(x,y)$ of the affine plane plus the points for which $Z = 0$. The latter make up what is called the line at infinity. Any equation $F(x,y) = 0$ of a
 curve in the affine plane corresponds to a $homogeneous$ $equation$ $F(X, Y, Z) = 0$ satisfied by the corresponding projective points: simply replace $x$ by $X/Z$ and $y$ by $Y/Z$ and multiply by a power of $Z$ to clear the denominators. In addition to the points
 with $Z\neq 0$, what projective points $(X, Y, Z)$ satisfy the homogeneous equation $F(X, Y, Z) = 0$? Setting
 $Z = 0$ in the equation, we obtain $0 = X^3$, which leads to $X = 0$. But the
 only equivalence class of triples $(X, Y, Z)$ with both $X$ and $Z$ zero is the class
-of $(0,1,0)$. This is the point we call $\infp$. It is the point on the intersection of the y-axis with the line at infinity.
+of $(0,1,0)$. This is the point we call $\infp$ and can be visualized as the intersection of $y$-axis with the line at infinity.
 Equation $(\ref{ell})$ express the curve in affine coordinates. We can consider the same elliptic curve in projective coordinates; in this case the equation is given by
 \begin{equation}\label{ell_proj}
  E_{hom}:Y^2Z+a_1XYZ+a_3YZ^2=X^3+a_2X^2Z+a_4XZ^2+a_6Z^3.
 \end{equation}
 So we have a correspondence between point of $E_{hom}$ and point of $E$. 
 \section{Short normal forms and invariants}
-Now we have to decide which Weierstrass equations define isomorphic elliptic curves. We can restrict ourselves to isomorphisms that fix the point at infinity. We shall continue to assume that the characteristic of $\K$ is prime to 6, so we can deal with short Weierstrass form. However completely analogous discussions can be done for characteristics 2 and 3 and can be found in \cite{Sil2}. We look for invertible transformation of the affine coordinates for
-which the transformed equation is again a short Weierstrass form. It easy to see this conditions imposed imply 
-$$x\mapsto x'=u^2x\ \text{and}\ y\mapsto y'=u^3y\ \text{with}\ u\in\K^*$$ and the resulting equation is $$E': y'^2=x'^3+u^4a_4x+u^6a_6.$$ We have the following:
+Now we have to decide which Weierstrass equations define isomorphic elliptic curves. We can restrict ourselves to isomorphisms that fix the point at infinity $\infp$. We shall continue to assume that the characteristic of $\K$ is prime to 6, so we can deal with short Weierstrass form \ref{ShortWeierstrass}. However, completely analogous discussions can be done for characteristics 2 and 3 and can be found in \cite{Sil2}. We look for invertible transformations of the affine coordinates for
+which the transformed equation is again a short Weierstrass form. It easy to see that conditions imposed on the transformations imply 
+$$x\mapsto x'=u^2x\ \text{and}\ y\mapsto y'=u^3y\ \text{with}\ u\in\K^*$$ and the resulting equation is $$E': y'^2=x'^3+u^4a_4x'+u^6a_6.$$ We have the following:
 \begin{proposizione}\label{classificazione1}
-	Let $\K$ be a field with characteristic prime to 6. Let $E/\K$ be an elliptic curves in Weierstrass equation $y^2=x^3+a_4x+a_6$. Then we have:
+	Let $\K$ be a field with characteristic prime to 6. Let $E/\K$ be an elliptic curve given by a short Weierstrass equation $y^2=x^3+a_4x+a_6$. Then we have:
 	\begin{enumerate}
-		\item If $a_4=0$ then the coefficient of $x$ is equal to zero in all Weierstrass equations isomorphic to E and $a_6$ is determined up to sixth power in $\K^*$;
-		\item  If $a_6=0$ then constant term is zero in all Weierstrass equations isomorphic to E and $a_4$ is determined up to forth power in $\K^*$;
-		\item  If $a_4a_6\neq 0$ then $a_6/a_4$ is determined up to a square in $\K^*$;
+		\item If $a_4=0$, then the coefficient of $x$ is equal to zero in all short Weierstrass equations isomorphic to $E$ and $a_6'$ is determined up to sixth power in $\K^*$;
+		\item  If $a_6=0$, then constant term is zero in all short Weierstrass equations isomorphic to $E$ and $a_4'$ is determined up to forth power in $\K^*$;
+		\item  If $a_4a_6\neq 0$, then $a_6'/a_4'$ is determined up to a square in $\K^*$;
 	\end{enumerate}
 And conversely:
 \begin{enumerate}
 	\item If $a_4=0$ then, $E$ is isomorphic to $E'$ if in a short Weierstrass form of $E'$, the coefficient $a_4'$ is zero and $a_6'/a_6$ is a sixth power in $\K^*$;
 	\item If $a_6=0$ then, $E$ is isomorphic to $E'$ if in a short Weierstrass form of $E'$, the coefficient $a_6'$ is zero and $a_4'/a_4$ is a forth power in $\K^*$;
-	\item If $a_4a_6\ne 0$ then, $E$ is isomorphic to $E'$ if in a short Weierstrass form of $E'$, we have $a_4'=v^2a_4$ and $a_6'=v^3a_6$ for some $v\in\K^*$.
+	\item If $a_4a_6\ne 0$ then, $E$ is isomorphic to $E'$ if in a short Weierstrass form of $E'$, we have $a_4'=v^2a_4$ and $a_6'=v^3a_6$ for some square $v\in\K^*$.
 \end{enumerate}
 \end{proposizione}
 \begin{corollario}\label{classificazione2}
@@ -178,26 +178,26 @@ And conversely:
 	\item If $a_4a_6\neq 0$, then for every $v\in\K^*$ the curve $E$ is isomorphic to the curve $$E_v:y^2=x^3+a_4'x+a_6'\ \text{over}\ \K\left(\sqrt{v}\right)\ \text{where}\ a_4'=v^2a_4\ \text{and}\ a_6'=v^3a_6.$$
 \end{enumerate}
 \end{corollario}
-The curve in (\ref{classificazione2}) are called $twists$ $of$ $E$ and the curve $E_u$ is called $quadratic twist$. Note that $E$ is isomorphic to $E_v$ over $\K$ if and only if $v$ is a square in $\K^*$.
+The curve in (\ref{classificazione2}) are called $twists$ $of$ $E$ and the curve $E_u$ is called $quadratic$ $twist$. Note that $E$ is isomorphic to $E_v$ over $\K$ if and only if $v$ is a square in $\K^*$.
 \subsection{The j-invariant}
-Now we want to translate the results of proposition \ref{classificazione1}  into "invariants" of $E$ that	can be read off from any Weierstrass equation. As stated in the definition of elliptic curves, it has to be smooth, i.e., the roots of the cubic in the right-side of the equation \ref{ShortWeierstrass} must be simple. This append if and only if the discriminant of the cubic is not equal to zero. 
+Now we want to translate the results of Proposition \ref{classificazione1}  into "invariants" of $E$ that can be read off from any Weierstrass equation. As stated in the definition of elliptic curve, it has to be smooth, i.e., the roots of the cubic polynomial on the right-side of equation \ref{ShortWeierstrass} must be simple. This happens if and only if the discriminant of the cubic is not equal to zero. 
 \begin{definizione}
-	Let $E$ be a curve define over $\K$ by the short Weierstrass equations (\ref{ShortWeierstrass}).The $discriminant$ $of$ $the$ $curve$ $E$, denoted by $\Delta_E$ satisfies $$\Delta_E=-(4a_4^3 +27a_6^2).$$ The curve is non-singular, and thus an elliptic curve, if and only if $\Delta_E$ is non-zero. In this case, we introduce the $j-invariant$ of $E$, that is $j_E=\frac{c_4^3}{\Delta_E}=12^3(-4a_4^3)/\Delta_E.$
+	Let $E$ be a curve define over $\K$ by the short Weierstrass equations (\ref{ShortWeierstrass}).The $discriminant$ $of$ $the$ $curve$ $E$, denoted by $\Delta_E$ satisfies $$\Delta_E=-(4a_4^3 +27a_6^2).$$ The curve is non-singular, and thus an elliptic curve, if and only if $\Delta_E$ is non-zero. In this case, we introduce the $j-invariant$ of $E$, that is $$j_E=\frac{c_4^3}{\Delta_E}=12^3(-4a_4^3)/\Delta_E.$$
 \end{definizione}
 \begin{teorema}
-	Let $\K$ be a field of characteristic prime to 6 and let $E:y^2=x^3+a_4x+a_6$, $E':y'^2=x'^3+a_4'x'+a_6'$ be two elliptic curves over $\K$ with $j$-invariants $j,\ j'$ respectively. If $j=j'$, then there exists $u\in\clK^*$ such that $$a_4'=u^4a_4,\qquad a_6'=u^6a_6.$$  The transformation $$x\mapsto x'=u^2x,\quad y\mapsto y'=u^3y$$ takes one equation to the other.
+	Let $\K$ be a field of characteristic prime to 6 and let $E:y^2=x^3+a_4x+a_6$, $E':y'^2=x'^3+a_4'x'+a_6'$ be two elliptic curves over $\K$ with $j$-invariants $j_E,\ j_{E'}$ respectively. If $j_E=j_{E'}$, then there exists $u\in\clK^*$ such that $$a_4'=u^4a_4,\qquad a_6'=u^6a_6.$$  The transformation $$x\mapsto x'=u^2x,\quad y\mapsto y'=u^3y$$ takes one equation to the other.
 \end{teorema}
 \begin{proof}
-Assume $a_4\neq0$. Then we have $j'=j\neq 0$, thus $a_4'\neq 0$. Choose $u\in\clK$ such that $a_4'=u^4a_4$, then we have 
-$$\dfrac{4a_4^3}{4a_4^3 +27a_6^2}=\dfrac{4a_4'^3}{4a_4'^3 +27a_6'^2}=\dfrac{4u^{12}a_4^3}{4u^{12}a_4^3 +27a_6'^2}=\dfrac{4a_4^3}{4a_4^3 +27u^{-12}a_6'^2},$$ which implies that $a_6'^2=\pm u^6a_6$. If $a_6'^2=u^6a_6$, we're done. Otherwise we can change $u$ to $iu$, where $i^2=-1$. This preserves the relation $a_4'=u^4a_4$ and
+Assume $a_4\neq0$. Then we have $j_E=j_{E'}\neq 0$, thus $a_4'\neq 0$. Choose $u\in\clK^*$ such that $a_4'=u^4a_4$, then we have 
+$$\dfrac{4a_4^3}{4a_4^3 +27a_6^2}=\dfrac{4a_4'^3}{4a_4'^3 +27a_6'^2}=\dfrac{4u^{12}a_4^3}{4u^{12}a_4^3 +27a_6'^2}=\dfrac{4a_4^3}{4a_4^3 +27u^{-12}a_6'^2},$$ which implies that $a_6'=\pm u^6a_6$. If $a_6'=u^6a_6$, we're done. Otherwise we can change $u$ to $iu$, where $i\in\clK?^*$ is so that $i^2=-1$. This preserves the relation $a_4'=u^4a_4$ and
 also yields $a_6'^2=u^6a_6$. 
 
-If $a_4=0$, then also $a_4'=0$ and since $\Delta\neq 0\neq \Delta'$ we have $a_6\neq 0\neq a_6'$. Thus we can choose $u\in\clK$ such that $a_6'=u^6a_6$.
+If $a_4=0$, then also $a_4'=0$ and since $\Delta_E\neq 0\neq \Delta_{E'}$ we have $a_6\neq 0\neq a_6'$. Thus we can choose $u\in\clK^*$ such that $a_6'=u^6a_6$.
 \end{proof}
-Note that the $j$-invariant tells us when two curves are isomorphic over an algebraically closed field. However, if we are working with a non-algebraically
-closed field K, then it is possible to have two curves with the same $j$-invariant that cannot be transformed into each other by any transformation with coefficients in $\K$, but we can use an extension field of $\K$. In agreement with \ref{classificazione2}, two curves with the same $j$-invariant are said to be $twist$ of each other.
+Note that the $j$-invariant tells us when two curves are isomorphic over an algebraically closed field. If we are working with a non-algebraically
+closed field K, then it is possible to have two curves with the same $j$-invariant that cannot be transformed into each other by any transformation with coefficients in $\K$, however, we can use an extension field of $\K$. In agreement with \ref{classificazione2}, two curves with the same $j$-invariant are said to be $twist$ of each other.
 \begin{corollario}
-Assume that the characteristic of $\K$ is prime to 6 and let $E: y^2 = x^3 + a_4x + a_6.$ The absolute invariant $j_E$ depends only on the isomorphism class of $E$.	
+Assume that the characteristic of $\K$ is prime to 6 and let $E: y^2 = x^3 + a_4x + a_6.$ The invariant $j_E$ depends only on the isomorphism class of $E$.	
 \begin{itemize}
 	\item $j_E=0$ if and only if $a_4=0$.
 	\item $j_E=12^3$ if and only if $a_6=0$.
