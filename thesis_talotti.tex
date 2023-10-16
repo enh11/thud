@@ -14,7 +14,7 @@
 %\course{Matematica}
 %\course{Comunicazione Multimediale e Tecnologie dell'Informazione}
 \title{Removable weak keys for discrete logarithm-based cryptography}
-\author{Conte Raffaello Mascetti}
+\author{Enrico Talotti}
 \supervisor{Prof.\ Marino Miculan}
 %\cosupervisor{Arch.\ Rambaldo Melandri \and Dott.\ Giorgio Perozzi}
 %\tutor{Guido Necchi}
@@ -178,7 +178,10 @@ And conversely:
 	\item If $a_4a_6\neq 0$, then for every $v\in\K^*$ the curve $E$ is isomorphic to the curve $$E_v:y^2=x^3+a_4'x+a_6'\ \text{over}\ \K\left(\sqrt{v}\right)\ \text{where}\ a_4'=v^2a_4\ \text{and}\ a_6'=v^3a_6.$$
 \end{enumerate}
 \end{corollario}
-The curve in (\ref{classificazione2}) are called $twists$ $of$ $E$ and the curve $E_u$ is called $quadratic$ $twist$. Note that $E$ is isomorphic to $E_v$ over $\K$ if and only if $v$ is a square in $\K^*$.
+The curve in (\ref{classificazione2}) are called $twists$ $of$ $E$ and the curve $E_v$ is called $quadratic$ $twist$. Note that $E$ is isomorphic to $E_v$ over $\K$ if and only if $v$ is a square in $\K^*$.
+\begin{osservazione}\label{twistsecurity}
+	Every elliptic curve $E$ over $\Fq$ has a related twist curve $\tilde{E}_v$. Let $v\in\Fq$ be some quadratic non-residue in $\Fq$ . If $E$ is the curve $y^2=x^3 + a_4x + a_6$ then its twist $\tilde{E}$ is the curve $v^{-1}y^2 = x^3 + a_4x + a_6,$ which is isomorphic to $E$ as one can see by multiplying by $v^3$ and by using the transformation $$x\mapsto x'=vx,\quad y\mapsto y'=vy.$$ 
+\end{osservazione}
 \subsection{The j-invariant}
 Now we want to translate the results of Proposition \ref{classificazione1}  into "invariants" of $E$ that can be read off from any Weierstrass equation. As stated in the definition of elliptic curve, it has to be smooth, i.e., the roots of the cubic polynomial on the right-side of equation \ref{ShortWeierstrass} must be simple. This happens if and only if the discriminant of the cubic is not equal to zero. 
 \begin{definizione}
@@ -361,7 +364,7 @@ Let $[2]P=(X_3:Y_3:Z_3)$. Then set
 $$A=a_4Z_1^2+3X_1^2,\qquad B=Y_1Z_1,\qquad C=X_1Y_1B,\qquad D=A^2-8C.$$ So we have
 $$X_3=2BD,\qquad Y_3=A(4C-D)-8Y_1^2B^2,\qquad Z_3=8B^3.$$
 We note that no inversion is needed and the computations times are $12\mathcal{M}+2\mathcal{S}$ and $7\mathcal{M}+5\mathcal{S}$. Moreover, if one of the input points is given by $(X_1:Y_1:1)$, i.e., directly transformed from affine coordinates), then the operation for the addition decrease to $9\mathcal{M}+2\mathcal{S}$. Things even goes better if one use the Jacobian and Chudnovsky coordinates or their modification proposed by Henri Cohen et al. in \cite{Coh3}.
-\footnote{You can find an implementation of the above formulas written in Rust on my repository \cite{repo}. I really appreciated the efficiency of the projective coordinates formulas when running the implicit baby-step-giant-step which we describe in the next chapter.}
+%\footnote{You can find an implementation of the above formulas written in Rust on my repository \cite{repo}. I really appreciated the efficiency of the projective coordinates formulas when running the implicit baby-step-giant-step which we describe in the next chapter.}
 
 We conclude this chapter by giving a brief description of $Montgomery$ $curves$ and $Edwards$ $curves$, which are better suited for computation than the
 Weierstrass form; for more details we refer to \cite{Wash},\cite{Coh1},\cite{mong}. Then we introduce some curves we will need to develop our analysis. They are recommended by NIST \cite{nist} and are of common use in cryptography. In next chapters we will study some weakness of these curves.
@@ -383,7 +386,7 @@ $$
 An interesting feature is that there's no need for three separate rules for $[2]P$ and
 $P\oplus Q$ when $P\neq Q$. The formula for adding points can be written in projective coordinates. The
 resulting computation takes $10\mathcal{M}$ and $1\mathcal{S}$ for both point addition and point doubling \cite{Wash}.
-\section{Some example of NIST recommended curves}
+\section{Some example of NIST recommended curves}\label{NISTcurves}
 Two widely used elliptic curves, called $\mathbf{secp256r1}$ and $\mathbf{secp256k1}$ \cite{nist}. They both are
 defined over a 256-bit prime field. The curve secp256r1
 is widely used in Internet protocols, while secp256k1 is widely used in blockchain systems.
@@ -440,12 +443,12 @@ In this chapter we present an algorithm to solve the discrete logarithm problem.
 \section{Discrete logarithm problem}
 Since our main focus are elliptic curves, we write our group $(G,\oplus)$ additively. Results applies to multiplicative groups $mutatis$ $mutandis$.
 \begin{definizione}
-Let $(G,\oplus)$ be an additive cyclic group of prime order $p$ and generator $P$. The map
+Let $(G,\oplus)$ be an additive cyclic group of prime order $p$ and and let $P$ be a generator for $G$. The map
 \begin{align*}
 	\varphi:\ &\Z\ \to\ G\\
 	&n\ \mapsto\ [n]P=\underbrace{P\oplus P\oplus\dots\oplus P}_{n\ \text{times}}
 \end{align*}
-has kernel $p\Z$, thus $\varphi$ leads to an isomorphism between $(G,\oplus)$ and $(\Z/p\Z,+):=\Z_p.$ The problem of computing the inverse map is called the $discrete$ $logarithm$ $problem$ ($DLP$) to the base of $P$. It is the problem, given $P$ and $Q$, to determine $\alpha\in\Z$ such that $Q = [\alpha]P$. Note, that it $\alpha$ is
+has kernel $p\Z$, thus $\varphi$ leads to an isomorphism between $(G,\oplus)$ and $(\Z/p\Z,+):=\Z_p.$ The problem of computing the inverse map is called the $discrete$ $logarithm$ $problem$ ($DLP$) to the base of $P$. It is the problem, given $P$ and $Q$, to determine $\alpha\in\Z$ such that $Q = [\alpha]P$. Note that $\alpha$ is
 unique only modulo the group order.
 \end{definizione}
 The complexity of this problem depends on the choice of $G$ and its operation. If $G=\Z_p$ with generator $1$, the discrete logarithm of $n\in\Z_p$
@@ -458,10 +461,10 @@ The baby-step giant-step algorithm was first published by Shanks \cite{Sha}, the
 \begin{proof}
 	If we divide $\alpha$ by $m$ we have $\alpha=jm+i$ with $0\leq i\leq m-1$. We note that $\alpha\leq n-1 = m^2-1=m(m-1)+(m-1)$ and we know that $i\leq m-1$. Hence we have $0\leq j\leq m-1$.
 \end{proof}
-Assume now that the order of $P\in G$ is $n$ and $\alpha$ an integer modulus $n$. Let $Q=[\alpha]P$, then we have $$Q\oplus[-jm]P=[i]P$$ for some $i,j$ as in the lemma \ref{diveuc}. We have the following.
+Assume now that the order of $P\in G$ is $n$ and $\alpha$ an integer modulus $n$. Let $Q=[\alpha]P$, then we have $$Q\oplus[-jm]P=[i]P,$$ for some $i,j$ as in the Lemma \ref{diveuc}. We have the following.
 \begin{proposizione}\label{bsgs}
 	Let $(G,\oplus)$ be a finite, additive, cyclic group of order $n$ and let $P$ be a
-	generator of $G$. The following algorithm solves the discrete logarithm problem $[\alpha]P = Q$ in $O( n \log n)$ steps.
+	generator of $G$. The following algorithm solves the discrete logarithm problem $[\alpha]P = Q$ in $O(m\log m)$ steps, where $m$ is define as follows.
 \begin{enumerate}
 	\item Let $m:=\lfloor \sqrt{n}\rfloor +1$.
 	\item Create the two lists:
@@ -475,9 +478,23 @@ Assume now that the order of $P\in G$ is $n$ and $\alpha$ an integer modulus $n$
 Then there exists $0\leq i, j < m$ such that $Q\oplus[-jm]P = [i]P$ and $\alpha=jm+i$ is the solution to the discrete logarithm problem.
 \end{proposizione}
 \begin{proof}
-	To compute the two lists we take at most $2m$ group operations. By lemma \ref{diveuc}, there exists a match between the two lists, whose can be found in $\log m$ steps by using standard searching algorithms or hash tables. Hence, the total running	time for the algorithm is $O( \sqrt{n} \log\sqrt{n})$ steps.
+	To compute the two lists we take at most $2m=$ group operations. By Lemma \ref{diveuc}, there exists a match between the two lists, that can be found in $\log \sqrt{n}$ steps by using standard searching algorithms or hash tables. Hence, the total running	time for the algorithm is $O( m\log m)$ steps.
 \end{proof}
-\subsection{Implicit baby step, giant step}
+\section{A security twist}
+In remark \ref{twistsecurity} we saw that every elliptic curve $E: y^2=x^3 + a_4x + a_6$ over $\Fq$ has a related twist curve which short Weierstrass equation is given by $\tilde{E}_v:y^2=x^3+a_4v^2x+a_6v^3$, where $v\in\Fq$ is a quadratic non-residue. From this form one sees that the two groups $E(\Fq)$ and $\tilde{E}_v(\Fq)$ together contain exactly two points $(x, y_i)$ for each field element $x\in\Fq$, and they both contain the identity $\infp$. So we have $| E(\Fq)|+| \tilde{E}_v(\Fq)|=2q+2$. Since the number of points on $E(\Fq )$ is $p + 1 - t$, it follows that the number of points on $\tilde{E}(\Fq )$ must be $\tilde{n}:= p + 1 + t$. 
+
+The curve $E$ is said to be $\mathbf{twist\ secure}$ if the discrete logarithm is intractable on both $E(\Fq)$ and $\tilde{E}(\Fq)$. For $E$ to be twist secure we need, at the very least, that both $n=|E(\Fq )|$ and $\tilde{n}=|\tilde{E}(\Fq)|$ are prime numbers, or are small multiples of large primes. 
+
+Why do we need twist security? The $y$-coordinate of a point is not needed for some cryptographic systems and there are implementations which only involve $x$-coordinate of points. Consider a system where a user (called Bob) has a secret key $\alpha_B\in\Z_p$. Under normal operation, anyone can send Bob a point $Q=(x_1,y_1)\in\ E(\Fq)$ and he will respond with the point $\alpha_BQ$. Assume this is done in a cryptographic system where there's no need of $y$-coordinates and therefore it is never sent. An attacker could send Bob an $x_1\in\Fq$ that is the $x$-coordinate of a point $\tilde{Q}$ on the twist $\tilde{E}(\Fq)$. Bob would then respond with the $x$-coordinate of $\alpha_B\tilde{Q}\in \tilde{E}(\Fq)$. If discrete logarithm problem in $\tilde{E}(\Fq)$ were easy, this response would expose Bob's secret key $\alpha_B$. Hence, if Bob skips the group
+membership check, we must ensure, at the very least, that discrete logarithm in $\tilde{E}(\Fq)$ is intractable so
+that $\alpha_B\tilde{Q}$ does not expose $\alpha_B$. Twist security is meant to ensure exactly that. 
+
+The curves secp256r1 and secp256k1 we introduced in the previous chapter were not designed to be twist secure. The size of the twist
+of secp256r1 is given by $\tilde{E}(\Fq)=2q+2-p$ and is divisible by $34905 = 3\cdot5\cdot13\cdot179.$ Consequently, by using baby step giant step algorithm, discrete logarithm on the twist is $\sqrt{34905}\simeq 187$ times easier than on secp256r1. Similarly, for secp256k1
+the size of the twist is divisible by $32\cdot132\cdot3319\cdot22639$, and consequently, discrete logarithm on the
+twist is $\simeq 218$ times easier than on secp256k1.
+
+\subsection{Implicit baby step, giant step}\label{implicit bsgs}
 In this section we describe an implicit version of the baby step giant step algorithm, which comes from an idea of Maurer and Wolf \cite{Mau}. We use the multiplicative group $\Zpstar$ as $auxiliary$ $group$, thus we reduce the discrete logarithm problem of $(G,\oplus)$ to a problem in $\Zpstar$. The advantage of this approach is that $\Zpstar$ has many subgroup and one can exploit its rich and well understood subgroup structure. 
 
 Assume $(G,\oplus)$ to be a finite, additive, cyclic group of prime order $p$ and let $P$ be a generator. We define the following map:
@@ -488,23 +505,26 @@ Assume $(G,\oplus)$ to be a finite, additive, cyclic group of prime order $p$ an
 \end{alignat*}
 It is easy to see that $\rho$ is an homomorphism with $\ker\rho=\{\alpha\in\Zpstar:\rho_\alpha(P)=P\}=\{1\}$. If $\varphi\in\aut(G)$ and $P$ is a generator for $G$, then $\varphi(P)=[\lambda]P$ for some $\lambda\in\Zpstar$. Thus we have an isomorphism $\Zpstar\simeq\aut(G)$ and we can identify the element $[\alpha]P\in G$ with $\alpha\in\Zpstar$. 
 
-We want to solve the discrete logarithm problem in $G$, i.e., given a generator $P$ and an element $Q\in G$, we have to find the integer $\alpha$ modulus $p$ such that $Q=[\alpha]P$. Let $z$ be a primitive element of $\Zpstar$, then $\alpha=z^k$ for some $0\leq k<p$ and $Q=[z^k]P$. Let $m:=\lfloor \sqrt{p}\rfloor+1$, if we divide $k$ by $m$ we get $i,j$ with $0\leq i,j\leq m-1$ such that $k=i+mj$, as in Lemma \ref{diveuc}. It follows that $Q=[z^k]P=[z^{i+jm}]P=[z^i][z^{jm}]P$, which leads to $[z^{-jm}]Q=[z^i]P$. But we now that $Q=[\alpha]P$, thus we have $[z^{-jm}][\alpha]P=[i]P$ and this implies $z^{-jm}\alpha=z^i\mod p$. Hence if we find such an $i$ and $j$, we can compute $\alpha=z^{i+jm}$ and we solved the discrete logarithm problem. Now we can proceed as in Proposition \ref{bsgs}. We put $m:=\lfloor\sqrt{p}\rfloor$ and we build the two following lists:
+We want to solve the discrete logarithm problem in $G$, i.e., given a generator $P$ and an element $Q\in G$, we want to find the integer $\alpha$ modulus $p$ such that $Q=[\alpha]P$. Let $z$ be a primitive element of $\Zpstar$, then $\alpha=z^k$ for some $0\leq k<p$ and $Q=[z^k]P$. Let $m:=\lfloor \sqrt{p}\rfloor+1$, if we divide $k$ by $m$ we get $i,j$ with $0\leq i,j\leq m-1$ such that $k=i+mj$, as in Lemma \ref{diveuc}. It follows that $Q=[z^k]P=[z^{i+jm}]P=[z^i][z^{jm}]P$, which leads to $$[z^{-jm}]Q=[z^i]P.$$ However, we now that $Q=[\alpha]P$, thus we have $[z^{-jm}][\alpha]P=[z^i]P$ and this implies $z^{-jm}\alpha=z^i\mod p$. Hence, if we find such an $i$ and $j$, we can compute $\alpha=z^{i+jm}$ and we have the solution of the discrete logarithm problem. Now we can proceed as in Proposition \ref{bsgs}. 
+
+We put $m:=\lfloor\sqrt{p}\rfloor$ and we build the two following lists:
 \begin{center}
 \begin{tabular}{ll} 
 	baby-step: & $[z]P,\ [z^{2}],\ldots,\ [z^m]P$ \\ 
 	giant-step: & $[z^{-m}]Q,\ [z^{-2m}]Q,\ \ldots,\ [z^{-m^2}]Q$.\\ 
 \end{tabular}
 \end{center}
-In time $O( m \log m)$ we will find a match that solves our discrete logarithm problem. The algorithm described above is what we call $implicit$ $baby$ $step$ $giant$ $step$. It is interesting to note that this idea can be improved if a divisor $d$ of $p-1$ is known. 
+In time $O( m \log m)$ we will find a match that solves the discrete logarithm problem. The algorithm described above is what we call $implicit$ $baby$ $step$ $giant$ $step$. It is interesting to note that this idea can be improved if a divisor $d$ of $p-1$ is known. 
 
-Let $z_d=z^{\frac{p-1}{d}}$ a generator for the order $d$ subgroup of $\Zpstar$. We can put $m:=\lfloor \sqrt{d}\rfloor+1$ and run the implicit baby step giant step by using $z_d$ instead of $z$. If happens that the unknown $\alpha$ lies in the $d$ order subgroup of $\Zpstar$, then $\alpha$ will be equal to $z_d^k$ for some $k$ modulus $d$ and the algorithm will find a match $[z_d^{-jm}]Q=[z_d^i]P$. Hence, $[z_d^{-jm}][\alpha]P=[z_d^i]P$, which lead to $\alpha=z_d^{+jm}$ and the discrete logarithm is solved in times $O(m\log m)$, where now $m=\lfloor\sqrt{d}\rfloor+1$. The difference here is that after at most $d$ iterations we will have either found $\alpha$ or verified that $\alpha$ is not in the order $d$ subgroup. Thus, if $d$ is sufficiently small, the discrete logarithm problem can be solved much easier then would otherwise. On the other hand, if $\alpha$ is not in the $d$ order subgroup, then the algorithm will not find a match. We summarize in the following.
+Let $z_d=z^{\frac{p-1}{d}}$ a generator for the order $d$ subgroup of $\Zpstar$. We can put $m:=\lfloor \sqrt{d}\rfloor+1$ and run the implicit baby step giant step by using $z_d$ instead of $z$. If happens that the unknown $\alpha$ lies in the $d$ order subgroup of $\Zpstar$, then $\alpha$ will be equal to $z_d^k$ for some $k$ modulus $d$ and the algorithm will find a match $[z_d^{-jm}]Q=[z_d^i]P$. Hence, $[z_d^{-jm}][\alpha]P=[z_d^i]P$, which lead to $\alpha=z_d^{i+jm}$ and the discrete logarithm problem is solved in times $O(m\log m)$, where now $m=\lfloor\sqrt{d}\rfloor+1$. The difference here is that after at most $d$ iterations we will have either found $\alpha$ or verified that $\alpha$ is not in the order $d$ subgroup. Thus, if $d$ is sufficiently small, the discrete logarithm problem can be solved much easier then would otherwise, provided that $\alpha$ lies in the $d$ order subgroup. On the other hand, if $\alpha$ is not in the $d$ order subgroup, then the algorithm will not find a match. We summarize in the following.
 \begin{teorema}
 	Let $G$ be an additive, cyclic group of prime order $p$, with generator $P$. Let $Q=[\alpha]P$ be another given element of $G$ (with $\alpha$ unknown). For a given divisor $d$ of $p-1$, let $D$ be the subgroup of $\Zpstar$ of order $d$. Then, one can decide whether or not $\alpha$ belong to $D$ in $O(\sqrt{d})$ steps. Moreover, if $\alpha$ belong to $D$, the same algorithm will find the discrete logarithm $\alpha$ in $O(\sqrt{d})$ steps.
 \end{teorema} 
-In an elliptic curve cryptosystem, the integer $\alpha$ represent the $private key$, while the point $Q=[\alpha]P$ is the $public key$. Every public key for which the corresponding private key lies  in a small subgroup of $\Zpstar$ is deemed to be weak.
+In an elliptic curve cryptosystem, the integer $\alpha$ represent the $private$ $key$, while the point $Q=[\alpha]P$ is the $public$ $key$. Every public key for which the corresponding private key lies  in a small subgroup of $\Zpstar$ is deemed to be weak.
 \subsection{Testing whether a key is weak}
 A simple approach to test whether the private key corresponding to a public key is weak is to set a bound $B$ for the order of the subgroups of $\Zpstar$. One can run the implicit baby step giant step algorithm on all divisors of $p-1$ that are less than $B$. However, this would be inefficient and redundant, because testing wether a key is in a subgroup of order $d$ also covers all subgroups of order divisible by $d$. Thus, we instead generate a list of integers $d_1<d_2<\dots<d_t\leq B$ dividing $p-1$ such that $d_i\nmid d_j$ for all $1\leq i<j\leq t$. 
-As an example consider the elliptic curve secp256k1 introduced in the previous chapter. The standard \cite{nist} specify the generator 
+\subsection{Test of weakness on secp256k1}\ref{testsecp256k1}
+As an example, consider the elliptic curve secp256k1 introduced in the previous chapter. The standard \cite{nist} specify the generator 
 \begin{align*}
 	P=&(550662630222773436695787188951685\\
 	&34326250603453777594175500187360389116729240,\\
@@ -512,15 +532,34 @@ As an example consider the elliptic curve secp256k1 introduced in the previous c
 	&3184471273380659243275938904335757337482424)
 \end{align*}
 and its order, which is the prime $$p=115792089237316195423570985008687907852837564279074904382605163141518161494337.$$
-By using a computer algebra system (e.g., pari-gp or sagemath,\cite{pari},\cite{sage}), one can factor $p-1$ in few seconds and compute the primitive element $z=7$. There are 10 divisor of $p-1$ below $B=48$, namely 2,3,4,6,8,12,16,24,32,48. In order to test whether a given private key is in any of the subgroups of these orders, it suffices to test only the subgroups of order $d_1=32$ and $d_2=48$, as the firs eight subgroup orders divide 48, and thus any element of one of these smaller orders is also an element of the subgroup of order 48. Let $Q$ be the point 
+By using a computer algebra system (e.g., pari-gp or sagemath,\cite{pari},\cite{sage}), one can factor $p-1$ in few seconds and compute the primitive element $z=7$. There are 10 divisor of $p-1$ below $B=48$, namely 2, 3, 4, 6, 8, 12, 16, 24, 32, 48. In order to test whether a given private key is in any of the subgroups of these orders, it suffices to test only the subgroups of order $d_1=32$ and $d_2=48$, as the firs eight subgroup orders divide 48, and thus any element of one of these smaller orders is also an element of the subgroup of order 48. 
+
+Let $Q$ be the point 
 \begin{align*}
 	P=&(100760202697161893004335214126591\\
 	&116800117319792545458764085267675326325395621,\\
 	&7519344431816503114635930462106279\\
-	&7862272142296678797285916994295833810377664,).
+	&7862272142296678797285916994295833810377664).
 \end{align*}
 If we run the implicit baby step giant step algorithm, we will find a match in a couple of second. This give us the base $P$ discrete logarithm of $Q$  $$\alpha=648268771218401016825236294626749677029376795
 80369334126295633893540044112329.$$
+\chapter{Analysis of recommended elliptic curves}
+In this last chapter we investigate the elliptic curves described in section \ref{NISTcurves}. You can find an implementation written in Rust on my GitHub repository \cite{repo}. It includes modules and algorithms for finite fields arithmetic and elliptic curves arithmetic in projective coordinates. Furthermore, an implementation of the implicit form of baby-step, giant-step algorithm is available and one can use it to test if the private key corresponding to a public key is weak. 
+
+Computations for the following analysis are performed with the support of the computer algebra system pari-gp \cite{pari}. For each curves presented in section \ref{NISTcurves}, we enumerate the number of weak keys appearing in subgroup of size bounded by $B=2^{32}$. As described in section \ref{implicit bsgs}, the cost to determine whether a given ey is weak with respect to the bound $B$ is roughly $2^{16}$ groups operations. Due to sizes of numbers occurring in the counts, and in order to facilitate an easier comparison, we list the base-2 log of each number i.e., the number of bits. The data recorded for each curve is as follows:
+\begin{itemize}
+%	\item curve label;
+	\item $b(p)$: bit's number of the prime order group $E(\Fq)$;
+	\item $n_B$: base-2 log of number of weak keys with order bounded by B. Since $\phi(d)$ is the number of generators of a cyclic group of order $d$, i.e., the number of elements of order exactly $d$, we compute $$n_B=\log_2\sum_{d|p-1\atop d\leq B}\phi(d);$$
+	\item $c_B$: base-2 log of the worst-case number of elliptic curve scalar multiplications required to test whether a key comes from a subgroup of order bounded by $B$ using implicit baby step giant step. Let $R(p,B)=\left\{d_1,\dots,d_t:d_i\ \text{divisor of }p-1,\ d_i\leq B,\ d_i\nmid d_j\ \text{for all}\ 1\leq i<j\leq t\right\}$. We compute $$c_B=\log_2\sum_{d\in R(p,B)}2\lceil\sqrt{d}\rceil.$$
+\end{itemize}
+\subsection{Analysis of weak keys on secp256k1}
+The elliptic curve group secp256k1 is cyclic of prime order $$p=115792089210356248762697446949407573529996955224135760342422259061068512044369,$$ and factors of $p-1$ below the bound $B=2^{32}$ are 
+\begin{align*}
+	divB=&[1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 149, 192, 298, 447,
+	 596, 631, 894, 1192, \\&1262, 1788, 1893, 2384, 2524, 3576, 3786, 4768,\\ &5048, 7152, 7572, 9536, 10096, 14304, 15144, 20192, 28608, 30288, 40384,\\& 60576, 94019, 121152, 188038, 282057, 376076, 564114, 752152,\\ &1128228, 1504304, 2256456, 3008608, 4512912, 6017216, 9025824, 18051648].
+\end{align*}
+By the formulas above we find that $n_B=24.10$ and $c_B=13.05$. This means that there are approximately $2^{24}=16777216$ weak keys below the bound $B$.
 %% Fine dei capitoli normali, inizio dei capitoli-appendice (opzionali)
 \appendix
 
