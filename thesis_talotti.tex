@@ -507,6 +507,7 @@ Public-key cryptography is based on the idea of one-way functions: in rough term
 In the first chapter we saw that the set of points of an elliptic curve is a finite abelian group. We also described algorithms for scalar multiplication as well as some technique to speed up the computation. In a general setting, however, the inverse operation, called $discrete$ $logarithm$, is not as fast; there is no known algorithm that can compute discrete logarithm in $E(\Fq)$ much faster than $O(\sqrt{p})$  where $p$ is the order of $P$ in $E(\Fq)$. This makes the scalar multiplication a one way function from the group $E(\Fq)$ to itself and we can build the $public$ $key$ $elliptic$ $curve$ $cryptosystem.$ 
 
 In this chapter we present an algorithm to solve the discrete logarithm problem. Such an algorithm can be use to determine whether a public key comes from a weak private key subject to a given computational bound, and if so, recover the private key from the corresponding public key. We follow the work of M. J. Jacobson and P. Kushwaha, \cite{Pra1},\cite{Pra2} whose results are inspired by the work of Maurer and Wolf \cite{Mau}.
+
 \section{Discrete logarithm problem}
 Since our main focus are elliptic curves, we write our group $(G,\oplus)$ additively. Results applies to multiplicative groups $mutatis$ $mutandis$.
 \begin{definizione}
@@ -561,7 +562,7 @@ of secp256r1 is given by $\tilde{E}(\Fq)=2q+2-p$ and is divisible by $34905 = 3\
 the size of the twist is divisible by $32\cdot132\cdot3319\cdot22639$, and consequently, discrete logarithm on the
 twist is $\simeq 218$ times easier than on secp256k1.
 
-\subsection{Implicit baby step, giant step}\label{implicit bsgs}
+\section{Implicit baby step, giant step}\label{implicit bsgs}
 In this section we describe an implicit version of the baby step giant step algorithm, which comes from an idea of Maurer and Wolf \cite{Mau}. We use the multiplicative group $\Zpstar$ as $auxiliary$ $group$, thus we reduce the discrete logarithm problem of $(G,\oplus)$ to a problem in $\Zpstar$. The advantage of this approach is that $\Zpstar$ has many subgroup and one can exploit its rich and well understood subgroup structure. 
 
 Assume $(G,\oplus)$ to be a finite, additive, cyclic group of prime order $p$ and let $P$ be a generator. We define the following map:
@@ -570,7 +571,7 @@ Assume $(G,\oplus)$ to be a finite, additive, cyclic group of prime order $p$ an
 	\alpha &\longmapsto\rho_\alpha:&G&\longrightarrow G\\
 	&&P& \longmapsto {}[\alpha]P
 \end{alignat*}
-It is easy to see that $\rho$ is an homomorphism with $\ker\rho=\{\alpha\in\Zpstar:\rho_\alpha(P)=P\}=\{1\}$. If $\varphi\in\aut(G)$ and $P$ is a generator for $G$, then $\varphi(P)=[\lambda]P$ for some $\lambda\in\Zpstar$. Thus we have an isomorphism $\Zpstar\simeq\aut(G)$ and we can identify the element $[\alpha]P\in G$ with $\alpha\in\Zpstar$. 
+It is easy to see that $\rho$ is a group homomorphism with kernel $$\ker\rho=\{\alpha\in\Zpstar:\rho_\alpha(P)=P\}=\{1\}.$$ If $\varphi\in\aut(G)$ and $P$ is a generator for $G$, then $\varphi(P)=[\lambda]P$ for some $\lambda\in\Zpstar$. Thus we have an isomorphism $\Zpstar\simeq\aut(G)$ and we can identify the element $[\alpha]P\in G$ with $\alpha\in\Zpstar$. 
 
 We want to solve the discrete logarithm problem in $G$, i.e., given a generator $P$ and an element $Q\in G$, we want to find the integer $\alpha$ modulus $p$ such that $Q=[\alpha]P$. Let $z$ be a primitive element of $\Zpstar$, then $\alpha=z^k$ for some $0\leq k<p$ and $Q=[z^k]P$. Let $m:=\lfloor \sqrt{p}\rfloor+1$, if we divide $k$ by $m$ we get $i,j$ with $0\leq i,j\leq m-1$ such that $k=i+mj$, as in Lemma \ref{diveuc}. It follows that $Q=[z^k]P=[z^{i+jm}]P=[z^i][z^{jm}]P$, which leads to $$[z^{-jm}]Q=[z^i]P.$$ However, we now that $Q=[\alpha]P$, thus we have $[z^{-jm}][\alpha]P=[z^i]P$ and this implies $z^{-jm}\alpha=z^i\mod p$. Hence, if we find such an $i$ and $j$, we can compute $\alpha=z^{i+jm}$ and we have the solution of the discrete logarithm problem. Now we can proceed as in Proposition \ref{bsgs}. 
 
@@ -608,8 +609,9 @@ Let $Q$ be the point
 	&7519344431816503114635930462106279\\
 	&7862272142296678797285916994295833810377664).
 \end{align*}
-If we run the implicit baby step giant step algorithm, we will find a match in a couple of second. This give us the base $P$ discrete logarithm of $Q$  $$\alpha=648268771218401016825236294626749677029376795
+If we run the implicit baby step giant step algorithm, we will find a match in a couple of seconds. This give us the base $P$ discrete logarithm of $Q$  $$\alpha=648268771218401016825236294626749677029376795
 80369334126295633893540044112329.$$
+
 \chapter{Analysis of recommended elliptic curves}
 In this last chapter we investigate the elliptic curves described in section \ref{NISTcurves}. You can find an implementation written in Rust on my GitHub repository \cite{repo}. It includes modules and algorithms for finite fields arithmetic and elliptic curves arithmetic in projective coordinates. Furthermore, an implementation of the implicit form of baby-step, giant-step algorithm is available and one can use it to test if the private key corresponding to a public key is weak. 
 
