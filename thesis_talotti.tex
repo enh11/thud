@@ -37,7 +37,74 @@
 %% sfbig (predefinito): Apertura delle parti e dei capitoli col numero grande; titoli delle parti e dei capitoli e intestazioni di pagina in sans serif.
 %% big: Come "sfbig", solo serif.
 %% plain: Apertura delle parti e dei capitoli tradizionali di LaTeX; intestazioni di pagina come "big".
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{etoolbox}
+\newcommand*{\ColorIfNotInString}[1]{\iftoggle{InString}{#1}{\color{codepurple}\bfseries#1}}%
+\newcommand*{\ColorIfInComment}[1]{\iftoggle{InComment}{#1}{\color{green}#1}}
+\newcommand*{\ProcessQuote}[1]{#1\iftoggle{InString}{\global\togglefalse{InString}}{\global\toggletrue{InString}}}%
+\newcommand*{\ProcessComment}[1]{#1\iftoggle{InComment}{\global\togglefalse{InComment}}{\global\toggletrue{InComment}}}%
+\newtoggle{InString}{}% Keep track of if we are within a string
+\togglefalse{InString}% Assume not initally in string
+\newtoggle{InComment}% Keep track of if we are within a string
+\togglefalse{InComment}{}% Assume not initally in string
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.95}
+\lstdefinelanguage{pari}{
+	, morecomment=[s]{/*}{*/}%
+	, morestring=[b]{"}
+%	, morekeywordcomment=[4]{1,2,3,4,5,6,7,8,9,0}
+	, morekeywords=[2]{ foreach, else, for, if, in, loop, return, while}
+	, morekeywords=[3]{ divisors, eulerphi, setminus, ceil, sqrt, log}
+	}
+\lstdefinestyle{mystyle}{
+	%literate=%
+%	{/*}{{{\ProcessComment{/*}}}}1% Disable coloring within single quote
+%	{0}{{{\ColorIfNotInString{0}}}}1
+%	{1}{{{\ColorIfNotInString{1}}}}1
+%	{2}{{{\ColorIfNotInString{2}}}}1
+%	{3}{{{\ColorIfNotInString{3}}}}1
+%	{4}{{{\ColorIfNotInString{4}}}}1
+%	{5}{{{\ColorIfNotInString{5}}}}1
+%	{6}{{{\ColorIfNotInString{6}}}}1
+%	{7}{{{\ColorIfNotInString{7}}}}1
+%	{8}{{{\ColorIfNotInString{8}}}}1
+%	{9}{{{\ColorIfNotInString{9}}}}1
+%	{.0}{{\textcolor{blue}{.0}}}{2}% Following is to ensure that only periods
+%	{.1}{{\textcolor{blue}{.1}}}{2}% followed by a digit are changed.
+%	{.2}{{\textcolor{blue}{.2}}}{2}%
+%	{.3}{{\textcolor{blue}{.3}}}{2}%
+%	{.4}{{\textcolor{blue}{.4}}}{2}%
+%	{.5}{{\textcolor{blue}{.5}}}{2}%
+%	{.6}{{\textcolor{blue}{.6}}}{2}%
+%	{.7}{{\textcolor{blue}{.7}}}{2}%
+%	{.8}{{\textcolor{blue}{.8}}}{2}%
+%	{.9}{{\textcolor{blue}{.9}}}{2}%
+%	,
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta}\bfseries,
+	numberstyle=\footnotesize\color{gray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true, 
+	numbers=left,                                   
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+  , keywordstyle=[2]\color{magenta}\bfseries
+  , keywordstyle=[3]\color{blue}\bfseries
+%  , keywordstyle=[3]\color{blu}
+}
 
+\lstset{language=pari, style=mystyle}
 %%%%%%%5Definizioni,teoremi, proposizioni ...
 \usepackage{amsmath,amsfonts,amssymb,amsthm}
 \newcommand{\N}{\mathbb{N}}
@@ -546,7 +613,7 @@ If we run the implicit baby step giant step algorithm, we will find a match in a
 \chapter{Analysis of recommended elliptic curves}
 In this last chapter we investigate the elliptic curves described in section \ref{NISTcurves}. You can find an implementation written in Rust on my GitHub repository \cite{repo}. It includes modules and algorithms for finite fields arithmetic and elliptic curves arithmetic in projective coordinates. Furthermore, an implementation of the implicit form of baby-step, giant-step algorithm is available and one can use it to test if the private key corresponding to a public key is weak. 
 
-Computations for the following analysis are performed with the support of the computer algebra system pari-gp \cite{pari}. For each curves presented in section \ref{NISTcurves}, we enumerate the number of weak keys appearing in subgroup of size bounded by $B=2^{32}$. As described in section \ref{implicit bsgs}, the cost to determine whether a given ey is weak with respect to the bound $B$ is roughly $2^{16}$ groups operations. Due to sizes of numbers occurring in the counts, and in order to facilitate an easier comparison, we list the base-2 log of each number i.e., the number of bits. The data recorded for each curve is as follows:
+For each curves presented in section \ref{NISTcurves}, we enumerate the number of weak keys appearing in subgroup of size bounded by $B=2^{32}$. As described in section \ref{implicit bsgs}, the cost to determine whether a given ey is weak with respect to the bound $B$ is roughly $2^{16}$ groups operations. Due to sizes of numbers occurring in the counts, and in order to facilitate an easier comparison, we list the base-2 log of each number i.e., the number of bits. The data recorded for each curve is as follows:
 \begin{itemize}
 %	\item curve label;
 	\item $b(p)$: bit's number of the prime order group $E(\Fq)$;
@@ -554,12 +621,15 @@ Computations for the following analysis are performed with the support of the co
 	\item $c_B$: base-2 log of the worst-case number of elliptic curve scalar multiplications required to test whether a key comes from a subgroup of order bounded by $B$ using implicit baby step giant step. Let $R(p,B)=\left\{d_1,\dots,d_t:d_i\ \text{divisor of }p-1,\ d_i\leq B,\ d_i\nmid d_j\ \text{for all}\ 1\leq i<j\leq t\right\}$. We compute $$c_B=\log_2\sum_{d\in R(p,B)}2\lceil\sqrt{d}\rceil.$$
 \end{itemize}
 \subsection{Analysis of weak keys on secp256k1}
+We used the computer algebra system pari-gp \cite{pari}. In Listing \ref{gpcode} you can find scripts for computing $n_B$, $c_B$ for the curve secp256k1. We can deduce the weak keys analysis for other NIST curves by changing the value of $p$ presented in the section \ref{NISTcurves}.
+
 The elliptic curve group secp256k1 is cyclic of prime order $$p=115792089210356248762697446949407573529996955224135760342422259061068512044369,$$ and factors of $p-1$ below the bound $B=2^{32}$ are 
 \begin{align*}
-	divB=&[1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 149, 192, 298, 447,
-	 596, 631, 894, 1192, \\&1262, 1788, 1893, 2384, 2524, 3576, 3786, 4768,\\ &5048, 7152, 7572, 9536, 10096, 14304, 15144, 20192, 28608, 30288, 40384,\\& 60576, 94019, 121152, 188038, 282057, 376076, 564114, 752152,\\ &1128228, 1504304, 2256456, 3008608, 4512912, 6017216, 9025824, 18051648].
+	\text{div}B=&[1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 149, 192, 298, 447,
+	 596, 631, 894, 1192, \\&1262, 1788, 1893, 2384, 2524, 3576, 3786, 4768,5048, 7152, 7572, 9536, 10096, \\&14304, 15144, 20192, 28608, 30288, 40384,60576, 94019, 121152, 188038, \\& 282057, 376076, 564114, 752152,1128228, 1504304, 2256456, 3008608,\\&  4512912, 6017216, 9025824, 18051648].
 \end{align*}
-By the formulas above we find that $n_B=24.10$ and $c_B=13.05$. This means that there are approximately $2^{24}=16777216$ weak keys below the bound $B$.
+By the formulas above we find that $n_B=24.10$ and $c_B=13.05$. This means that there are approximately $2^{24}=16777216$ weak keys lying in subgroups of order below the bound $B$.
+\lstinputlisting[caption={pari-gp code: Analysis of weak keys in secp256k1},style=mystyle,language=pari,label=gpcode]{weak_analysis.gp}
 %% Fine dei capitoli normali, inizio dei capitoli-appendice (opzionali)
 \appendix
 
