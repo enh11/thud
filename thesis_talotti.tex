@@ -226,8 +226,8 @@ $$x\mapsto x'=u^2x\ \text{and}\ y\mapsto y'=u^3y\ \text{with}\ u\in\K^*$$ and th
 \begin{proposizione}\label{classificazione1}
 	Let $\K$ be a field with characteristic prime to 6. Let $E/\K$ be an elliptic curve given by a short Weierstrass equation $y^2=x^3+a_4x+a_6$. Then we have:
 	\begin{enumerate}
-		\item If $a_4=0$, then the coefficient of $x$ is equal to zero in all short Weierstrass equations isomorphic to $E$ and $a_6'$ is determined up to sixth power in $\K^*$;
-		\item  If $a_6=0$, then constant term is zero in all short Weierstrass equations isomorphic to $E$ and $a_4'$ is determined up to forth power in $\K^*$;
+		\item If $a_4=0$, then the coefficient of $x$ is equal to zero in all short Weierstrass equations isomorphic to $E$ and $a_6'$ is determined up to a sixth power in $\K^*$;
+		\item  If $a_6=0$, then constant term is zero in all short Weierstrass equations isomorphic to $E$ and $a_4'$ is determined up to a forth power in $\K^*$;
 		\item  If $a_4a_6\neq 0$, then $a_6'/a_4'$ is determined up to a square in $\K^*$;
 	\end{enumerate}
 And conversely:
@@ -238,34 +238,34 @@ And conversely:
 \end{enumerate}
 \end{proposizione}
 \begin{corollario}\label{classificazione2}
-		Let $\K$ be a field with characteristic prime to 6. Let $E/\K$ be an elliptic curves in Weierstrass equation $y^2=x^3+a_4x+a_6$. Then we have:
+		Let $\K$ be a field with characteristic prime to 6. Let $E/\K$ be an elliptic curve in Weierstrass equation $y^2=x^3+a_4x+a_6$. Then we have:
 \begin{enumerate}
 	\item If $a_4=0$, then for every $a_6'\in\K^*$ the curve $E$ is isomorphic to the curve $$E':y^2=x^3+a_6'\ \text{over}\ \K\left(\sqrt[6]{a_6'/a_6}\right)$$
-	\item If $a_6=0$, then for every $a_4'\in\K^*$ the curve $E$ is isomorphic to the curve $$E':y^2=x^3+a_4'x\ \text{over}\ \K\left(\sqrt[6]{a_4'/a_4}\right)$$
+	\item If $a_6=0$, then for every $a_4'\in\K^*$ the curve $E$ is isomorphic to the curve $$E':y^2=x^3+a_4'x\ \text{over}\ \K\left(\sqrt[4]{a_4'/a_4}\right)$$
 	\item If $a_4a_6\neq 0$, then for every $v\in\K^*$ the curve $E$ is isomorphic to the curve $$E_v:y^2=x^3+a_4'x+a_6'\ \text{over}\ \K\left(\sqrt{v}\right)\ \text{where}\ a_4'=v^2a_4\ \text{and}\ a_6'=v^3a_6.$$
 \end{enumerate}
 \end{corollario}
-The curve in (\ref{classificazione2}) are called $twists$ $of$ $E$ and the curve $E_v$ is called $quadratic$ $twist$. Note that $E$ is isomorphic to $E_v$ over $\K$ if and only if $v$ is a square in $\K^*$.
+The curve in Corollary \ref{classificazione2} are called \emph{twist of E} and the curve $E_v$ is called \emph{quadratic twist}. Note that $E$ is isomorphic to $E_v$ over $\K$ if and only if $v$ is a square in $\K^*$.
 \begin{osservazione}\label{twistsecurity}
 	Every elliptic curve $E$ over $\Fq$ has a related twist curve $\tilde{E}_v$. Let $v\in\Fq$ be some quadratic non-residue in $\Fq$ . If $E$ is the curve $y^2=x^3 + a_4x + a_6$ then its twist $\tilde{E}$ is the curve $v^{-1}y^2 = x^3 + a_4x + a_6,$ which is isomorphic to $E$ as one can see by multiplying by $v^3$ and by using the transformation $$x\mapsto x'=vx,\quad y\mapsto y'=vy.$$ 
 \end{osservazione}
 \subsection{The j-invariant}
-Now we want to translate the results of Proposition \ref{classificazione1}  into "invariants" of $E$ that can be read off from any Weierstrass equation. As stated in the definition of elliptic curve, it has to be smooth, i.e., the roots of the cubic polynomial on the right-side of equation \ref{ShortWeierstrass} must be simple. This happens if and only if the discriminant of the cubic is not equal to zero. 
+Now we want to translate the results of Proposition \ref{classificazione1}  into \lq\lq invariants\rq\rq of $E$ that can be read off from any Weierstrass equation. As stated in the definition of elliptic curve, it has to be smooth, i.e., the roots of the cubic polynomial on the right-side of equation \ref{ShortWeierstrass} must be simple. This happens if and only if the discriminant of the cubic is not equal to zero. 
 \begin{definizione}
-	Let $E$ be a curve define over $\K$ by the short Weierstrass equations (\ref{ShortWeierstrass}).The $discriminant$ $of$ $the$ $curve$ $E$, denoted by $\Delta_E$ satisfies $$\Delta_E=-(4a_4^3 +27a_6^2).$$ The curve is non-singular, and thus an elliptic curve, if and only if $\Delta_E$ is non-zero. In this case, we introduce the $j-invariant$ of $E$, that is $$j_E=\frac{c_4^3}{\Delta_E}=12^3(-4a_4^3)/\Delta_E.$$
+	Let $E$ be a curve define over $\K$ by the short Weierstrass equations (\ref{ShortWeierstrass}).The \textit{discriminant of the curve} $E$, denoted by $\Delta_E$ satisfies $$\Delta_E=-(4a_4^3 +27a_6^2).$$ The curve is non-singular, and thus an elliptic curve, if and only if $\Delta_E$ is non-zero. In this case, we introduce the \emph{j-invariant of E}, that is $$j_E=\frac{c_4^3}{\Delta_E}=12^3(-4a_4^3)/\Delta_E.$$
 \end{definizione}
 \begin{teorema}
 	Let $\K$ be a field of characteristic prime to 6 and let $E:y^2=x^3+a_4x+a_6$, $E':y'^2=x'^3+a_4'x'+a_6'$ be two elliptic curves over $\K$ with $j$-invariants $j_E,\ j_{E'}$ respectively. If $j_E=j_{E'}$, then there exists $u\in\clK^*$ such that $$a_4'=u^4a_4,\qquad a_6'=u^6a_6.$$  The transformation $$x\mapsto x'=u^2x,\quad y\mapsto y'=u^3y$$ takes one equation to the other.
 \end{teorema}
 \begin{proof}
 Assume $a_4\neq0$. Then we have $j_E=j_{E'}\neq 0$, thus $a_4'\neq 0$. Choose $u\in\clK^*$ such that $a_4'=u^4a_4$, then we have 
-$$\dfrac{4a_4^3}{4a_4^3 +27a_6^2}=\dfrac{4a_4'^3}{4a_4'^3 +27a_6'^2}=\dfrac{4u^{12}a_4^3}{4u^{12}a_4^3 +27a_6'^2}=\dfrac{4a_4^3}{4a_4^3 +27u^{-12}a_6'^2},$$ which implies that $a_6'=\pm u^6a_6$. If $a_6'=u^6a_6$, we're done. Otherwise we can change $u$ to $iu$, where $i\in\clK?^*$ is so that $i^2=-1$. This preserves the relation $a_4'=u^4a_4$ and
+$$\dfrac{4a_4^3}{4a_4^3 +27a_6^2}=\dfrac{4a_4'^3}{4a_4'^3 +27a_6'^2}=\dfrac{4u^{12}a_4^3}{4u^{12}a_4^3 +27a_6'^2}=\dfrac{4a_4^3}{4a_4^3 +27u^{-12}a_6'^2},$$ which implies that $a_6'=\pm u^6a_6$. If $a_6'=u^6a_6$, we're done. Otherwise we can change $u$ to $iu$, where $i\in\clK^*$ is so that $i^2=-1$. This preserves the relation $a_4'=u^4a_4$ and
 also yields $a_6'^2=u^6a_6$. 
 
 If $a_4=0$, then also $a_4'=0$ and since $\Delta_E\neq 0\neq \Delta_{E'}$ we have $a_6\neq 0\neq a_6'$. Thus we can choose $u\in\clK^*$ such that $a_6'=u^6a_6$.
 \end{proof}
 Note that the $j$-invariant tells us when two curves are isomorphic over an algebraically closed field. If we are working with a non-algebraically
-closed field K, then it is possible to have two curves with the same $j$-invariant that cannot be transformed into each other by any transformation with coefficients in $\K$, however, we can use an extension field of $\K$. In agreement with \ref{classificazione2}, two curves with the same $j$-invariant are said to be $twist$ of each other.
+closed field $\K$, then it is possible to have two curves with the same $j$-invariant that cannot be transformed into each other by any transformation with coefficients in $\K$, however, we can use an extension field of $\K$. In agreement with \ref{classificazione2}, two curves with the same $j$-invariant are said to be $twist$ of each other.
 \begin{corollario}
 Assume that the characteristic of $\K$ is prime to 6 and let $E: y^2 = x^3 + a_4x + a_6.$ The invariant $j_E$ depends only on the isomorphism class of $E$.	
 \begin{itemize}
@@ -275,22 +275,22 @@ Assume that the characteristic of $\K$ is prime to 6 and let $E: y^2 = x^3 + a_4
 \end{itemize}
 \end{corollario}
 \begin{corollario}
-	If $\K$ is as above, the isomorphism classes of elliptic curves $E$ over $\K$ are, up to twist, uniquely determined by the invariant $j_E$, and for every $j\in\K$ there exists an elliptic curve with invariant $j$. Moreover, if $K$ is algebraically closed then the isomorphism classes of elliptic curves correspond one-to-one to element in $\K$ via the map $E\mapsto j_E$.
+	If $\K$ is as above, the isomorphism classes of elliptic curves $E$ over $\K$ are, up to twist, uniquely determined by the invariant $j_E$, and for every $j\in\K$ there exists an elliptic curve with invariant $j$. Moreover, if $\K$ is algebraically closed then the isomorphism classes of elliptic curves correspond one-to-one to element in $\K$ via the map $E\mapsto j_E$.
 \end{corollario}
 
 \section{The group law}\label{grplaw}
 \begin{definizione}\label{Kpunti}
 	Let $E$ be an elliptic curve over $\K$ given by a Weierstrass equation (\ref{ell}). We refer to points on the curve $E$ as points with coordinates in $\clK$ satisfying the equation, namely, $$E(\clK)=\left\{(x_1,y_1)\in\clK^2\ :\ y_1^2+a_1y_1+a_3y_1=x_1^3+a_2x_1^2+a_4x_1+a_6\right\}.$$
-	Points on $E$ with coordinates in the base field $\K$ form the set of $\K-rational$ $points$ $of$ $E$; we denote this set by $$E(\K)=\left\{(x_1,y_1)\in\K^2\ :\ y_1^2+a_1y_1+a_3y_1=x_1^3+a_2x_1^2+a_4x_1+a_6\right\}.$$ In general, for any field extension $\K\subset\mathbb{L}\subset\clK$, we denote by $E(\mathbb{L})$ the set of $\mathbb{L}-points$ $of$ $E$.
+	Points on $E$ with coordinates in the base field $\K$ form the set of $\K$\emph{-rational points of E}; we denote this set by $$E(\K)=\left\{(x_1,y_1)\in\K^2\ :\ y_1^2+a_1y_1+a_3y_1=x_1^3+a_2x_1^2+a_4x_1+a_6\right\}.$$ In general, for any field extension $\K\subset\mathbb{L}\subset\clK$, we denote by $E(\mathbb{L})$ the set of $\mathbb{L}$\emph{-points of E}.
 \end{definizione}
 We now turn $E(\clK)$ into an abelian group, with operation denoted by $\oplus$. We define the point $\infp$ to be the identity element, it can be visualized as lying far out of the $y$-axis such that any line $x=c$, for some constant $c$, passes through it. If $P=(x_1,y_1)$ is any other point on the curve, then the equation 
-$$y^2+(a_1x_1+a_3)y-x_1^3-a_2x_1^2-a_4x_1-a_6=0$$ has two solution $y_1,y_2$. Since the sum of the roots of a monic polynomial is equal to minus the coefficient of the second-to-highest power of its indeterminate, we conclude that the other root is $y_2=-y_1-a_1x_1-a_3$. Thus we define the opposite of $P=(x_1,y_1)$ to be the point $\ominus P=(x_1,-y_1-a_1x_1-a_3)$. Note that, in the case of a short Weierstrass equation, we have $\ominus P=(x_1,-y_1)$. 
+$$y^2+(a_1x_1+a_3)y-x_1^3-a_2x_1^2-a_4x_1-a_6=0$$ has two solutions $y_1,\ y_2$. Since the sum of the roots of a monic polynomial is equal to minus the coefficient of the second-to-highest power of its indeterminate, we conclude that the other root is $$y_2=-y_1-a_1x_1-a_3$$. Thus we define the opposite of $P=(x_1,y_1)$ to be the point $\ominus P=(x_1,-y_1-a_1x_1-a_3)$. Note that, in the case of a short Weierstrass equation, we have $\ominus P=(x_1,-y_1)$. 
 
-The most natural way to describe the addition law on elliptic curves is to use geometry. To add two generic points $P=(x_1,y_1)$ and $Q=(x_2,y_2)$, we  draw a line connecting them. This line intercept the curve in tree points, namely, $P,Q$ and a third one $R$. We take the point $R$ and we reflect it across the $x$-axis to get a new point $R'$. We define $P\oplus Q=R'$. The same construction can be applied to double a point $P$ where the connecting line is replaced by the tangent at $P$. The above set of rules can be summarized in the following succinct manner:$$\textit{\text{the sum of the three points where a line intersects the curve is zero}}.$$
-%If the line passes through the point at infinity $\infp$, then this relation has the form $P\oplus(\ominus P)\oplus\infp=\infp$, otherwise it has the form $P\oplus Q\oplus R=\infp$.
+The most natural way to describe the addition law on elliptic curves is to use geometry. To add two generic points $P=(x_1,y_1)$ and $Q=(x_2,y_2)$, we  draw a line connecting them. This line intercept the curve in tree points, namely, $P,Q$ and a third one $R$. We take the point $R$ and we reflect it across the $x$-axis to get a new point $R'$. We define $P\oplus Q=R'$. The same construction can be applied to double a point $P$ where the connecting line is replaced by the tangent at $P$. The above set of rules can be summarized in the following succinct manner:$$\emph{the sum of the three points where a line intersects the curve is zero}.$$
+If the line passes through the point at infinity $\infp$, then this relation has the form $P\oplus(\ominus P)\oplus\infp=\infp$, otherwise it has the form $P\oplus Q\oplus R=\infp$.
 
 We now show why there is exactly one more point where the line through $P$ and $Q$ intersects the curve; at the same time we will derive a formula for the coordinates of this third point, and hence for the coordinates of $P\oplus Q$. Let $\K$ be a field and $E(\clK)$ the set of points of an elliptic curve of the form (\ref{ell}). Let $(x_1,y_1),\ (x_2,y_2)$ and $(x_3,y_3)$ denote the coordinates of $P,Q$ and $P\oplus Q$ respectively. We want to express $x_3$ and $y_3$ 	in terms of $x_1,\ x_2,\ y_1,\ y_2$. Suppose that $P\neq Q$ and $x_1\neq x_2$, then the line through them is not the vertical one, and has slope $$\lambda=\dfrac{y_1-y_2}{x_1-x_2}$$ and passes through $P$, thus its equation is $$y=\lambda x+\dfrac{x_1y_2-x_2y_1}{x_1-x_2}.$$ We denote the constant term by $\mu$ and remark $\mu=y_1+\lambda x_1$. The intersection points with the curve are the solutions of the following cubic equation $$(\lambda x+\mu)^2+(a_1x+a_3)(\lambda x+\mu)=x^3+a_2x^2+a_4x+a_6.$$
-This leads to the equation $r(x)=0$ where $$r(x)=x^3+(a_2-\lambda^2-a_1\lambda)x^2+(a_4-2\lambda\mu-a_3\lambda-a_1\mu)x+a_6-\mu^2-a_3\mu.$$ We already know two roots of $r(x)$, namely the $x$-coordinates of the two points $P$ and $Q$, because they lying on the curve and on the line as well. As above, we know the sum of the tree roots is minus the coefficient of the second-to-highest power of $x$, thus the third root is $x_3 = \lambda^2+a_1\lambda -a_2-x_1-x_2$. As $x_1,x_2$ are define over $\clK$, so are the values $x_3$ and $\overline{y}_3$, as $\overline{y_3}=\lambda x_3 + \mu$. Thus we found the point $R'=(x_3,\overline{y}_3)$. The inflection at the $x$-axis has to be translated to the condition that the second point has the same $x$-coordinate and also satisfies the curve equation. We observe that if $P=(x_1,y_1)$ is on the curve then so is $(x_1,y_1-a_1x_1-a_3)$, which corresponds to $\ominus P$. Hence we find $y_3=-\lambda x_3-\mu-a_1x_3-a_3$. \\
+This leads to the equation $r(x)=0$ where $$r(x)=x^3+(a_2-\lambda^2-a_1\lambda)x^2+(a_4-2\lambda\mu-a_3\lambda-a_1\mu)x+a_6-\mu^2-a_3\mu.$$ We already know two roots of $r(x)$, namely the $x$-coordinates of the two points $P$ and $Q$, because they lying on the curve and on the line as well. As above, we know the sum of the tree roots is minus the coefficient of the second-to-highest power of $x$, thus the third root is $x_3 = \lambda^2+a_1\lambda -a_2-x_1-x_2$. As $x_1,\ x_2$ are defined over $\clK$, so are the values $x_3$ and $\overline{y}_3$, as $\overline{y_3}=\lambda x_3 + \mu$. Thus we found the point $R'=(x_3,\overline{y}_3)$. The inflection at the $x$-axis has to be translated to the condition that the second point has the same $x$-coordinate and also satisfies the curve equation. We observe that if $P=(x_1,y_1)$ is on the curve then so is $(x_1,y_1-a_1x_1-a_3)$, which corresponds to $\ominus P$. Hence we find $y_3=-\lambda x_3-\mu-a_1x_3-a_3$. \\
 Doubling $P=(x_1,y_1)$ works in the same way with the slope obtained by implicit derivation. Thus we have $P\oplus Q=(x_3,y_3)$ and 
 \begin{align*}
 \ominus P &= (x_1,\ -y_1-a_1x_1-a_3) \\
@@ -323,7 +323,10 @@ Let $n\in\N\setminus\left\{0\right\}$. We denote the $scalar$ $multiplication$ $
 \left[n\right]:E(&\clK)\to E(\clK)\\
 &P\mapsto \left[n\right]P=\underbrace{P\oplus P\oplus\dots\oplus P}_{n\ \text{times}}
 \end{align*}
-This definition extends trivially to $n\in\Z$ , setting $\left[0\right]P=\infp$ and $\left[n\right]P=\left[-n\right]\ominus P$ for $n$ negative. The kernel of $\left[n\right]$ is $ker\left[n\right]=\left\{P\in E(\clK):\left[n\right]P=\infp\right\}$. It is denoted by $E\left[n\right]$ and is called $n-torsion$ $subraoup$; its elements are called $n-torsion$ $points$.
+This definition extends trivially to $n\in\Z$ , setting $\left[0\right]P=\infp$ and $\left[n\right]P=\left[-n\right]\ominus P$ for $n$ negative. The kernel of $\left[n\right]$ is $ker\left[n\right]=\left\{P\in E(\clK):\left[n\right]P=\infp\right\}$. It is denoted by $E\left[n\right]$ and is called \emph{n-torsion subgroup}; its elements are called \emph{n-torsion points}.
+\begin{definizione}\label{supsingdef}
+	Let $\K$ be a field of characteristic $p$ and let $E$ be an elliptic curve over $\K$. IF $E[p^r]={\infp}$ for some (and in fact for all) positive integer $r$, then the curve is called \emph{super singular}. Otherwise the curve is called \emph{ordinary}.
+\end{definizione}
 
 We want to describe an algorithm to efficiently compute the scalar multiplication $\left[n\right]P$; this is a is very important feature for cryptographic applications. The underlying idea is to write $n$ in binary expansion, namely, $n=\sum_{i=0}^{k}2^in_{i}$ with $n_{i}\in\left\{0,1\right\}$ and $k=\lceil\log_2n\rceil$. Next we compute the following quantity:
 $$Q_0=P,\ Q_1=2Q_0,\ Q_2=2Q_1,\ldots,\ Q_k=2Q_{k-1}.$$ Notice that $Q_i$ is simply twice the previous $Q_{i-1}$, so $$Q_i=2^iP.$$
@@ -338,7 +341,7 @@ Let $E$ be an elliptic curve over $\K$, let $P\in E(\clK)$ and let $n\geq 2$ be 
 During the $i^{th}$ iteration of the loop, the value of $Q$ is $\left[2^i\right
 ]P$. Since $R$ is
 incremented by $Q$ if and only if $n_i = 1$, the final value of $R$ is
-$$\bigoplus_{i\text{ whit }n_i=1}\left[2^i\right]P=\bigoplus_{i=0}^{k}\left[n_i2^i\right]P=\left[\sum_{i=0}^{k}n_i2^i\right]P=\left[n\right]P.$$
+$$\bigoplus_{i\text{ with }\atop n_i=1}\left[2^i\right]P=\bigoplus_{i=0}^{k}\left[n_i2^i\right]P=\left[\sum_{i=0}^{k}n_i2^i\right]P=\left[n\right]P.$$
 Each iteration of the loop requires one point duplication and at most one point addition, and since $k\leq\log_2n$, the running time of the algorithm is as stated.
 \end{proof}
 \begin{table}
@@ -394,8 +397,8 @@ In a NAF representation, there do not exist two consecutive non-zero coefficient
 the case: it can be shown \cite{CiJo} that, on average, an $k$-bit integer contains $\frac{k}{2}$ zeroes in
 its binary representation and $\frac{2k}{3}$ zeroes in its NAF representation.
 These results make it easy to compare the average efficiency of the double-and-add using a binary representation, to the double-and-add-or-subtract using the NAF representation. Each algorithm requires $k$ doublings, but the number of additions (or subtractions) is $\frac{k}{2}$ in the first case, and $\frac{2k}{3}$ in the second case. If we assume that a doubling takes roughly the same amount of time as an addition (or subtraction), then the ratio of the average times required by the two algorithms is approximately $$\dfrac{k+\frac{k}{2}}{k+\frac{2k}{3}}=\dfrac{9}{8}.$$ We have therefore obtained a (roughly) $11\%$ speedup, on average, by this simple technique.
-\section{Elliptic curves over finite field}
-For cryptographic applications we are mostly interested in elliptic curves over finite fields. For simplicity, we only consider elliptic curves defined over a finite field $\Fq$ where $q > 3$ is a prime, so we can always assume that $E/\Fq$ is given by a short Weierstrass equation. 
+\section{Elliptic curves over finite fields}\label{ellfinfilar}
+For cryptographic applications we are mostly interested in elliptic curves over finite fields. Here we only consider elliptic curves defined over a finite field $\Fq$ where $q > 3$ is a prime, so we can always assume that $E/\Fq$ is given by a short Weierstrass equation. 
 \begin{definizione}
 	Let $q > 3$ be a prime. An elliptic curve $E$ over $\Fq$ is given by the short Weierstrass equation
 \begin{equation}\label{ellff}
@@ -403,10 +406,11 @@ y^2 = x^3 + a_4x + a_6,\ \text{where}\ a_4,a_6\in\Fq
 \end{equation}
 satisfy $4a_4^3+27a_6^2\neq 0 \mod q.$ 
 \end{definizione}
-Points on the curve are solutions $(x,y)$ of (\ref{ellff}), lying on $\clF_q^2$. If $e\geq 1$ is an integer we can consider the field extension $\Fqe$ of $\Fq$. Thus $\Fqe-points$ are the solutions $(x,y)$ of (\ref{ellff}), lying on $\Fqe$.  It is clear that an elliptic curve over a finite field has only finitely many points with
+Points on the curve are solutions $(x,y)$ of equation (\ref{ellff}), lying on $\clF_q^2$. If $e\geq 1$ is an integer we can consider the field extension $\Fqe$ of $\Fq$. Thus $\Fqe$\emph{-points} are the solutions $(x,y)$ of (\ref{ellff}), lying on $\Fqe$.  It is clear that an elliptic curve over a finite field has only finitely many points with
 coordinates in that finite field. Therefore, we obtain a finite abelian group in this case. A classic result of Hasse, \cite{Wash},\cite{Sil2}, shows that  $|E(\Fqe)|=q^e+1-t$, for some integer $t$ such that $|t|\leq 2\sqrt{q^e}$.  This shows that the number of points on $E(\Fqe)$ is close to $q^e + 1.$ An algorithm due to Schoof \cite{Sch} can be used to compute the number of points in $E(\Fqe)$ in time polynomial in $\log(q^e)$. Hence, $|E(\Fqe)|$ can be computed efficiently even for a large prime $q$. Elkies and Atkin showed how to reduce the running time, and the resulting point counting method is called the Schoof-Elkies-Atkin algorithm, or
 simply, the $SEA$ $algorithm$.
-In the previous section we explained the group law in general, with emphasis on algorithms in tables (\ref{doubadd}) and (\ref{doubaddsub}), which state that the multiplication by an integer is base on the addition and doubling. For cryptographic purposes is very important for this operation to be as fast as possible. Here we present some technique to achieve the goal. We summarize the formulas for addition and doubling; now the operations are performed in $\Fqe$ and because of the short Weierstrass form, if $P = (x,y)$ is a point of the curve different from $\infp$, then we have $\ominus P = (x,-y)$.
+
+In the previous section we explained the group law in general, with emphasis on algorithms in tables (\ref{doubadd}) and (\ref{doubaddsub}), which state that the multiplication by an integer can be computed very efficiently by adding and doubling points . For cryptographic purposes is very important for this operation to be as fast as possible. Here we present some technique to achieve the goal. We summarize the formulas for addition and doubling; now the operations are performed in $\Fqe$ and because of the short Weierstrass form, if $P = (x,y)$ is a point of the curve different from $\infp$, then we have $\ominus P = (x,-y)$.
 
 Let $P = (x_1, y_1)$ and $Q = (x_2, y_2)$ be two points in $E(\Fqe)$. The sum $P\oplus Q= (x_3, y_3)$ is defined using one of the following three rules:
 \begin{itemize}
@@ -434,7 +438,7 @@ We note that no inversion is needed and the computations times are $12\mathcal{M
 %\footnote{You can find an implementation of the above formulas written in Rust on my repository \cite{repo}. I really appreciated the efficiency of the projective coordinates formulas when running the implicit baby-step-giant-step which we describe in the next chapter.}
 
 We conclude this chapter by giving a brief description of $Montgomery$ $curves$ and $Edwards$ $curves$, which are better suited for computation than the
-Weierstrass form; for more details we refer to \cite{Wash},\cite{Coh1},\cite{mong}. Then we introduce some curves we will need to develop our analysis. They are recommended by NIST \cite{nist} and are of common use in cryptography. In next chapters we will study some weakness of these curves.
+Weierstrass form; for more details we refer to \cite{Wash},\cite{Coh1},\cite{mong}. Then we introduce some curves we will need to develop our analysis. They are recommended by NIST \cite{nist} and are of common use in cryptography. In next chapters we will study some weakness of these standardized curves.
 \subsection{Montgomery curves}
 A Montgomery curve $E$ over $\Fq$ is define by the equation 
 \begin{equation}
@@ -453,10 +457,64 @@ $$
 An interesting feature is that there's no need for three separate rules for $[2]P$ and
 $P\oplus Q$ when $P\neq Q$. The formula for adding points can be written in projective coordinates. The
 resulting computation takes $10\mathcal{M}$ and $1\mathcal{S}$ for both point addition and point doubling \cite{Wash}.
+\section{Arithmetic of elliptic curves defined over $\mathbb{F}_{2^d}$}
+Here we consider elliptic curves over $\F_{2^d}$. We discuss the transfer to short Weierstrass equations and state formulas for the arithmetic on super-singular and ordinary elliptic curves. The curves given in Weierstrass form $$y^2+a_1xy+a_3y=x^3+a_2x^2+a_4x+a_6$$ can be transformed depending on the value of $a_1$.
+\subsection{Super-singular curves}
+Assume $a_1=0$. As stated in Definition \ref{ell}, an elliptic curve has to be smooth, thus we need to have $a_3\neq 0$. The transformation $x\mapsto x'=x+a_2,$ leads to the equations $$E:y^2+a_3y=x^3+a_4'x+a_6',$$ which is non singular since $a_3\neq 0$. By the general group law formulas described in section \ref{grplaw}, we know that if $P=(x_1,y_1)$ is a point on the curve $E$, then its opposite is $-P=(x_1,y_1+a_3)$ (remember we are in characteristic 2). Thus, such a curve $E$ has no point $P$ of order two, otherwise we must have $y_1=y_1+a_3$, which leads to $a_3=0$. Therefore, $E[2]=\left\{\infp\right\}$ and $E$ is super-singular by Definition \ref{supsingdef}. The arithmetic on the super-singular curve $E:y^2+a_3y=x^3+a_4x+a_6$ is given by the following formulas where $P=(x_1,y_1)$ and $Q=(x_2,y_2)$ are two points in $E(\F_{2^d})$:
+\begin{itemize}
+	\item $\ominus P=(x_1,y_1+a_3)$.
+	\item If $P\ne Q$ and $P\neq\ominus Q$, we have $P\oplus Q=(x_3,y_3)$ where
+	$$x_3=\lambda^2+x_1+x_2,\qquad y_3=\lambda(x_1+x_3)+y_1+a_3,\qquad\lambda=\dfrac{y_1+y_2}{x_1+x_2}.$$
+	\item If $P\neq\ominus P$, we have $[2]P=(x_3,y_3)$, where 
+	$$x_3=\lambda^2,\qquad y_3=\lambda(x_1+x_3)+z_1+a_3,\qquad\lambda=\dfrac{x_1^2+a_4}{a_3}.$$
+\end{itemize}
+%\begin{esempio}
+%mettere esempio ????
+%\end{esempio}
+\subsection{Ordinary curves}
+If $a_1\neq 0$, the transformations $$y\mapsto a_1^3y+\dfrac{a_3^2+a_1^2a_4}{a_1^3},\ x\mapsto a_1^2x+\dfrac{a_3}{a_1},$$ followed by a division by $a_1^6$ leads to an isomorphic curve give by $$y^2+xy=x^3+a_2'x^2+a_6',$$
+which is non singular whenever $a_6'\neq 0$. In this case the curve is ordinary. As for curves over prime fields, we give formulas for arithmetic in both affine and projective coordinates. 
+As in section \ref{ellfinfilar}, an elementary multiplication in $\F_{2^d}$  (respectively a squaring and an inversion) will be denoted by $\mathcal{M}$ (respectively $\mathcal{S}$ and $\mathcal{I}$).
+\subsection*{Affine Coordinates}
+As discussed above, we can choose an elliptic curve of the form $$E:y^2+xy=x^3+a_2x^2+a_6.$$ Let $P=(x_1,y_1)$ be a point of $E(\F_{2^d})$, then the opposite of $P$ is $\ominus P = (x_1,y_1+x_1)$.
+\subsection*{Addition}
+Let $P=(x_1,y_1)$ and $Q=(x_2,y_2)$ be points of $E(\F_{2^d})$ with $P\neq \ominus Q$, then $P\oplus Q=(x_3,y_3)$ is given by
+$$x_3=\lambda^2+\lambda+x_1+x_2+a_1,\qquad y_3=\lambda(x_1+x_3)+x_3+y_1,\qquad\lambda=\dfrac{y_1+y_2}{x_1+x_2}.$$
+\subsection*{Doubling}
+Let $P=(x_1,y_1)$ be a point of $E(\F_{2^d})$, then $[2]P=(x_3,y_3)$ is given by
+$$x_3=\lambda^2+\lambda+a_2,\qquad y_3=\lambda(x_1+x_3)+x_3+y_1,\qquad \lambda=x_1+\dfrac{y_1}{x_1}.$$
+Thus, an addition and a doubling require exactly the same number of operation. that is $\mathcal{I}+2\mathcal{M}+\mathcal{S}$.
+\subsection*{Projective Coordinates}
+The corresponding projective equation is the curve given by $$E_{hom}: Y^2Z+XYZ=X^3+a_2X^2Z+a_6Z^3.$$
+As discussed previously, we let $(X_1:Y_1:Z_1)$ represent the affine point $(X_1/Z_1,Y_1/Z_1)$ provided that $Z_1\neq 0$ and $(0:1:0)$ otherwise. The opposite of $P$ is $\ominus P =(X_1:X_1+Y_1:Z_1)$. 
+\subsection*{Addition}
+Let $P=(X_1:Y_1:Z_1)$ and $Q=X_2:Y_2:Z_2)$ be points of $E_{hom}(\F_{2^d})$,with $P\neq \ominus Q$, then $P\oplus Q=(X_3:Y_3:Z_3)$ is given by
+\begin{center}
+\begin{tabular}{lll}
+
+	$A=Y_1Z_2+Y_2Z_1,$ & $B=Z_1Z_2+X_2Z_1,$ & $C=B^2,$\\
+	$D=Z_1Z_2,$ & $E=(A^2+AB+a_2C)D+BC,$ & \\
+	$X_3=CE,$ & $Y_3=C(AX_1+Y_1B)Z_2+(A+B)E,$ &$Z_3=B^3D.$	
+\end{tabular}
+\end{center}
+\subsection*{Doubling}
+Let $P=(X_1:Y_1:Z_1)$  be a point of $E_{hom}(\F_{2^d})$, then $[2]P=(X_3:Y_3:Z_3)$ is given by
+\begin{center}
+	\begin{tabular}{lll}
+		
+		$A=X_1^2,$ & $B=A+Y_1Z_1,$ & $C=X_1Z_1,$\\
+		$D=C^2,$ & $E=(B^2+BC+a_2D),$ & \\
+		$X_3=CE,$ & $Y_3=(B+C)E+A^2C,$ &$Z_3=CD.$	
+	\end{tabular}
+\end{center}
+We note that in projective coordinates no inversion is needed. An addition required $6\mathcal{M}+2\mathcal{S}$ and a doubling $8\mathcal{M}+4\mathcal{S}$. If the addition receives one input point in affine coordinates, i.e., as $(X_2:Y_2:1)$, the costs reduce to $12\mathcal{M}+2\mathcal{S}$.
 \section{Some example of NIST recommended curves}\label{NISTcurves}
-Two widely used elliptic curves, called $\mathbf{secp256r1}$ and $\mathbf{secp256k1}$ \cite{nist}. They both are
+In 1994,  NIST has standardized elliptic curve cryptography for digital signature algorithms FIPS 186 and for key establishment schemes in SP 800-56A. However, more than fifteen years have passed since these curves were first developed, and the community now knows more about the security of elliptic curve cryptography and practical implementation issues. Advances within the cryptographic community have led to the development of new elliptic curves and algorithms whose designers claim to offer better performance and are easier to implement in a secure manner. In 2023 NIST published Federal Information Processing Standard (FIPS) 186-5\cite{fips}, \emph{Digital Signature Standard }(DSS), along with NIST Special Publication (SP) 800-186 \cite{nist}, \emph{Recommendations for Discrete Logarithm-based Cryptography: Elliptic Curve Domain Parameters}. The former specifies a suite of algorithms that can be used to generate a digital signature, the latter specifies the set of elliptic curves recommended for U.S. Government use. In addition to the previously recommended Weierstrass curves defined over prime fields and binary fields, this Recommendation includes two newly specified Edwards curves, which provide increased performance, side-channel resistance, and simpler implementation when compared to traditional curves.
+
+Here we describe some of the standardized curves and in next chapter we discuss some weakness they have. Two widely used elliptic curves, called $\mathbf{secp256r1}$ and $\mathbf{secp256k1}$ \cite{nist}. They both are
 defined over a 256-bit prime field. The curve secp256r1
 is widely used in Internet protocols, while secp256k1 is widely used in blockchain systems.
+\subsection{Curves Over Prime Fields}
 \subsection*{The curve secp256r1}
 This curve was approved by the U.S. National Institute of Standards
 (NIST) for federal government use in a standard published in 1999. The NIST standard refers to this curve as $\mathbf{Curve\ P256}$. The curve secp256r1 is defined as follows:
@@ -464,7 +522,12 @@ This curve was approved by the U.S. National Institute of Standards
 	\item The base field is $\F_q$ where $q=2^{256}-2^{224}+2^{192} +2^{96}-1.$
 	\item The curve has the Weierstrass form $y^2 = x^3-3x+b,$ where $b\in\Fq$ is generated by a public deterministic algorithm.
 	\item The group $E(\F_q)$ is cyclic of prime order $$p=115792089210356248762697446949407573529996955224135760342422259061068512044369.$$ 
-	\item The standard also specifies a generator $G$.
+	\item The standard also specifies the generator $G$:
+	\begin{align*}
+		x_G=&48439561293906451759052585252797914202\\
+		&762949526041747995844080717082404635286\mod q,\\ y_G=&36134250956749795798585127919587881956\\
+		&611106672985015071877198253568414405109\mod q.
+	\end{align*}
 \end{itemize}
 \subsection*{The curve secp256k1}
  This curve was selected for the digital signature scheme in the Bitcoin blockchain. Subsequent blockchains
@@ -473,7 +536,12 @@ inherited the same curve. It is the one used to map users' private keys to Ether
 	\item The base field is $\F_q$ where $q=2^{256}-2^{32}-2^9-2^8-2^7-2^6-2^4-1.$
 	\item The curve has the Weierstrass form $y^2 = x^3+7.$
 	\item The group $E(\F_q)$ is cyclic of prime order $$p=115792089237316195423570985008687907852837564279074904382605163141518161494337.$$ 
-	\item The standard also specifies a generator $G$.
+	\item The standard also specifies a generator $G$:
+	\begin{align*}
+		x_G=&55066263022277343669578718895168534326250603453\\
+		&77594175500187360389116729240\mod q,\\ y_G=&32670510020758816978083085130507043184471273380\\
+		&659243275938904335757337482424\mod q.
+	\end{align*}
 \end{itemize}
 This curve has a useful map define on it. We have that $q\equiv 1\mod 3$, therefore there exists $1\neq\omega\in\mathbb{F}_q$ such that $w^3=1$. Now, consider the map $\phi:\mathbb{F}_q^2\to\mathbb{F}_q^2$ define by $\phi(x,y):=(\omega x,y)$. We note that if $(x,y)\in E(\mathbb{F}_q)$, then so does $\phi(x,y)\in E(\mathbb{F}_q)$; this is obvious since $\omega^3=1$. We define $\phi(\infp)=\infp$ and we note that if $P=(x_1,y_1)$ and $Q=(x_2,y_2)$ are points in $E(\mathbb{F}_q)$, then we have $$\phi(P)\oplus\phi(Q)=(\omega x_1,y_1)\oplus(\omega x_2,y_2)=(\omega(\lambda^2- x_1-x_2), \lambda(x_1-x_3)-y_1)=\phi(P\oplus Q),$$ where we used the formula from section \ref{grplaw} together with the identity $\omega^{-2}=\omega$. Thus $\phi$ is a group homomorphism, and since $E(\mathbb{F}_q)$ is cyclic of prime order $p$, there must be a constant $\lambda\in\Z_p$ such that for all $P\in E(\mathbb{F}_q)$, we have $\phi(P)=[\lambda]P$.  We want to find such a $\lambda$. We note that the tree points $P$, $\phi(P)$ and $\phi^2(P)$ all have the same $y$-coordinate and as stated in section \ref{grplaw}, this means that for all $P\in E(\mathbb{F}_q)$, we must have $$\infp=P+\phi(P)+\phi^2(P)=\infp=[1+\lambda+\lambda^2]P.$$ Therefore we can conclude that $1 + \lambda+\lambda^2 = 0$ in $\Z_p$. Hence, $\lambda$ must be one of the two non-trivial cube roots of unity in $\Z_q$. Indeed, $p\equiv 1\mod 3$, such a non-trivial root exists in $\Z_p$. This could be useful to speed up scalar multiplication. Suppose we want to calculate $[\alpha]P$ for some $\alpha\in\Z_p$. For most $\alpha$ in $\Z_p$ one can find $\tau_0,\tau_1,\tau_2$, such that $$\alpha=\tau_0+\tau_1\lambda+\tau_2\lambda^2,\ \text{with}\ \tau_i\leq2p^{1/3}\ \text{for}\ i=0,1,2.$$ Thus, we have $[\alpha] P = [\tau_0] P+[\tau_1]\phi(P)+[\tau_2]\phi^2(P).$ This equality converts a multiplication by $\alpha$ into three multiplications where the multipliers $\tau_0,\tau_1,\tau_2$ are much smaller than $\alpha$.
 \subsection*{The curve P-224}
@@ -482,7 +550,11 @@ The curve P-224 is defined as follows:
 	\item The base field is $\F_q$ where $q=2^{224}-2^{96}+1.$
 	\item The curve has the Weierstrass form $y^2 = x^3-3x+b,$ where $b\in\Fq$ is generated by a public deterministic algorithm.
 	\item The group $E(\F_q)$ is cyclic of prime order $$p=26959946667150639794667015087019625940457807714424391721682722368061.$$ 
-	\item The standard also specifies a generator $G$.
+	\item The standard also specifies the generator $G$:
+	\begin{align*}
+		x_G=&19277929113566293071110308034699488026831934219452440156649784352033\mod q,\\
+		y_G=&19926808758034470970197974370888749184205991990603949537637343198772\mod q.
+	\end{align*}
 \end{itemize}
 The quadratic twist of this curve has order $h\cdot r$,
 where $h=3^2\cdot11\cdot47\cdot3015283\cdot40375823\cdot267983539294927$, and $r$ is a $117$-bit prime number. This value
@@ -498,15 +570,64 @@ The curve P-384 is defined as follows:
 		p=&3940200619639447921227904010014361380507973927046544666794\\
 		&6905279627659399113263569398956308152294913554433653942643
 	\end{align*}
-	\item The standard also specifies a generator $G$.
+	\item The standard also specifies the generator $G$:
+	\begin{align*}
+		x_G=&2624703509579968926862315674456698189185292349110921338781\\
+		&5615900925518854738050089022388053975719786650872476732087\mod q,\\
+		y_G=&832571096148902998554675128952010817928785304886131559470\\
+		&9205902480503199884419224438643760392947333078086511627871\mod q.
+	\end{align*}
 \end{itemize}
+\subsection*{P-521}
+The curve P-521 is defined as follows:
+\begin{itemize}
+	\item The base field is $\F_q$ where $q=2^{521}-1.$
+	\item The curve has the Weierstrass form $y^2 = x^3-3x+b,$ where $b\in\Fq$ is generated by a public deterministic algorithm.
+	\item The group $E(\F_q)$ is cyclic of prime order 
+	\begin{align*}
+		p=&6864797660130609714981900799081393217269435300143305409394463459185543183397655394245057746\\
+		&333217197532963996371363321113864768612440380340372808892707005449
+	\end{align*}
+		\item The standard also specifies the generator $G$:
+	\begin{align*}
+		x_G=&2661740802050217063228768716723360960729859168756973147706\\
+		&6713684188029449964278084915450806277719023520942412250655\\
+		&58662157113545570916814161637315895999846\mod q\\
+		y_G=&37571800257700204635455072244911836035944551347697624866945\\
+		&67779615544477440556316691234405012945539562144444537289428\\
+		&522585666729196580810124344277578376784\mod q.
+	\end{align*}
+\end{itemize}
+\subsection*{W-25519}
+The curve W-25519 is defined as follows:
+\begin{itemize}
+	\item The base field is $\F_q$ where $q=2^{255}-19.$
+	\item The curve has the Weierstrass form $y^2 = x^3+ax+b,$ where
+	\begin{align*}
+	a=&19298681539552699237261830834781317975544997444273427339909597334573241639236,\\
+	b=&55751746669818908907645289078257140818241103727901012315294400837956729358436.
+	\end{align*}
+	\item The group $E(\F_q)$ has order $hq$, where $h = 8$, and  
+	\begin{align*}
+		q=&7237005577332262213973186563042994240857116359379907606001950938285454250989.
+	\end{align*}
+	\item The standard also specifies the generator $G$:
+	\begin{align*}
+		x_G=&219298681539552699237261830834781317975\\
+		&544997444273427339909597334652188435546\mod q\\
+		y_G=&43114425171068552920764898935933967039\\
+		&370386198203806730763910166200978582548\mod q.
+	\end{align*}
+\end{itemize}
+
+
 
 \chapter{Implicit baby step giant step algorithm}
 Public-key cryptography is based on the idea of one-way functions: in rough terms these are functions, whose inverse functions cannot be computed in any reasonable amount of time. If we use such a function for encryption, an adversary will in principle not be able to decrypt the encrypted messages. Once we establish a one way function, we can instantiate protocols for authentication, signature, etc. The resulting systems are called $public$ $key$ $cryptosystems$. 
 
 In the first chapter we saw that the set of points of an elliptic curve is a finite abelian group. We also described algorithms for scalar multiplication as well as some technique to speed up the computation. In a general setting, however, the inverse operation, called $discrete$ $logarithm$, is not as fast; there is no known algorithm that can compute discrete logarithm in $E(\Fq)$ much faster than $O(\sqrt{p})$  where $p$ is the order of $P$ in $E(\Fq)$. This makes the scalar multiplication a one way function from the group $E(\Fq)$ to itself and we can build the $public$ $key$ $elliptic$ $curve$ $cryptosystem.$ 
 
-In this chapter we present an algorithm to solve the discrete logarithm problem. Such an algorithm can be use to determine whether a public key comes from a weak private key subject to a given computational bound, and if so, recover the private key from the corresponding public key. We follow the work of M. J. Jacobson and P. Kushwaha, \cite{Pra1},\cite{Pra2} whose results are inspired by the work of Maurer and Wolf \cite{Mau}.
+In this chapter we present an algorithm to solve the discrete logarithm problem. Such an algorithm can be used to determine whether a public key comes from a weak private key subject to a given computational bound, and if so, recover the private key from the corresponding public key. We follow the work of M. J. Jacobson and P. Kushwaha, \cite{Pra1},\cite{Pra2} whose results are inspired by the work of Maurer and Wolf \cite{Mau}.
 
 \section{Discrete logarithm problem}
 Since our main focus are elliptic curves, we write our group $(G,\oplus)$ additively. Results applies to multiplicative groups $mutatis$ $mutandis$.
@@ -584,7 +705,7 @@ We put $m:=\lfloor\sqrt{p}\rfloor$ and we build the two following lists:
 \end{center}
 In time $O( m \log m)$ we will find a match that solves the discrete logarithm problem. The algorithm described above is what we call $implicit$ $baby$ $step$ $giant$ $step$. It is interesting to note that this idea can be improved if a divisor $d$ of $p-1$ is known. 
 
-Let $z_d=z^{\frac{p-1}{d}}$ a generator for the order $d$ subgroup of $\Zpstar$. We can put $m:=\lfloor \sqrt{d}\rfloor+1$ and run the implicit baby step giant step by using $z_d$ instead of $z$. If happens that the unknown $\alpha$ lies in the $d$ order subgroup of $\Zpstar$, then $\alpha$ will be equal to $z_d^k$ for some $k$ modulus $d$ and the algorithm will find a match $[z_d^{-jm}]Q=[z_d^i]P$. Hence, $[z_d^{-jm}][\alpha]P=[z_d^i]P$, which lead to $\alpha=z_d^{i+jm}$ and the discrete logarithm problem is solved in times $O(m\log m)$, where now $m=\lfloor\sqrt{d}\rfloor+1$. The difference here is that after at most $d$ iterations we will have either found $\alpha$ or verified that $\alpha$ is not in the order $d$ subgroup. Thus, if $d$ is sufficiently small, the discrete logarithm problem can be solved much easier then would otherwise, provided that $\alpha$ lies in the $d$ order subgroup. On the other hand, if $\alpha$ is not in the $d$ order subgroup, then the algorithm will not find a match. We summarize in the following.
+Let $z_d=z^{\frac{p-1}{d}}$  be a generator for the order $d$ subgroup of $\Zpstar$. We can put $m:=\lfloor \sqrt{d}\rfloor+1$ and run the implicit baby step giant step by using $z_d$ instead of $z$. If happens that the unknown $\alpha$ lies in the $d$ order subgroup of $\Zpstar$, then $\alpha$ will be equal to $z_d^k$ for some $k$ modulus $d$ and the algorithm will find a match $[z_d^{-jm}]Q=[z_d^i]P$. Hence, $[z_d^{-jm}][\alpha]P=[z_d^i]P$, which lead to $\alpha=z_d^{i+jm}$ and the discrete logarithm problem is solved in times $O(m\log m)$, where now $m=\lfloor\sqrt{d}\rfloor+1$. The difference here is that after at most $d$ iterations we will have either found $\alpha$ or verified that $\alpha$ is not in the order $d$ subgroup. Thus, if $d$ is sufficiently small, the discrete logarithm problem can be solved much easier then would otherwise, provided that $\alpha$ lies in the $d$ order subgroup. On the other hand, if $\alpha$ is not in the $d$ order subgroup, then the algorithm will not find a match. We summarize in the following.
 \begin{teorema}
 	Let $G$ be an additive, cyclic group of prime order $p$, with generator $P$. Let $Q=[\alpha]P$ be another given element of $G$ (with $\alpha$ unknown). For a given divisor $d$ of $p-1$, let $D$ be the subgroup of $\Zpstar$ of order $d$. Then, one can decide whether or not $\alpha$ belong to $D$ in $O(\sqrt{d})$ steps. Moreover, if $\alpha$ belong to $D$, the same algorithm will find the discrete logarithm $\alpha$ in $O(\sqrt{d})$ steps.
 \end{teorema} 
@@ -630,8 +751,26 @@ The elliptic curve group secp256k1 is cyclic of prime order $$p=1157920892103562
 	\text{div}B=&[1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 149, 192, 298, 447,
 	 596, 631, 894, 1192, \\&1262, 1788, 1893, 2384, 2524, 3576, 3786, 4768,5048, 7152, 7572, 9536, 10096, \\&14304, 15144, 20192, 28608, 30288, 40384,60576, 94019, 121152, 188038, \\& 282057, 376076, 564114, 752152,1128228, 1504304, 2256456, 3008608,\\&  4512912, 6017216, 9025824, 18051648].
 \end{align*}
-By the formulas above we find that $n_B=24.10$ and $c_B=13.05$. This means that there are approximately $2^{24}=16777216$ weak keys lying in subgroups of order below the bound $B$.
+By the formulas above we find that $$n_B=24.10\text{ and }c_B=13.05.$$ This means that there are approximately $2^{24}=16777216$ weak keys lying in subgroups of order below the bound $B$.
 \lstinputlisting[caption={pari-gp code: Analysis of weak keys in secp256k1},style=mystyle,language=pari,label=gpcode]{weak_analysis.gp}
+We summerize the analysis of weak keys in the following table.
+	\begin{table}
+		\caption{Weak keys analysis with bound $B=2^{32}$}
+		\centering
+	\begin{tabular}{l c c c}
+		\hline\hline
+		Curve & $b(p)$ & $n_B$ & $c_B$\\
+		\hline
+		secp256k1 & 256 & 24.10 & 13.05\\
+		secp256r1 & 256 & 35.98 & 21.54\\
+		P-224 & 224 & 28.99 & 15.54\\
+		P-192 & 192 & 17.54 & 9.77 \\
+		P-384 &  384 & 13.57 & 7.80\\
+		P-521 &  521 & 31.46 & 16.78\\
+		\hline\hline
+	\end{tabular}
+\end{table}
+
 %% Fine dei capitoli normali, inizio dei capitoli-appendice (opzionali)
 \appendix
 
