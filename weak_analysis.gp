@@ -1,7 +1,7 @@
-/*Analysis of weak keys for the elliptic curve secp256k1
+/*Analysis of weak keys for the elliptic curve secp256k1 */
 p=115792089237316195423570985008687907852837564279074904382605163141518161494337;
 B=2^32;
-/* Divisors of p-1 /*
+/* Divisors of p-1 */
 div=divisors(p-1);
 /* Divisors of p-1 below the bound B */
 divB=div;
