@@ -640,7 +640,7 @@ In this chapter we present an algorithm to solve the discrete logarithm problem.
 \section{Discrete logarithm problem}
 Since our main focus are elliptic curves, we write our group $(G,\oplus)$ additively. Results applies to multiplicative groups $mutatis$ $mutandis$.
 \begin{definizione}
-Let $(G,\oplus)$ be an additive cyclic group of prime order $p$ and and let $P$ be a generator for $G$. The map
+Let $(G,\oplus)$ be an additive cyclic group of prime order $p$ and let $P$ be a generator for $G$. The map
 \begin{align*}
 	\varphi:\ &\Z\ \to\ G\\
 	&n\ \mapsto\ [n]P=\underbrace{P\oplus P\oplus\dots\oplus P}_{n\ \text{times}}
@@ -653,7 +653,7 @@ is $n$ it self. Also, if the generator is chosen to be $a\in\Z_p$, this problem 
 \section{Baby step, giant step algorithm}
 The baby-step giant-step algorithm was first published by Shanks \cite{Sha}, the first application of this method was to compute ideal class numbers of quadratic number fields \cite{Sha},\cite{Coh2}. It can be used for discrete logarithm computation and we shall present it in this form, which is more general. Order computation is then solving $[n]P=\infp$ with $n\neq 0$ (and of course with unknown order). The baby-step giant-step method is based on the following: 
 \begin{lemma}\label{diveuc}
-	Let $n$ be a positive integer. Put $m:=\lfloor \sqrt{n}\rfloor+1$. Then for any $\alpha$ with $0\leq \alpha<p$ there are integers $i,j$, with $0\leq i,j\leq m-1$, such that $\alpha=i+jm$.
+	Let $n$ be a positive integer. Put $m:=\lfloor \sqrt{n}\rfloor+1$. Then for any $\alpha$ with $0\leq \alpha<n$ there are integers $i,j$, with $0\leq i,j\leq m-1$, such that $\alpha=i+jm$.
 \end{lemma}
 \begin{proof}
 	If we divide $\alpha$ by $m$ we have $\alpha=jm+i$ with $0\leq i\leq m-1$. We note that $\alpha\leq n-1 = m^2-1=m(m-1)+(m-1)$ and we know that $i\leq m-1$. Hence we have $0\leq j\leq m-1$.
@@ -675,7 +675,7 @@ Assume now that the order of $P\in G$ is $n$ and $\alpha$ an integer modulus $n$
 Then there exists $0\leq i, j < m$ such that $Q\oplus[-jm]P = [i]P$ and $\alpha=jm+i$ is the solution to the discrete logarithm problem.
 \end{proposizione}
 \begin{proof}
-	To compute the two lists we take at most $2m=$ group operations. By Lemma \ref{diveuc}, there exists a match between the two lists, that can be found in $\log \sqrt{n}$ steps by using standard searching algorithms or hash tables. Hence, the total running	time for the algorithm is $O( m\log m)$ steps.
+	To compute the two lists we take at most $2m$ group operations. By Lemma \ref{diveuc}, there exists a match between the two lists, that can be found in $\log \sqrt{n}$ steps by using standard searching algorithms or hash tables. Hence, the total running time for the algorithm is $O( m\log m)$ steps.
 \end{proof}
 \section{A security twist}
 In remark \ref{twistsecurity} we saw that every elliptic curve $E: y^2=x^3 + a_4x + a_6$ over $\Fq$ has a related twist curve which short Weierstrass equation is given by $\tilde{E}_v:y^2=x^3+a_4v^2x+a_6v^3$, where $v\in\Fq$ is a quadratic non-residue. From this form one sees that the two groups $E(\Fq)$ and $\tilde{E}_v(\Fq)$ together contain exactly two points $(x, y_i)$ for each field element $x\in\Fq$, and they both contain the identity $\infp$. So we have $| E(\Fq)|+| \tilde{E}_v(\Fq)|=2q+2$. Since the number of points on $E(\Fq )$ is $p + 1 - t$, it follows that the number of points on $\tilde{E}(\Fq )$ must be $\tilde{n}:= p + 1 + t$. 
@@ -695,9 +695,9 @@ twist is $\simeq 218$ times easier than on secp256k1.
 In this section we describe an implicit version of the baby step giant step algorithm, which comes from an idea of Maurer and Wolf \cite{Mau}. We use the multiplicative group $\Zpstar$ as $auxiliary$ $group$, thus we reduce the discrete logarithm problem of $(G,\oplus)$ to a problem in $\Zpstar$. The advantage of this approach is that $\Zpstar$ has many subgroup and one can exploit its rich and well understood subgroup structure. 
 
 Assume $(G,\oplus)$ to be a finite, additive, cyclic group of prime order $p$ and let $P$ be a generator. We define the following map:
-\begin{alignat*}{3}
-	\rho: \Zpstar &\longrightarrow \aut(G) \\
-	\alpha &\longmapsto\rho_\alpha:&G&\longrightarrow G\\
+\begin{alignat*}{2}
+	\rho:\Zpstar &\longrightarrow& \aut(G) \\
+	\alpha &\longmapsto&\rho_\alpha:G&\longrightarrow G\\
 	&&P& \longmapsto {}[\alpha]P
 \end{alignat*}
 It is easy to see that $\rho$ is a group homomorphism with kernel $$\ker\rho=\{\alpha\in\Zpstar:\rho_\alpha(P)=P\}=\{1\}.$$ If $\varphi\in\aut(G)$ and $P$ is a generator for $G$, then $\varphi(P)=[\lambda]P$ for some $\lambda\in\Zpstar$. Thus we have an isomorphism $\Zpstar\simeq\aut(G)$ and we can identify the element $[\alpha]P\in G$ with $\alpha\in\Zpstar$. 
@@ -764,20 +764,47 @@ By the formulas above we find that $$n_B=24.10\text{ and }c_B=13.05.$$ This mean
 
 Note that the time required to count weak keys for a particular curve is dominated by the computation of the divisors of $p-1$, and thus by factoring. Therefore, a complete analysis can be performed in several days. Table \ref{weakkeysanal} summarize the weak key analysis for curves presented in section \ref{NISTcurves}; a complete analysis for other standardized curves in \cite{Pra2}.
 	\begin{table}\label{weakkeysanal}
-		\caption{Weak keys analysis}
+		\caption{Weak keys analysis for curves over prime fields}
 		\centering
 	\begin{tabular}{l c c c c c c c c c}
 		\hline\hline
 		Curve & $b(p)$ & $n_{2^{32}}$ & $c_{2^{32}}$ & $n_{2^{64}}$ & $c_{2^{64}}$ & $n_{2^{128}}$ & $c_{2^{128}}$& $n_{2^{160}}$ & $c_{2^{160}}$\\
 		\hline
-		secp256k1 & 256 & 24.1 & 13.1 & 64.7 & 34.2 & 129.4 &67.0 &147.9&75.0\\
-		secp256r1 & 256 & 36.0 & 21.5& 69.3&38.8&133.2&70.8&165.3&86.9 \\
 		P-192 & 192 & 17.5 & 9.8& 17.5 & 9.8&109.0&55.6 &109.0&55.6\\
 		P-224 & 224 & 29.0 & 15.5 & 29.0 & 15.5& 29.0 & 15.5& 29.0 & 15.5\\
-		P-384 &  384 & 13.5 & 7.8& 13.5 & 7.8&103.3&52.7&103.3&52.7\\
-		P-521 &  521 & 31.4 & 16.7&50.0&26.0&128.8&66.3&130.5&66.2\\
 		Curve25519 & 253 & 7.04 & 4.8& 7.04 & 4.8&114.3&58.2&144.7&73.4\\
+		secp256k1 & 256 & 24.1 & 13.1 & 64.7 & 34.2 & 129.4 &67.0 &147.9&75.0\\
+		secp256r1 & 256 & 36.0 & 21.5& 69.3&38.8&133.2&70.8&165.3&86.9 \\
+		P-384 &  384 & 13.5 & 7.8& 13.5 & 7.8&103.3&52.7&103.3&52.7\\
 		E448 & 446 & 33.1 & 18.9& 64.7 & 34.2&128.8&66.2&160.8&82.2\\
+		P-521 &  521 & 31.4 & 16.7&50.0&26.0&128.8&66.3&130.5&66.2\\
+
+		\hline\hline
+	\end{tabular}
+\end{table}
+
+	\begin{table}\label{weakbinaryanalysis}
+	\caption{Weak keys analysis for curves over binary fields}
+	\centering
+	\begin{tabular}{l c c c c c c c c c}
+		\hline\hline
+		Curve & $b(p)$ & $n_{2^{32}}$ & $c_{2^{32}}$ & $n_{2^{64}}$ & $c_{2^{64}}$ & $n_{2^{128}}$ & $c_{2^{128}}$& $n_{2^{160}}$ & $c_{2^{160}}$\\
+		\hline
+		c2pnb163v1 & 162 & 237.8 & 23.6 & 70.9 & 40.7 & 134.1 &71.9 &1160.8&82.8\\
+		c2pnb163v2 & 162 & 26.4 & 14.2& 26.4&14.2&26.4&14.2&160.3&82.2 \\
+		c2pnb163v3 & 162 & 8.8& 5.4& 8.8&5.4&8.8&5.4&160.9&82.3 \\
+		c2tnb191v1 &190 & 10.3 &6.2 & 50.7& 26.3 & 124.7& 63.4& 149.6&75.8\\
+		c2tnb191v2 &190 & 20.1 &11.0& 20.1& 11.0 & 118.68&60.3& 118.68&60.3\\
+		c2tnb191v3 &188 & 31.8 &17.0& 37.6& 19.8 & 117.0&59.5& 156.6&78.3\\
+		c2pnb208w1 & 192 & 31.4&16.7& 31.4&16.7& 31.4&16.7& 31.4&16.7\\
+		c2tnb239v1 & 238& 30.2& 16.4&55.6& 28.8&55.6& 28.8&55.6 & 28.8\\
+		c2tnb239v2 & 237& 14.6& 8.3& 14.6& 8.3& 14.6& 8.3& 14.6& 8.3\\
+		c2tnb239v2 & 235& 30.6& 16.4& 64.0& 33.5& 84.4& 43.2& 158.4& 80.2\\
+		c2tnb271v2 & 256& 13.0& 7.5& 66.3& 36.0& 123.0& 62.5& 146.0& 74.0\\
+		c2pnb304w1 & 288& 30.0& 16.0& 66.3& 36.2&132.1& 70.0& 164.1& 85.8\\
+		c2tnb359v1 & 352&6.3& 4.3& 6.3&4.3&109.0 &55.5 & 158.3&80.2\\
+		c2pnb368w1 & 352&&& && && &\\
+		c2tnb431r1 & 352&&& && && &\\
 		\hline\hline
 	\end{tabular}
 \end{table}
