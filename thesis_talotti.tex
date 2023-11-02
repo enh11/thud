@@ -316,7 +316,7 @@ Let $n\in\N\setminus\left\{0\right\}$. We denote the $scalar$ $multiplication$ $
 \end{align*}
 This definition extends trivially to $n\in\Z$ , setting $\left[0\right]P=\infp$ and $\left[n\right]P=\left[-n\right]\ominus P$ for $n$ negative. The kernel of $\left[n\right]$ is $ker\left[n\right]=\left\{P\in E(\clK):\left[n\right]P=\infp\right\}$. It is denoted by $E\left[n\right]$ and is called \emph{n-torsion subgroup}; its elements are called \emph{n-torsion points}.
 \begin{definizione}\label{supsingdef}
-	Let $\K$ be a field of characteristic $p$ and let $E$ be an elliptic curve over $\K$. IF $E[p^r]={\infp}$ for some (and in fact for all) positive integer $r$, then the curve is called \emph{super singular}. Otherwise the curve is called \emph{ordinary}.
+	Let $\K$ be a field of characteristic $p$ and let $E$ be an elliptic curve over $\K$. I $E[p^r]={\infp}$ for some (and in fact for all) positive integer $r$, then the curve is called \emph{super singular}. Otherwise the curve is called \emph{ordinary}.
 \end{definizione}
 
 We want to describe an algorithm to efficiently compute the scalar multiplication $\left[n\right]P$; this is a is very important feature for cryptographic applications. The underlying idea is to write $n$ in binary expansion, namely, $n=\sum_{i=0}^{k}2^in_{i}$ with $n_{i}\in\left\{0,1\right\}$ and $k=\lceil\log_2n\rceil$. Next we compute the following quantity:
@@ -344,12 +344,12 @@ Each iteration of the loop requires one point duplication and at most one point 
  & OUTPUT: Point $R=[n]P$\\
 \hline
 1.& Set $Q=P$ and $R=\infp$.\\
-2.&If $n=0$ return $\infp$ and terminate the algorithm \\
-3.& Loop while $n>0$\\
- & 4. If $n\equiv 1\mod 2$, set $R=R\oplus Q$.\\
- & 5. Set $Q=\left[2Q\right]$ and $n=\lfloor n/2\rfloor$\\
- & 6. If $n>0$ go to step 2.\\
-7.& Return $R$, which is $\left[n\right]P.$\\
+2.&\textbf{if} $n=0$ \textbf{return} $\infp$ and terminate the algorithm. \\
+3.& \textbf{loop while} $n>0$\\
+4.& \textbf{if} $n\equiv 1\mod 2$ \textbf{then} $R=R\oplus Q$.\\
+5.&Set $Q=\left[2Q\right]$ and $n=\lfloor n/2\rfloor$\\
+6.&\textbf{if} $n>0$ go to step 2.\\
+7.& \textbf{return} $R$.\\
 \hline
 \end{tabular}
 \end{center}
@@ -366,13 +366,15 @@ additions, and subtractions, using the algorithm in table (\ref{doubaddsub}).
 		\begin{tabular}{|ll|}
 			\hline
 			& INPUT: Point $P\in E(\clK)$ and $(n_{l-1},\dots,n_1,n_0)$ NAF representation on the integer $n$\\
+			&OUTPUT: The point $R=[n]P$.  \\
+			\hline
 			1.& Set $R=\infp$. \\
-			2.& If $n=0$ return $Q$ and terminate the algorithm \\
-			3.& For $i$ in $l-1$ down-to $0$ \\
-			& 4. Set $R=[2]R.$\\
-			& 5. If $n_i=1$ then $R=R\oplus P$.\\
-			& 6. Else if $n_i=-1$ then $R=R\ominus P.$\\
-			7.& Return $R$, which is $\left[n\right]P.$\\
+			2.& \textbf{if} $n=0$ \textbf{return} $Q$ and terminate the algorithm. \\
+			3.& \textbf{for} $i=l-1$ \textbf{down to} $0$ \\
+			4.& $R=[2]R.$\\
+				5.& \textbf{if} $n_i=1$ \textbf{then} $R=R\oplus P$.\\
+			6.& \textbf{else if} $n_i=-1$ \textbf{then} $R=R\ominus P.$\\
+			7.& \textbf{return} $R$\\
 			\hline
 		\end{tabular}
 	\end{center}
@@ -387,7 +389,33 @@ $$[1,0,0,0,-1,0, 1,0,0,-1,0,0,- 1,].$$ This corresponds to $2^{12}-2^8+2^6-2^3-1
 In a NAF representation, there do not exist two consecutive non-zero coefficients. We might expect that, on average, a NAF representation contains more zeroes than the traditional binary representation of a positive integer. This is indeed
 the case: it can be shown \cite{CiJo} that, on average, an $k$-bit integer contains $\frac{k}{2}$ zeroes in
 its binary representation and $\frac{2k}{3}$ zeroes in its NAF representation.
-These results make it easy to compare the average efficiency of the double-and-add using a binary representation, to the double-and-add-or-subtract using the NAF representation. Each algorithm requires $k$ doublings, but the number of additions (or subtractions) is $\frac{k}{2}$ in the first case, and $\frac{2k}{3}$ in the second case. If we assume that a doubling takes roughly the same amount of time as an addition (or subtraction), then the ratio of the average times required by the two algorithms is approximately $$\dfrac{k+\frac{k}{2}}{k+\frac{2k}{3}}=\dfrac{9}{8}.$$ We have therefore obtained a (roughly) $11\%$ speedup, on average, by this simple technique.
+These results make it easy to compare the average efficiency of the double-and-add using a binary representation, to the double-and-add-or-subtract using the NAF representation. Each algorithm requires $k$ doublings, but the number of additions (or subtractions) is $\frac{k}{2}$ in the first case, and $\frac{2k}{3}$ in the second case. If we assume that a doubling takes roughly the same amount of time as an addition (or subtraction), then the ratio of the average times required by the two algorithms is approximately $$\dfrac{k+\frac{k}{2}}{k+\frac{2k}{3}}=\dfrac{9}{8}.$$ We have therefore obtained a (roughly) $11\%$ speedup, on average, by this simple technique. 
+\subsection{Montgomery ladder}
+We have already described algorithm that efficiently compute the scalar multiplication $Q=[k]P$ in an elliptic curve group. It is a well known fact that, since now, there is no efficient algorithm to compute the inverse operation, i.e., to find the integer $k$ given the generator $P$ and the point $Q$ (see next chapter for details). This turns the scalar multiplication into a \emph{one way function} and thus we can build the \emph{public-key elliptic curve cryptosystem}, which include well known protocol such as \emph{Diffie Hellman key exchange}, \emph{ElGamal encryption}, \emph{Elliptic Curves Signature Algorithm} \cite{ElGam},\cite{Diff}. In public-key cryptography, each participant possesses two keys: a \emph{public key} and a \emph{private key}. These are linked in a unique manner by a one-way function. In an elliptic curve cryptoysyem, the private key is the integer $k\mod p$, where $p$ is the order of $P$, while the relative public key is the point $Q=[k]P$. The important feature of the private key $k$ is that it has to be computationally infeasible to detect it given the public key $Q$. 
+Kocher, Jaffe, and Jun first presented the idea of using the measure of power consumption of an
+electronic device to retrieve information about the secret keys. In \cite{Komm}, authors described two methods for extracting the keys, which they named \emph{simple power analysis} (SPA) and \emph{differential power analysis} (DPA). 
+
+Although efficient (in both memory and computation), the \emph{double and add} method described above may be subject
+to SPA-type attacks. From a power trace, an adversary able to distinguish between point doublings and
+point additions can recover the value of scalar $k$. A generic countermeasure to these attacks is the use of the Montgomery ladder Algorithm (table \ref{montladd}). 
+\begin{table}
+	\caption {Montgomery ladder Algorithm}\label{montladd}
+	\begin{center}
+		\begin{tabular}{|ll|}
+			\hline
+			&INPUT: A point $P$ on $E(\Fq)$ and a positive integer $n = (n_{l-1}\ldots n_0)_2$. \\
+			&OUTPUT: The point $[n]P$.  \\
+			\hline
+			1.& Set $P_0=\infp$, $P_1=P.$ \\
+			2.& \textbf{for} $i=l-1$ \textbf{down to} $0$ \textbf{do} \\
+			3.& \textbf{if} $n_i=1$ \textbf{then} $P_1=P_0\oplus P_1$ and $P_0=[2]P_0$ \\
+			4.& \textbf{else} $P_0=P0\oplus P_1$ and $P_1=[2]P_1.$\\
+			5.&\textbf{return} $P_0.$\\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+In Montgomery lader Algorithm, each iteration is comprised of a point addition followed by a point doubling.
 \section{Elliptic curves over finite fields}\label{ellfinfilar}
 For cryptographic applications we are mostly interested in elliptic curves over finite fields. Here we only consider elliptic curves defined over a finite field $\Fq$ where $q > 3$ is a prime, so we can always assume that $E/\Fq$ is given by a short Weierstrass equation. 
 \begin{definizione}
@@ -401,8 +429,8 @@ Points on the curve are solutions $(x,y)$ of equation (\ref{ellff}), lying on $\
 coordinates in that finite field. Therefore, we obtain a finite abelian group in this case. A classic result of Hasse, \cite{Wash},\cite{Sil2}, shows that  $|E(\Fqe)|=q^e+1-t$, for some integer $t$ such that $|t|\leq 2\sqrt{q^e}$.  This shows that the number of points on $E(\Fqe)$ is close to $q^e + 1.$ An algorithm due to Schoof \cite{Sch} can be used to compute the number of points in $E(\Fqe)$ in time polynomial in $\log(q^e)$. Hence, $|E(\Fqe)|$ can be computed efficiently even for a large prime $q$. Elkies and Atkin showed how to reduce the running time, and the resulting point counting method is called the Schoof-Elkies-Atkin algorithm, or
 simply, the $SEA$ $algorithm$.
 
-In the previous section we explained the group law in general, with emphasis on algorithms in tables (\ref{doubadd}) and (\ref{doubaddsub}), which state that the multiplication by an integer can be computed very efficiently by adding and doubling points . For cryptographic purposes is very important for this operation to be as fast as possible. Here we present some technique to achieve the goal. We summarize the formulas for addition and doubling; now the operations are performed in $\Fqe$ and because of the short Weierstrass form, if $P = (x,y)$ is a point of the curve different from $\infp$, then we have $\ominus P = (x,-y)$.
-
+In the previous section we explained the group law in general, with emphasis on algorithms in tables (\ref{doubadd}) and (\ref{doubaddsub}), which state that the multiplication by an integer can be computed very efficiently by adding and doubling points . For cryptographic purposes is very important for this operation to be as fast as possible. Here we present some technique to achieve the goal. We summarize the formul\ae\  for addition and doubling; now the operations are performed in $\Fqe$ and because of the short Weierstrass form, if $P = (x,y)$ is a point of the curve different from $\infp$, then we have $\ominus P = (x,-y)$.
+\subsection{Group law formul\ae\  in affine coordinates}
 Let $P = (x_1, y_1)$ and $Q = (x_2, y_2)$ be two points in $E(\Fqe)$. The sum $P\oplus Q= (x_3, y_3)$ is defined using one of the following three rules:
 \begin{itemize}
 	\item if $x_1\neq x_2$, we use the chord method. Let $\lambda=\dfrac{y_1-y_2}{x_1-x_2}$, then we have 
@@ -411,10 +439,10 @@ Let $P = (x_1, y_1)$ and $Q = (x_2, y_2)$ be two points in $E(\Fqe)$. The sum $P
 	$$x_3=\lambda^2-2x_1,\quad y_3=\lambda(x_1-x_3)-y_1;$$
 	\item if $x_1 = x_2$ and $y_1 = -y_2$ then we have $P\oplus Q=\infp.$
 \end{itemize}
-We denote an elementary multiplication in $\Fqe$ (resp. a squaring and an inversion) by $\mathcal{M}$ (resp. $\mathcal{S},\mathcal{I})$. In the following analysis we neglect addition, subtraction and scalar multiplication because they are must faster. From the formulas above one can easily read off that an addition and a doubling require $\mathcal{I}+2\mathcal{M}+\mathcal{S}$ and $\mathcal{I}+2\mathcal{M}+2\mathcal{S}$ respectively. Although
+We denote an elementary multiplication in $\Fqe$ (resp. a squaring and an inversion) by $\mathcal{M}$ (resp. $\mathcal{S},\mathcal{I})$. In the following analysis we neglect addition, subtraction and scalar multiplication because they are must faster. From the formul\ae\  above one can easily read off that an addition and a doubling require $\mathcal{I}+2\mathcal{M}+\mathcal{S}$ and $\mathcal{I}+2\mathcal{M}+2\mathcal{S}$ respectively. Although
 finding inverses in finite field is fast, it is much slower than multiplication. In \cite{Coh1} the authors estimated that inversion takes between 9 and 40 times as long as multiplication, while, squaring takes about 0.8 the time of multiplication. Therefore, it is sometimes advantageous to prefer squaring rather than inversion
-in the formulas for point addition and doubling.
-
+in the formul\ae\  for point addition and doubling.
+\subsection{Group law formul\ae\  in projective coordinates}
 Let's consider the projective curve corresponding to $E$. As we saw in section \ref{projective}, it has equation of form $$E_{hom}:Y^2Z=X^3+a_4XZ^2+a_6Z^3.$$
 The point $(X_1:Y_1:Z_1)$ on $E_{hom}$ corresponds to the affine point $(X_1/Z_1,Y_1/Z_1)$ when $Z_1\neq=0$ and to the point at infinity $\infp$ otherwise. The opposite of $(X_1:Y_1:Z_1)$ is $(X_1:-Y_1:Z_1).$ By a simply computation from the rules above, we obtain the following:
 \subsection*{Addition}
@@ -425,8 +453,25 @@ $$X_3=BC,\qquad Y_3=A(B^2X_1Z_2-C)-B^3Y_1Z_2,\qquad Z_3=B^3Z_1Z_2.$$
 Let $[2]P=(X_3:Y_3:Z_3)$. Then set 
 $$A=a_4Z_1^2+3X_1^2,\qquad B=Y_1Z_1,\qquad C=X_1Y_1B,\qquad D=A^2-8C.$$ So we have
 $$X_3=2BD,\qquad Y_3=A(4C-D)-8Y_1^2B^2,\qquad Z_3=8B^3.$$
-We note that no inversion is needed and the computations times are $12\mathcal{M}+2\mathcal{S}$ and $7\mathcal{M}+5\mathcal{S}$. Moreover, if one of the input points is given by $(X_1:Y_1:1)$, i.e., directly transformed from affine coordinates), then the operation for the addition decrease to $9\mathcal{M}+2\mathcal{S}$. Things even goes better if one use the Jacobian and Chudnovsky coordinates or their modification proposed by Henri Cohen et al. in \cite{Coh3}.
-%\footnote{You can find an implementation of the above formulas written in Rust on my repository \cite{repo}. I really appreciated the efficiency of the projective coordinates formulas when running the implicit baby-step-giant-step which we describe in the next chapter.}
+We note that no inversion is needed and the computations times are $12\mathcal{M}+2\mathcal{S}$ and $7\mathcal{M}+5\mathcal{S}$. Moreover, if one of the input points is given by $(X_1:Y_1:1)$, i.e., directly transformed from affine coordinates), then the operation for the addition decrease to $9\mathcal{M}+2\mathcal{S}$. 
+\subsection{Group law formul\ae\  in Jacobian Chudnovsky coordinates}
+Things even goes better if one use the Jacobian and Chudnovsky coordinates or their modification proposed by Henri Cohen et al. in \cite{Coh3}. With \emph{Jacobian coordinates} the curve $E$ is given by $$Y^2 = X^3 + a_4XZ^4 + a_6Z^6.$$
+The point $(X_1 : Y_1 : Z_1 )$ on $E$ corresponds to the affine point $(X_1/Z_1^2, Y_1/Z_1^3 )$ when $Z_1\neq 0$ and to
+the point at infinity $\inf = (1 : 1 : 0)$ otherwise. The opposite of $(X_1 : Y_1 : Z_1 )$ is $(X_1 : -Y_1 : Z_1 )$.
+\subsection*{Addition}
+Let $P(X_1:Y_1:Z_1),Q=(X_2:Y_2:Z_2)$ such that $P\neq Q$, $P\neq\ominus Q$ and let $P\oplus Q=(X_3:Y_3:Z_3)$. Then set
+$$A=X_1Z_2^2,\qquad B=X_2Z_1^2,\qquad C=Y_1Z_2^3,\qquad D=Y_2Z_1^3\qquad E=B-A,\qquad F=D-C.$$ So we have
+$$X_3=-E^3-2AE^2+F^2,\qquad Y_3=-CE^3+F(AE^2-X_3),\qquad Z_3=Z_1Z_2E.$$
+\subsection*{Doubling}
+Let $[2]P=(X_3:Y_3:Z_3)$. Then set 
+$$A=4X_1Y_1^2,\qquad B = 3X_1^2 + a_4Z_1^4.$$ So we have
+$$X_3=-2A + B^2,\qquad Y_3=-8Y_1^4 + B(A-X_3 ),\qquad Z_3 = 2Y_1Z_1.$$
+The complexities are 12$\mathcal{M}$ + 4$\mathcal{S}$ for an addition and 4M + 6S for a doubling. If one of the points is
+given in the form $(X_1 : Y_1 : 1)$ the costs for addition reduce to 8$\mathcal{M}$ + 3$\mathcal{S}$. Note that doubling involves one multiplication by the parameter $a_4$. If it is small this multiplication can be performed by some additions and hence be neglected in the operation count. Especially if
+$a_4 = ?3$ one can compute $T = 3X_1^2-3Z_1^4 = 3(X_1-Z_1^2)(X_1+Z_1^2)$ leading to only 4$\mathcal{M}$ + 4$\mathcal{S}$
+for a doubling. The parameter $a_4 = 0$ is even more advantageous as the costs drop down to 3$\mathcal{M}$ + 4$\mathcal{S}$. This justifies
+ the curve's parameter for $a_4$ used in standardized curves presented in Section \ref{NISTcurves}. On my repository \cite{repo} you can find and implementation of these formul\ae\ written in Rust.
+%\footnote{You can find an implementation of the above formul\ae\  written in Rust on my repository \cite{repo}. I really appreciated the efficiency of the projective coordinates formul\ae\  when running the implicit baby-step-giant-step which we describe in the next chapter.}
 
 We conclude this chapter by giving a brief description of \emph{Montgomery curves} and \emph{Edwards curves}, which are better suited for computation than the Weierstrass form; for more details we refer to \cite{Wash},\cite{Coh1},\cite{mong}. Then, we introduce some curves we will need to develop our analysis of weak keys.
 \subsection{Montgomery curves}
@@ -434,7 +479,7 @@ A Montgomery curve $E$ over $\Fq$ is define by the equation
 \begin{equation}
 	E_M:\ By^2=x^3+Ax^2+x,
 \end{equation}
-for some $A,B\in\Fq$ and $B(A^2-4)\neq 0$. If $q>3$ it is always possible to converted a curve in Montgomery form into short Weierstrass equation by the transformation $$x\mapsto x'=Bx-A/3,\quad y\mapsto y'=By.$$ The order of the elliptic curve group of $E_M$ is divisible by 4 \cite{mong}, therefore not all Weierstrass form can be converted into a Montgomery form. The arithmetic on $E_M$ relies on an efficient $x$-coordinate only computation and can be easily implemented to resist side-channel attacks; \cite{mong}, \cite{Coh1} for the formulas.
+for some $A,B\in\Fq$ and $B(A^2-4)\neq 0$. If $q>3$ it is always possible to converted a curve in Montgomery form into short Weierstrass equation by the transformation $$x\mapsto x'=Bx-A/3,\quad y\mapsto y'=By.$$ The order of the elliptic curve group of $E_M$ is divisible by 4 \cite{mong}, therefore not all Weierstrass form can be converted into a Montgomery form. The arithmetic on $E_M$ relies on an efficient $x$-coordinate only computation and can be easily implemented to resist side-channel attacks; \cite{mong}, \cite{Coh1} for the formul\ae.
 \subsection{Edwards curves}
 An Edwards curve $E$ over $\Fq$ is define by the equation
 \begin{equation}
@@ -448,9 +493,9 @@ An interesting feature is that there's no need for three separate rules for $[2]
 $P\oplus Q$ when $P\neq Q$. The formula for adding points can be written in projective coordinates. The
 resulting computation takes $10\mathcal{M}$ and $1\mathcal{S}$ for both point addition and point doubling \cite{Wash}.
 \section{Arithmetic of elliptic curves defined over $\mathbb{F}_{2^d}$}
-Here we consider elliptic curves over $\F_{2^d}$. We discuss the transfer to short Weierstrass equations and state formulas for the arithmetic on super-singular and ordinary elliptic curves. The curves given in Weierstrass form $$y^2+a_1xy+a_3y=x^3+a_2x^2+a_4x+a_6$$ can be transformed depending on the value of $a_1$.
+Here we consider elliptic curves over $\F_{2^d}$. We discuss the transfer to short Weierstrass equations and state formul\ae\  for the arithmetic on super-singular and ordinary elliptic curves. The curves given in Weierstrass form $$y^2+a_1xy+a_3y=x^3+a_2x^2+a_4x+a_6$$ can be transformed depending on the value of $a_1$.
 \subsection{Super-singular curves}
-Assume $a_1=0$. As stated in Definition \ref{ell}, an elliptic curve has to be smooth, thus we need to have $a_3\neq 0$. The transformation $x\mapsto x'=x+a_2,$ leads to the equations $$E:y^2+a_3y=x^3+a_4'x+a_6',$$ which is non singular since $a_3\neq 0$. By the general group law formulas described in section \ref{grplaw}, we know that if $P=(x_1,y_1)$ is a point on the curve $E$, then its opposite is $-P=(x_1,y_1+a_3)$ (remember we are in characteristic 2). Thus, such a curve $E$ has no point $P$ of order two, otherwise we must have $y_1=y_1+a_3$, which leads to $a_3=0$. Therefore, $E[2]=\left\{\infp\right\}$ and $E$ is super-singular by Definition \ref{supsingdef}. The arithmetic on the super-singular curve $E:y^2+a_3y=x^3+a_4x+a_6$ is given by the following formulas where $P=(x_1,y_1)$ and $Q=(x_2,y_2)$ are two points in $E(\F_{2^d})$:
+Assume $a_1=0$. As stated in Definition \ref{ell}, an elliptic curve has to be smooth, thus we need to have $a_3\neq 0$. The transformation $x\mapsto x'=x+a_2,$ leads to the equations $$E:y^2+a_3y=x^3+a_4'x+a_6',$$ which is non singular since $a_3\neq 0$. By the general group law formul\ae\  described in section \ref{grplaw}, we know that if $P=(x_1,y_1)$ is a point on the curve $E$, then its opposite is $-P=(x_1,y_1+a_3)$ (remember we are in characteristic 2). Thus, such a curve $E$ has no point $P$ of order two, otherwise we must have $y_1=y_1+a_3$, which leads to $a_3=0$. Therefore, $E[2]=\left\{\infp\right\}$ and $E$ is super-singular by Definition \ref{supsingdef}. The arithmetic on the super-singular curve $E:y^2+a_3y=x^3+a_4x+a_6$ is given by the following formul\ae\  where $P=(x_1,y_1)$ and $Q=(x_2,y_2)$ are two points in $E(\F_{2^d})$:
 \begin{itemize}
 	\item $\ominus P=(x_1,y_1+a_3)$.
 	\item If $P\ne Q$ and $P\neq\ominus Q$, we have $P\oplus Q=(x_3,y_3)$ where
@@ -463,7 +508,7 @@ Assume $a_1=0$. As stated in Definition \ref{ell}, an elliptic curve has to be s
 %\end{esempio}
 \subsection{Ordinary curves}
 If $a_1\neq 0$, the transformations $$y\mapsto a_1^3y+\dfrac{a_3^2+a_1^2a_4}{a_1^3},\ x\mapsto a_1^2x+\dfrac{a_3}{a_1},$$ followed by a division by $a_1^6$ leads to an isomorphic curve give by $$y^2+xy=x^3+a_2'x^2+a_6',$$
-which is non singular whenever $a_6'\neq 0$. In this case the curve is ordinary. As for curves over prime fields, we give formulas for arithmetic in both affine and projective coordinates. 
+which is non singular whenever $a_6'\neq 0$. In this case the curve is ordinary. As for curves over prime fields, we give formul\ae\  for arithmetic in both affine and projective coordinates. 
 As in section \ref{ellfinfilar}, an elementary multiplication in $\F_{2^d}$  (respectively a squaring and an inversion) will be denoted by $\mathcal{M}$ (respectively $\mathcal{S}$ and $\mathcal{I}$).
 \subsection*{Affine Coordinates}
 As discussed above, we can choose an elliptic curve of the form $$E:y^2+xy=x^3+a_2x^2+a_6.$$ Let $P=(x_1,y_1)$ be a point of $E(\F_{2^d})$, then the opposite of $P$ is $\ominus P = (x_1,y_1+x_1)$.
@@ -759,7 +804,7 @@ The elliptic curve group secp256k1 is cyclic of prime order $$p=1157920892103562
 	\text{div}B=&[1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 149, 192, 298, 447,
 	 596, 631, 894, 1192, \\&1262, 1788, 1893, 2384, 2524, 3576, 3786, 4768,5048, 7152, 7572, 9536, 10096, \\&14304, 15144, 20192, 28608, 30288, 40384,60576, 94019, 121152, 188038, \\& 282057, 376076, 564114, 752152,1128228, 1504304, 2256456, 3008608,\\&  4512912, 6017216, 9025824, 18051648].
 \end{align*}
-By the formulas above we find that $$n_B=24.10\text{ and }c_B=13.05.$$ This means that there are approximately $2^{24}=16777216$ weak keys lying in subgroups of order below the bound $B$.
+By the formul\ae\  above we find that $$n_B=24.10\text{ and }c_B=13.05.$$ This means that there are approximately $2^{24}=16777216$ weak keys lying in subgroups of order below the bound $B$.
 \lstinputlisting[caption={pari-gp code: Analysis of weak keys in secp256k1},style=mystyle,language=pari,label=gpcode]{weak_analysis.gp}
 
 Note that the time required to count weak keys for a particular curve is dominated by the computation of the divisors of $p-1$, and thus by factoring. Therefore, a complete analysis can be performed in several days. Table \ref{weakkeysanal} summarize the weak key analysis for curves presented in section \ref{NISTcurves}; a complete analysis for other standardized curves in \cite{Pra2}.
@@ -775,6 +820,7 @@ Note that the time required to count weak keys for a particular curve is dominat
 		Curve25519 & 253 & 7.04 & 4.8& 7.04 & 4.8&114.3&58.2&144.7&73.4\\
 		secp256k1 & 256 & 24.1 & 13.1 & 64.7 & 34.2 & 129.4 &67.0 &147.9&75.0\\
 		secp256r1 & 256 & 36.0 & 21.5& 69.3&38.8&133.2&70.8&165.3&86.9 \\
+		SM2 &256&32.5&18.13&59.7&30.8&59.7&30.8&59.7&30.8\\
 		P-384 &  384 & 13.5 & 7.8& 13.5 & 7.8&103.3&52.7&103.3&52.7\\
 		E448 & 446 & 33.1 & 18.9& 64.7 & 34.2&128.8&66.2&160.8&82.2\\
 		P-521 &  521 & 31.4 & 16.7&50.0&26.0&128.8&66.3&130.5&66.2\\
@@ -803,8 +849,8 @@ Note that the time required to count weak keys for a particular curve is dominat
 		c2tnb271v2 & 256& 13.0& 7.5& 66.3& 36.0& 123.0& 62.5& 146.0& 74.0\\
 		c2pnb304w1 & 288& 30.0& 16.0& 66.3& 36.2&132.1& 70.0& 164.1& 85.8\\
 		c2tnb359v1 & 352&6.3& 4.3& 6.3&4.3&109.0 &55.5 & 158.3&80.2\\
-		c2pnb368w1 & 352&&& && && &\\
-		c2tnb431r1 & 352&&& && && &\\
+		c2pnb368w1 & 352&33.4&19.3&36.9 &19.4&128.1 &66.0&129.1 &65.6\\
+		c2tnb431r1 & 417&31.4&16.7&31.4&16.7&118.6 &60.3&118.6 &60.3\\
 		\hline\hline
 	\end{tabular}
 \end{table}
