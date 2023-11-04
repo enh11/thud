@@ -779,8 +779,8 @@ Let $z_d=z^{\frac{p-1}{d}}$  be a generator for the order $d$ subgroup of $\Zpst
 In an elliptic curve cryptosystem, the integer $\alpha$ represent the $private$ $key$, while the point $Q=[\alpha]P$ is the $public$ $key$. Every public key for which the corresponding private key lies  in a small subgroup of $\Zpstar$ is deemed to be weak.
 \subsection{Testing whether a key is weak}
 A simple approach to test whether the private key corresponding to a public key is weak is to set a bound $B$ for the order of the subgroups of $\Zpstar$. One can run the implicit baby step giant step algorithm on all divisors of $p-1$ that are less than $B$. However, this would be inefficient and redundant, because testing wether a key is in a subgroup of order $d$ also covers all subgroups of order divisible by $d$. Thus, we instead generate a list of integers $d_1<d_2<\dots<d_t\leq B$ dividing $p-1$ such that $d_i\nmid d_j$ for all $1\leq i<j\leq t$. 
-\subsection{Test of weakness on secp256k1}\ref{testsecp256k1}
-As an example, consider the elliptic curve secp256k1 introduced in the previous chapter. The standard \cite{nist} specify the generator 
+\begin{esempio}\label{testsecp256k1}
+Let's consider the elliptic curve secp256k1 introduced in the previous chapter. The standard \cite{nist} specify the generator 
 \begin{align*}
 	P=&(550662630222773436695787188951685\\
 	&34326250603453777594175500187360389116729240,\\
@@ -800,10 +800,13 @@ Let $Q$ be the point
 If we run the implicit baby step giant step algorithm, we will find a match in a couple of seconds. This give us the base $P$ discrete logarithm of $Q$  $$\alpha=648268771218401016825236294626749677029376795
 80369334126295633893540044112329.$$
 
-\chapter{Analysis of recommended elliptic curves}
-In this last chapter we investigate the elliptic curves described in section \ref{NISTcurves}. You can find an implementation written in Rust on my GitHub repository \cite{repo}. It includes modules and algorithms for finite fields arithmetic and elliptic curves arithmetic in projective coordinates. Furthermore, an implementation of the implicit form of baby-step, giant-step algorithm is available and one can use it to test if the private key corresponding to a public key is weak. 
+\end{esempio}
+You can find an implementation written in Rust on my GitHub repository \cite{repo}. It includes modules and algorithms for finite fields arithmetic and elliptic curves arithmetic in projective coordinates. Furthermore, an implementation of the implicit form of baby-step giant-step algorithm is available and one can use it to test if the private key corresponding to a public key is weak. 
 
-For each curves presented in section \ref{NISTcurves}, we enumerate the number of weak keys appearing in subgroups of size bounded by $B=2^{32},2^{64},2^{128},2^{160}$.  As described in section \ref{implicit bsgs}, the cost to determine whether a given key is weak with respect to the bound $B$ is roughly $2^{16},2^{32},2^{64},2^{80}$ groups operations. Due to the sizes of numbers occurring in the counts, and in order to facilitate an easier comparison, we list the base-2 log of each number i.e., the number of bits. The data recorded for each curve is as follows:
+
+\chapter{Analysis of recommended Elliptic Curves}
+In this last chapter we investigate elliptic curves described in section \ref{NISTcurves} and other curves used by OpenSSL. 
+For each curves in the following tables, we enumerate the number of weak keys appearing in subgroups of size bounded by $B=2^{32},2^{64},2^{128},2^{160}$.  As described in section \ref{implicit bsgs}, the cost to determine whether a given key is weak with respect to the bound $B$ is roughly $2^{16},2^{32},2^{64},2^{80}$ groups operations. Due to the sizes of numbers occurring in the counts, and in order to facilitate an easier comparison, we list the base-2 log of each number, i.e., the number of bits. The data recorded for each curve is as follows:
 \begin{itemize}
 %	\item curve label;
 	\item $b(p)$: bit's number of the prime order group $E(\Fq)$;
@@ -811,7 +814,8 @@ For each curves presented in section \ref{NISTcurves}, we enumerate the number o
 	\item $c_B$: base-2 log of the worst-case number of elliptic curve scalar multiplications required to test whether a key comes from a subgroup of order bounded by $B$ using implicit baby step giant step. Let $R(p,B)=\left\{d_1,\dots,d_t:d_i\ \text{divisor of }p-1,\ d_i\leq B,\ d_i\nmid d_j\ \text{for all}\ 1\leq i<j\leq t\right\}$. We compute $$c_B=\log_2\sum_{d\in R(p,B)}2\lceil\sqrt{d}\rceil.$$
 \end{itemize}
 \subsection{Analysis of weak keys on secp256k1}
-We used the computer algebra system pari-gp \cite{pari}. In Listing \ref{gpcode} you can find scripts for computing $n_B$, $c_B$ for the curve secp256k1. We can deduce the weak keys analysis for other NIST curves by changing the value of $p$ presented in the section \ref{NISTcurves}.
+Here we describe the weak keys analysis of the curve secp256k1 in example \ref{testsecp256k1}.
+We used the computer algebra system pari-gp \cite{pari} for computations. In Listing \ref{gpcode} you can find scripts for computing $n_B$, $c_B$ for the curve secp256k1. We can deduce the weak keys analysis for other NIST's curves using the value of $p$ presented in the section \ref{NISTcurves}. As for the other curves, one can find parameters in \cite{Crocs}.
 
 The elliptic curve group secp256k1 is cyclic of prime order $$p=115792089210356248762697446949407573529996955224135760342422259061068512044369,$$ and factors of $p-1$ below the bound $B=2^{32}$ are 
 \begin{align*}
@@ -821,7 +825,7 @@ The elliptic curve group secp256k1 is cyclic of prime order $$p=1157920892103562
 By the formulas above we find that $$n_B=24.10\text{ and }c_B=13.05.$$ This means that there are approximately $2^{24}=16777216$ weak keys lying in subgroups of order below the bound $B$.
 \lstinputlisting[caption={pari-gp code: Analysis of weak keys in secp256k1},style=mystyle,language=pari,label=gpcode]{weak_analysis.gp}
 
-Note that the time required to count weak keys for a particular curve is dominated by the computation of the divisors of $p-1$, and thus by factoring. Therefore, a complete analysis can be performed in several days. Table \ref{weakkeysanal} summarize the weak key analysis for curves presented in section \ref{NISTcurves}; a complete analysis for other standardized curves in \cite{Pra2}.
+Note that the time required to count weak keys for a particular curve is dominated by the computation of the divisors of $p-1$, and thus by factoring. Therefore, a complete analysis for all standardized curves used by the community can be performed in several days. Table \ref{weakkeysanal} summarize the weak key analysis for curves presented in section \ref{NISTcurves}; a complete analysis for other standardized curves in \cite{Pra2}.
 	\begin{table}\label{weakkeysanal}
 		\caption{Weak keys analysis for curves over prime fields}
 		\centering
@@ -829,6 +833,11 @@ Note that the time required to count weak keys for a particular curve is dominat
 		\hline\hline
 		Curve & $b(p)$ & $n_{2^{32}}$ & $c_{2^{32}}$ & $n_{2^{64}}$ & $c_{2^{64}}$ & $n_{2^{128}}$ & $c_{2^{128}}$& $n_{2^{160}}$ & $c_{2^{160}}$\\
 		\hline
+		secp112r2& 109 & 3.7 & 19.5& 66.3 & 36.0&109.8&55.9&109.8&55.9\\
+		secp128r1 &128 & 31.8 & 18.0&66.0 &35.4& 128.0&65.0& 128.0&65.0\\
+		secp128r2&126 & 31.5&16.8&315 &16.8& 126.0&64.0& 126.0&64.0\\
+		secp160k1 &160 & 18.0 & 10.0&18.0 &10.0& 94.8&48.4& 160.5&81.8\\
+		secp160r2&160 & 21.6 & 11.9&21.6 &11.8& 93.1&47.8&160.0&80.6\\
 		P-192 & 192 & 17.5 & 9.8& 17.5 & 9.8&109.0&55.6 &109.0&55.6\\
 		P-224 & 224 & 29.0 & 15.5 & 29.0 & 15.5& 29.0 & 15.5& 29.0 & 15.5\\
 		Curve25519 & 253 & 7.04 & 4.8& 7.04 & 4.8&114.3&58.2&144.7&73.4\\
@@ -850,11 +859,11 @@ Note that the time required to count weak keys for a particular curve is dominat
 		\hline\hline
 		Curve & $b(p)$ & $n_{2^{32}}$ & $c_{2^{32}}$ & $n_{2^{64}}$ & $c_{2^{64}}$ & $n_{2^{128}}$ & $c_{2^{128}}$& $n_{2^{160}}$ & $c_{2^{160}}$\\
 		\hline
-		c2pnb163v1 & 162 & 237.8 & 23.6 & 70.9 & 40.7 & 134.1 &71.9 &1160.8&82.8\\
+		c2pnb163v1 & 162 & 37.8 & 23.6 & 70.9 & 40.7 & 134.1 &71.9 &160.8&82.8\\
 		c2pnb163v2 & 162 & 26.4 & 14.2& 26.4&14.2&26.4&14.2&160.3&82.2 \\
 		c2pnb163v3 & 162 & 8.8& 5.4& 8.8&5.4&8.8&5.4&160.9&82.3 \\
 		c2tnb191v1 &190 & 10.3 &6.2 & 50.7& 26.3 & 124.7& 63.4& 149.6&75.8\\
-		c2tnb191v2 &190 & 20.1 &11.0& 20.1& 11.0 & 118.68&60.3& 118.68&60.3\\
+		c2tnb191v2 &190 & 20.1 &11.0& 20.1& 11.0 & 118.68&60.3& 118.6&60.3\\
 		c2tnb191v3 &188 & 31.8 &17.0& 37.6& 19.8 & 117.0&59.5& 156.6&78.3\\
 		c2pnb208w1 & 192 & 31.4&16.7& 31.4&16.7& 31.4&16.7& 31.4&16.7\\
 		c2tnb239v1 & 238& 30.2& 16.4&55.6& 28.8&55.6& 28.8&55.6 & 28.8\\
@@ -865,6 +874,26 @@ Note that the time required to count weak keys for a particular curve is dominat
 		c2tnb359v1 & 352&6.3& 4.3& 6.3&4.3&109.0 &55.5 & 158.3&80.2\\
 		c2pnb368w1 & 352&33.4&19.3&36.9 &19.4&128.1 &66.0&129.1 &65.6\\
 		c2tnb431r1 & 417&31.4&16.7&31.4&16.7&118.6 &60.3&118.6 &60.3\\
+		\hline\hline
+	\end{tabular}
+\end{table}
+\begin{table}\label{weakbinaryanalysis}
+	\caption{Weak keys analysis for Wireless Transport Layer Security curves}
+	\centering
+	\begin{tabular}{l c c c c c c c c c}
+		\hline\hline
+		Curve & $b(p)$ & $n_{2^{32}}$ & $c_{2^{32}}$ & $n_{2^{64}}$ & $c_{2^{64}}$ & $n_{2^{128}}$ & $c_{2^{128}}$& $n_{2^{160}}$ & $c_{2^{160}}$\\
+		\hline
+		wap-wsg-idm-ecid-wtls1 & 112 & 32.7 & 18.6 & 42.1 & 22.1 & 112 &57.0 &112&57.0\\
+		wap-wsg-idm-ecid-wtls3 & 162 & 19.2 & 10.6& 59.3&30.6&122.0&62.0&160.2&82.0 \\
+		wap-wsg-idm-ecid-wtls4 & 112 & 33.1& 18.6& 64.6&34.1&112.0&57.0&112.0&57.0 \\
+		wap-wsg-idm-ecid-wtls6 &112 & 17.1 &9.5 & 17.1& 9.5 & 112& 56.9& 112&56.9\\
+		wap-wsg-idm-ecid-wtls7 &160 & 31.5&16.8& 55.3& 28.6& 127.6& 65.3&159.2&81.1\\
+		wap-wsg-idm-ecid-wtls8 &112 & 30.0&16.2&47.7& 24.8& 112&57.0& 112&57.0\\
+		wap-wsg-idm-ecid-wtls9 & 160 & 33.1&18.9& 65.0&34.6& 129.0&66.8& 159.5&82.0\\
+		wap-wsg-idm-ecid-wtls10 &231& 33.0& 18.6&64.0& 33.5&73.2& 37.6&159.8 & 81.5\\
+		wap-wsg-idm-ecid-wtls11 & 232& 33.0& 18.3& 64.7& 34.3& 87.6& 44.7& 160.6& 82.0\\
+		wap-wsg-idm-ecid-wtls12 & 224& 29.0& 15.5& 29.0& 15.5& 29.0& 15.5&29.0&15.5\\
 		\hline\hline
 	\end{tabular}
 \end{table}
