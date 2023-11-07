@@ -815,21 +815,21 @@ For each curves in the following tables, we enumerate the number of weak keys ap
 \end{itemize}
 \subsection{Analysis of weak keys on secp256k1}
 Here we describe the weak keys analysis of the curve secp256k1 in example \ref{testsecp256k1}.
-We used the computer algebra system pari-gp \cite{pari} for computations. In Listing \ref{gpcode} you can find scripts for computing $n_B$, $c_B$ for the curve secp256k1. We can deduce the weak keys analysis for other NIST's curves using the value of $p$ presented in the section \ref{NISTcurves}. As for the other curves, one can find parameters in \cite{Crocs}.
+We used the computer algebra system pari-gp \cite{pari} for computations. In Listing \ref{gpcode} you can find scripts for computing $n_B$, $c_B$ for the curve secp256k1 within a bound $B=2^{32}$. We can deduce the weak keys analysis for other NIST's curves using the value of $p$ presented in the section \ref{NISTcurves}. As for other curves, one can find parameters in \cite{Crocs}.
 
 The elliptic curve group secp256k1 is cyclic of prime order $$p=115792089210356248762697446949407573529996955224135760342422259061068512044369,$$ and factors of $p-1$ below the bound $B=2^{32}$ are 
 \begin{align*}
 	\text{div}B=&[1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 149, 192, 298, 447,
 	 596, 631, 894, 1192, \\&1262, 1788, 1893, 2384, 2524, 3576, 3786, 4768,5048, 7152, 7572, 9536, 10096, \\&14304, 15144, 20192, 28608, 30288, 40384,60576, 94019, 121152, 188038, \\& 282057, 376076, 564114, 752152,1128228, 1504304, 2256456, 3008608,\\&  4512912, 6017216, 9025824, 18051648].
 \end{align*}
-By the formulas above we find that $n_B=24.10\text{ and }c_B=13.05.$ This means that there are approximately $2^{24}=16777216$ weak keys lying in subgroups of order below the bound $B$.
-\lstinputlisting[caption={pari-gp code: Analysis of weak keys in secp256k1},style=mystyle,language=pari,label=gpcode]{weak_analysis.gp}
+By formulas above we find that $n_B=24.10\text{ and }c_B=13.05.$ This shows that secp256k1 has approximately $2^{24}$ weak keys lying in subgroups of order below the bound $B=2^{32}$ and they can be detected in roughly $2^{13}$ group operations. One can repeat the test within a bound $B=2^{160}$ and this leads to more than $2^{147}$ weak keys, computable in roughly $2^{75}$ group operations (see tables in next chapter). As for the bound $B=2^{32}$, weak keys can be computed trivially given the public key, while the latter are on the threshold of what is likely possible for organizations with sufficient computational resources.
+\lstinputlisting[caption={pari-gp code: Analysis of weak keys in secp256k1 with bound $B=2^{32}$},style=mystyle,language=pari,label=gpcode]{weak_analysis.gp}
 
 \section{Weak keys on standardized curves}
-
-Table \ref{weakkeysanal} summarize the weak key analysis for curves presented in section \ref{NISTcurves}. Curves in table \ref{weakbinaryanalysis} are all defined over a binary field while curves in table \ref{wtls} are Wireless Transport Layer Security curves.  Note that the time required to count weak keys for a particular curve is dominated by the computation of the divisors of $p-1$, and thus by factoring. Therefore, a complete analysis for all standardized curves used by the community can be performed in several days; a complete analysis for other standardized curves is available in \cite{Pra2}.
-	\begin{table}\label{weakkeysanal}
+Here we give an assessment of weak keys in recommentded and standard elliptic curves together with the worst-case number of scalar multiplications required to detect them. Table \ref{weakprime} summarize the weak key analysis for curves presented in section \ref{NISTcurves}. Curves in table \ref{weakbin} are all defined over a binary field while curves in table \ref{weakwtls} are Wireless Transport Layer Security curves.  Note that the time required to count weak keys for a particular curve is dominated by the computation of the divisors of $p-1$, and thus by factoring. Therefore, a complete analysis for all standardized curves used by the community can be performed in several days; a complete analysis for other standardized curves is available in \cite{Pra2}.
+	\begin{table}
 		\caption{Weak keys analysis for curves over prime fields}
+		\label{weakprime}
 		\centering
 	\begin{tabular}{l c c c c c c c c c}
 		\hline\hline
@@ -841,6 +841,7 @@ Table \ref{weakkeysanal} summarize the weak key analysis for curves presented in
 		secp160k1 &160 & 18.0 & 10.0&18.0 &10.0& 94.8&48.4& 160.5&81.8\\
 		secp160r2&160 & 21.6 & 11.9&21.6 &11.8& 93.1&47.8&160.0&80.6\\
 		P-192 & 192 & 17.5 & 9.8& 17.5 & 9.8&109.0&55.6 &109.0&55.6\\
+		secp224k1& 224 & 2.6 & 2.6 & 2.6 & 2.6 & 2.6 & 2.6 & 2.6 & 2.6 \\
 		P-224 & 224 & 29.0 & 15.5 & 29.0 & 15.5& 29.0 & 15.5& 29.0 & 15.5\\
 		Curve25519 & 253 & 7.04 & 4.8& 7.04 & 4.8&114.3&58.2&144.7&73.4\\
 		secp256k1 & 256 & 24.1 & 13.1 & 64.7 & 34.2 & 129.4 &67.0 &147.9&75.0\\
@@ -853,9 +854,9 @@ Table \ref{weakkeysanal} summarize the weak key analysis for curves presented in
 		\hline\hline
 	\end{tabular}
 \end{table}
-
-	\begin{table}\label{weakbinaryanalysis}
+\begin{table}
 	\caption{Weak keys analysis for curves over binary fields}
+	\label{weakbin}
 	\centering
 	\begin{tabular}{l c c c c c c c c c}
 		\hline\hline
@@ -868,19 +869,22 @@ Table \ref{weakkeysanal} summarize the weak key analysis for curves presented in
 		c2tnb191v2 &190 & 20.1 &11.0& 20.1& 11.0 & 118.68&60.3& 118.6&60.3\\
 		c2tnb191v3 &188 & 31.8 &17.0& 37.6& 19.8 & 117.0&59.5& 156.6&78.3\\
 		c2pnb208w1 & 192 & 31.4&16.7& 31.4&16.7& 31.4&16.7& 31.4&16.7\\
+		sect193r2 &193& 2.0& 2.0& 2.0& 2.0&110.2&56.1&110.2&56.1\\
 		c2tnb239v1 & 238& 30.2& 16.4&55.6& 28.8&55.6& 28.8&55.6 & 28.8\\
 		c2tnb239v2 & 237& 14.6& 8.3& 14.6& 8.3& 14.6& 8.3& 14.6& 8.3\\
 		c2tnb239v2 & 235& 30.6& 16.4& 64.0& 33.5& 84.4& 43.2& 158.4& 80.2\\
 		c2tnb271v2 & 256& 13.0& 7.5& 66.3& 36.0& 123.0& 62.5& 146.0& 74.0\\
 		c2pnb304w1 & 288& 30.0& 16.0& 66.3& 36.2&132.1& 70.0& 164.1& 85.8\\
-		c2tnb359v1 & 352&6.3& 4.3& 6.3&4.3&109.0 &55.5 & 158.3&80.2\\
+		ECCp-353 & 353&6.3& 4.3& 6.3&4.3&108.9 &55.5 & 158.3&80.2\\
 		c2pnb368w1 & 352&33.4&19.3&36.9 &19.4&128.1 &66.0&129.1 &65.6\\
 		c2tnb431r1 & 417&31.4&16.7&31.4&16.7&118.6 &60.3&118.6 &60.3\\
+		ECCp-359& 359&5.2&3.6&5.2&3.6&5.2&3.6&5.2&3.6\\
 		\hline\hline
 	\end{tabular}
 \end{table}
-\begin{table}\label{wtls}
+\begin{table}
 	\caption{Weak keys analysis for Wireless Transport Layer Security curves}
+	\label{weakwtls}
 	\centering
 	\begin{tabular}{l c c c c c c c c c}
 		\hline\hline
@@ -899,7 +903,28 @@ Table \ref{weakkeysanal} summarize the weak key analysis for curves presented in
 		\hline\hline
 	\end{tabular}
 \end{table}
+\begin{table}
+	\caption{Weak keys analysis Brainpool curves}
+	\label{weakbp}
+	\centering
+	\begin{tabular}{l c c c c c c c c c}
+		\hline\hline
+		Curve & $b(p)$ & $n_{2^{32}}$ & $c_{2^{32}}$ & $n_{2^{64}}$ & $c_{2^{64}}$ & $n_{2^{128}}$ & $c_{2^{128}}$& $n_{2^{160}}$ & $c_{2^{160}}$\\
+		\hline
+		brainpoolP160r1& 160 & 33.6 & 19.4 & 67.0 & 36.5 & 130.0 & 67.3 & 160.0 & 81.0\\
+		brainpoolP192r1& 192 & 11.7 & 6.8 & 11.7 & 6.8 & 108.1 & 55.1 & 108.1 &55.1\\
+		brainpoolP224r1& 224 & 10.0 & 6.0 & 10.0 & 6.0& 10.0 & 6.0& 10.0 & 6.0\\
+		brainpoolP256r1& 256 & 4.2 & 3.3& 4.2 & 3.3 & 4.2 & 3.3 & 4.2 & 3.3  \\
+		brainpoolP320r1& 320 & 34.7& 20.3 & 42.2 & 22.2& 42.2 & 22.2& 42.2 & 22.2\\
+		brainpoolP384r1& 384 & 33.3 & 18.7 & 66.0 & 35.5 & 130.0 & 67.5 & 160.7 & 82.3\\
+		brainpoolP512r1& 512 & 35.0 & 20.6 & 68.1 & 37.7 & 132.7 & 70.3 &163.3&85.0\\
+		\hline\hline
+	\end{tabular}
+\end{table}
+\section{Conclusions}
+In this thesis we presented the idea of the implicit representation proposed by Prabhat Kushwaha and Ayan Mahalanobis in \cite{Pra1}, which use the multiplicative group $\Zpstar$ as \emph{auxiliary} group to solve the discrete logarithm in a cyclic group $G$, of prime order $p$. In particular, we described a modified version of the most common generic algorithm baby step giant step, which allows us to test whether a given public key was generated from a weak private key. Our data show that many curves have an abundance of weak keys at all levels, due to rather smooth factorization of $p-1$ and, in particular, many divisors of $p-1$ below the bound $B$. The actual counts of weak keys vary among the curves, but several of them has around $2^{160}$ weak keys within the lever $B=2^{160}$. Tables in previous section show notable examples of curves that have remarkably few weak keys, especially secp224k1, Brainpool256r1, Brainpool224r1 and ECCp-359. Curves such as secp193r2, Curve25519, c2pnb163v3 and ECCp-353 have few weak keys at lower bound, but many at $B\geq 2^{128}$. In most cases, however, our analysis show that the probability that a randomly selected key is weak (given simply by the number of weak keys divided bu the total number of keys) is very low. However, a malicious party coud causes users to be assigned weak keys, for example, via hacked key generation software, thus it is suggested to test your private key before the usage .
 
+Least but not last, it's worth it to note that we can use the described method to generate private keys that are secure against this kind of attack. For this aim we restricting them to be a random power of $z^{\frac{p-1}{N}}$, where $z$ is a primitive root in $\Z_p$ and $N$ is a factor of $p-1$ such that $p-1=rN$ for $r$ a sufficiently large prime, thus forcing the private key to lie in an order r subgroup of $\Zpstar$. 
 %% Fine dei capitoli normali, inizio dei capitoli-appendice (opzionali)
 \appendix
 
