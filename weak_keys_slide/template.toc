@@ -1,0 +1,5 @@
+\beamer@sectionintoc {1}{Background}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{The Elliptic Curve Cryptosystem}{3}{0}{1}
+\beamer@sectionintoc {2}{Algorithm to solve the ECDLP}{5}{0}{2}
+\beamer@subsectionintoc {2}{1}{Implicit Baby Step Giant Step algorithm}{7}{0}{2}
+\beamer@sectionintoc {3}{Analysis of NIST standardized curves}{10}{0}{3}

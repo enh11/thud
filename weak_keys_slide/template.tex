@@ -1,0 +1,468 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 2.0 (March 8, 2022)
+%
+% This template originates from:
+% https://www.LaTeXTemplates.com
+%
+% Author:
+% Vel (vel@latextemplates.com)
+%
+% License:
+% CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[
+	11pt, % Set the default font size, options include: 8pt, 9pt, 10pt, 11pt, 12pt, 14pt, 17pt, 20pt
+	%t, % Uncomment to vertically align all slide content to the top of the slide, rather than the default centered
+	%aspectratio=169, % Uncomment to set the aspect ratio to a 16:9 ratio which matches the aspect ratio of 1080p and 4K screens and projectors
+]{beamer}
+
+\graphicspath{{Images/}{./}} % Specifies where to look for included images (trailing slash required)
+
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule for better rules in tables
+
+%----------------------------------------------------------------------------------------
+%	SELECT LAYOUT THEME
+%----------------------------------------------------------------------------------------
+
+% Beamer comes with a number of default layout themes which change the colors and layouts of slides. Below is a list of all themes available, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+\makeatletter
+\long\def\beamer@author[#1]#2{%
+	\def\insertauthor{\def\inst{\beamer@insttitle}\def\and{\beamer@andtitle}%
+		\begin{tabular}{rl}#2\end{tabular}}%
+	\def\beamer@shortauthor{#1}%
+	\ifbeamer@autopdfinfo%
+	\def\beamer@andstripped{}%
+	\beamer@stripands#1 \and\relax
+	{\let\inst=\@gobble\let\thanks=\@gobble\def\and{, }\hypersetup{pdfauthor={\beamer@andstripped}}}
+	\fi%
+}
+\makeatother
+%----------------------------------------------------------------------------------------
+%	SELECT COLOR THEME
+%----------------------------------------------------------------------------------------
+
+% Beamer comes with a number of color themes that can be applied to any layout theme to change its colors. Uncomment each of these in turn to see how they change the colors of your selected layout theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{monarca}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{spruce}
+%\usecolortheme{whale}
+\usecolortheme{orchid}
+
+%----------------------------------------------------------------------------------------
+%	SELECT FONT THEME & FONTS
+%----------------------------------------------------------------------------------------
+
+% Beamer comes with several font themes to easily change the fonts used in various parts of the presentation. Review the comments beside each one to decide if you would like to use it. Note that additional options can be specified for several of these font themes, consult the beamer documentation for more information.
+
+%\usefonttheme{default} % Typeset using the default sans serif font
+\usefonttheme{serif} % Typeset using the default serif font (make sure a sans font isn't being set as the default font if you use this option!)
+%\usefonttheme{structurebold} % Typeset important structure text (titles, headlines, footlines, sidebar, etc) in bold
+%\usefonttheme{structureitalicserif} % Typeset important structure text (titles, headlines, footlines, sidebar, etc) in italic serif
+%\usefonttheme{structuresmallcapsserif} % Typeset important structure text (titles, headlines, footlines, sidebar, etc) in small caps serif
+
+%------------------------------------------------
+
+%\usepackage{mathptmx} % Use the Times font for serif text
+\usepackage{palatino} % Use the Palatino font for serif text
+
+%\usepackage{helvet} % Use the Helvetica font for sans serif text
+\usepackage[default]{opensans} % Use the Open Sans font for sans serif text
+%\usepackage[default]{FiraSans} % Use the Fira Sans font for sans serif text
+%\usepackage[default]{lato} % Use the Lato font for sans serif text
+
+%----------------------------------------------------------------------------------------
+%	SELECT INNER THEME
+%----------------------------------------------------------------------------------------
+
+% Inner themes change the styling of internal slide elements, for example: bullet points, blocks, bibliography entries, title pages, theorems, etc. Uncomment each theme in turn to see what changes it makes to your presentation.
+
+%\useinnertheme{default}
+\useinnertheme{circles}
+%\useinnertheme{rectangles}
+%\useinnertheme{rounded}
+%\useinnertheme{inmargin}
+
+%----------------------------------------------------------------------------------------
+%	SELECT OUTER THEME
+%----------------------------------------------------------------------------------------
+
+% Outer themes change the overall layout of slides, such as: header and footer lines, sidebars and slide titles. Uncomment each theme in turn to see what changes it makes to your presentation.
+
+%\useoutertheme{default}
+%\useoutertheme{infolines}
+%\useoutertheme{miniframes}
+%\useoutertheme{smoothbars}
+%\useoutertheme{sidebar}
+%\useoutertheme{split}
+%\useoutertheme{shadow}
+%\useoutertheme{tree}
+\useoutertheme{smoothtree}
+
+%\setbeamertemplate{footline} % Uncomment this line to remove the footer line in all slides
+%\setbeamertemplate{footline}[page number] % Uncomment this line to replace the footer line in all slides with a simple slide count
+
+%\setbeamertemplate{navigation symbols}{} % Uncomment this line to remove the navigation symbols from the bottom of all slides
+\usepackage{array}
+\usepackage{color}
+\usepackage{colortbl}
+%COLORE VERDE
+\usepackage{lmodern}
+\usepackage{xcolor}
+\definecolor{brightlavender}{rgb}{0.75, 0.58, 0.89}
+\definecolor{blue-violet}{rgb}{0.54, 0.17, 0.89}
+\definecolor{fuchsia}{rgb}{0.76, 0.33, 0.76}
+\definecolor{lime}{rgb}{0.5, 1.0, 0.0}
+\colorlet{beamer@blendedblue}{fuchsia!50!black}
+% block
+\setbeamercolor{block title}{fg=black,bg=lime!70!white}
+\setbeamercolor{block body}{fg=black!50!black,bg=white!50!black!30!white}
+% exampleblock
+\setbeamercolor{block title example}{fg=black,bg=lime!80!black}
+\setbeamercolor{block body example}{fg=black,bg=lime!50!black!30!white}
+%theorem block
+
+%Mathematics
+
+
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Zp}{\mathbb{Z}_{p}}
+\newcommand{\Fq}{\mathbb{F}_{q}}
+\newcommand{\Zpstar}{\Z_p^*}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\clF}{\overline{\F}}
+\newcommand{\clK}{\overline{\K}}
+\newcommand{\Fqe}{\F_{q^e}}
+\newcommand{\Fpe}{\F_{p^e}}
+\newcommand{\Complessi}{\mathbb{C}}
+\newcommand{\infp}{\mathcal{O}}
+
+\newcommand{\highlight}[2][yellow]{\mathchoice%
+	{\colorbox{#1}{$\displaystyle#2$}}%
+	{\colorbox{#1}{$\textstyle#2$}}%
+	{\colorbox{#1}{$\scriptstyle#2$}}%
+	{\colorbox{#1}{$\scriptscriptstyle#2$}}}%
+
+\newtheorem{teorema}{Theorem}[section]
+\newtheorem{proposizione}[teorema]{Proposition}
+%\newtheorem{lemma}[teorema]{Lemma}
+\newtheorem{corollario}[teorema]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definizione}[teorema]{Definition}
+\newtheorem{esempio}[teorema]{Exemple}
+
+\theoremstyle{remark}
+\newtheorem{osservazione}[teorema]{Remark}
+
+\DeclareMathOperator{\aut}{Aut}
+
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%	PRESENTATION INFORMATION
+%----------------------------------------------------------------------------------------
+
+\setbeamertemplate{background} 
+{
+	\includegraphics[width=\paperwidth,height=\paperheight]{polloPallido2.pdf}
+}
+\title[Weak keys ECC]{Identification of weak keys for Elliptic Curves Cryptography} % The short title in the optional parameter appears at the bottom of every slide, the full title in the main parameter is only on the title page
+
+%\subtitle{Optional Subtitle} % Presentation subtitle, remove this command if a subtitle isn't required
+\author[Enrico Talotti]{%
+	Candidate: & Enrico Talotti \\
+	Supervisor: & Marino Miculan\\
+	Co-supervisor: & Pietro De Poi
+}
+%
+%\author[Enrico Talotti]{ Candidate: \\Enrico Talotti
+%	 \\ {\and}Supervisor:\\Marino Miculan  \\
+%	{\and}Co-supervisor:\\{Pietro De Poi}}
+% Presenter name(s), the optional parameter can contain a shortened version to appear on the bottom of every slide, while the main parameter will appear on the title slide
+
+\institute[UniUd]{Università degli Studi di Udine} % Your institution, the optional parameter can be used for the institution shorthand and will appear on the bottom of every slide after author names, while the required parameter is used on the title slide and can include your email address or additional information on separate lines
+
+\date[Dec 5, 2023]{Master Thesis in Mathematics \\ December 5, 2023} % Presentation date or conference/meeting name, the optional parameter can contain a shortened version to appear on the bottom of every slide, while the required parameter value is output to the title slide
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	TITLE SLIDE
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+	\titlepage % Output the title slide, automatically created using the text entered in the PRESENTATION INFORMATION block above
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS SLIDE
+%----------------------------------------------------------------------------------------
+
+% The table of contents outputs the sections and subsections that appear in your presentation, specified with the standard \section and \subsection commands. You may either display all sections and subsections on one slide with \tableofcontents, or display each section at a time on subsequent slides with \tableofcontents[pausesections]. The latter is useful if you want to step through each section and mention what you will discuss.
+
+\begin{frame}
+	\frametitle{Abstract} % Slide title, remove this command for no title
+	\begin{block}{\centering Abstract}
+		We describe a novel type of weak cryptographic private keys that can exist in any discrete logarithm-base public-key cryptosystem, set in a group of prime order $p$ where $p-1$ has small divisors.
+\end{block}
+
+\textbf{Keywords}: Elliptic Curve Cryptography, Discrete Logarithm Problem, Weak keys, Implicit Representation.
+
+\bibliographystyle{amsalpha}
+\bibliography{biblio}
+\nocite{Pra1}
+\nocite{Pra2}
+\nocite{repo}
+
+
+	%\tableofcontents % Output the table of contents (all sections on one slide)
+	%\tableofcontents[pausesections] % Output the table of contents (break sections up across separate slides)
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION BODY SLIDES
+%----------------------------------------------------------------------------------------
+
+\section{Background} % Sections are added in order to organize your presentation into discrete blocks, all sections and subsections are automatically output to the table of contents as an overview of the talk but NOT output in the presentation as separate slides
+\subsection{The Elliptic Curve Cryptosystem}
+\begin{frame}
+	\frametitle{Elliptic Curves over Finite Fields}
+	Let $\K$ be a finite field and let $E$ be an elliptic curves over $\K$ given by the Weierstrass equation
+	\begin{equation*}\label{ellff}
+	E:y^2+a_1xy+a_3y = x^3 + a_2x^2+a_4x + a_6,\ \text{where}\ a_1,\dots,a_6\in\K 
+	\end{equation*}
+\begin{teorema}
+Let $E(\K)$ be the set of $\K$-rational points of $E$. We can turn $E(\K)$ into a finite abelian group with identity the point at infinity $\infp$ and with the chord-tangent operation denoted by $\oplus$.
+\end{teorema}
+We assume $E(\K)$ to have prime order $p$. Let $P$ be a generator of $E(\K)$. The following maps is a group isomorphism:
+	\begin{align*}
+		\varphi:\ \Z_p\ &\to\ E(\K)\\
+		\alpha &\mapsto\ Q=[\alpha]P=\underbrace{P\oplus P\oplus\dots\oplus P}_{\alpha\ \text{times}}.
+	\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{The Elliptic Curve Discrete Logarithm Problem}
+\begin{definizione}
+	The problem of computing the inverse of $\varphi$ is called the \emph{Elliptic Curves Discrete Logarithm Problem} (\emph{ECDLP}) with respect $P$. It is the problem, given $P$ and $Q$, to determine $\alpha\in\Zp$ such that $Q = [\alpha]P$.
+\end{definizione}
+\begin{itemize}
+	\item The value $[\alpha]P$ can be computed very efficiently.
+	\item  There's no known algorithm that can solve the \emph{ECDLP} much faster then $\mathcal{O}(\sqrt{p})$.
+	\item The map $\varphi$ is a \emph{one-way-function}, thus we can build the Elliptic Curve Cryptosystem.
+	\item We refer to $\alpha$ and $Q=[\alpha]P$ as \emph{private-key} and \emph{public-key} respectively.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\section{Algorithm to solve the ECDLP}
+
+\begin{frame}
+	\frametitle{Baby Step Giant Step}
+	The \emph{Baby Step Giant Step} algorithm is based on the following: 
+	\begin{lemma}\label{diveuc}
+		Let $p$ be a positive integer. Put $m:=\lfloor \sqrt{p}\rfloor+1$. Then for any $\alpha$ with $0\leq \alpha<p$ there are integers $0\leq i,j< m$, with $\alpha=i+jm$.
+	\end{lemma}	
+Suppose now $p=\text{ord}(E(\K))$. Then $Q=[\alpha]P$ implies $$\highlight[yellow]{Q\oplus[-jm]P=[i]P}$$ for $i,j,m$ as in Lemma above.
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Baby Step Giant Step}
+	$$\highlight[yellow]{Q\oplus[-jm]P=[i]P}$$
+	\begin{block}{Baby Step Giant Step algorithm}
+		
+	Let $m=\lfloor\sqrt{p}\rfloor +1$. Build the following two lists:
+	\begin{center}
+		\begin{tabular}{ll} 
+			\emph{baby-step}: & $P,[2]P\ldots,[m]P$ \\ 
+			\emph{giant-step}: & $Q\oplus[-m]P,Q\oplus[-2m]P,\ldots,Q\oplus[-m^2]P$\\ 
+		\end{tabular}
+	\end{center}
+There exists a match between the two lists, that can be found in $\log m$ steps by using standard searching algorithms. Hence, the total running time for the algorithm is $\mathcal{O}( m\log m)$ steps.
+	\end{block}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Implicit Baby Step Giant Step algorithm}
+\begin{frame}
+\frametitle{The action of $\Zpstar$}
+Assume $E(\K)$ to be of prime order $p$ and let $P$ be a generator. We define the following map:
+\begin{alignat*}{2}
+	\rho: \Zpstar &\longrightarrow& \aut(E(\K)) \\
+	\alpha &\longmapsto&\rho_\alpha:E(\K)&\longrightarrow E(\K)\\
+	&&P&\longmapsto[\alpha]P
+\end{alignat*}
+\begin{itemize}
+	\item This is an isomorphism between $\Zpstar$ and $\aut(E(\K))$ and we can identify $\alpha\in\Zpstar$ with the automorphism $\rho_\alpha$, i.e., with the point $[\alpha]P$. 
+	\item If $\alpha,\beta\in\Zpstar$, then $\alpha\beta$ identifies the automorphism $\rho_{\alpha\beta}$ and thus the point $[\alpha\beta]P=[\alpha][\beta]P$.
+	\item We can reduce the \emph{ECDLP} to a problem in the multiplicative group $\Zpstar$.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{The action of $\Zpstar$}
+Let $P$ be a generator of the prime order group $E(\K)$ and let $Q=[\alpha]P$. We want to find such an $\alpha$.
+\begin{itemize}
+\item Let $z$ be a primitive element of $\Zpstar$, then $\alpha=z^k$ for some $0\leq k<p-1$ and $Q=[z^k]P$. 
+\item Let $m:=\lfloor \sqrt{p-1}\rfloor+1$. By the lemma above we have $k=i+mj$, for some $0\leq i,j< m$.
+\item It follows that $Q=[z^k]P=[z^{i+jm}]P=[z^i][z^{jm}]P$, which leads to $$\highlight{[z^{-jm}]Q=[z^i]P.}$$ 
+\item Hence, if we find such an $i$ and $j$, we can compute $\alpha=z^{i+jm}$ and we have the solution of the \emph{ECDLP}.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{The implicit algorithm}
+\begin{block}{Implicit Baby Step Giant Step}
+	Let $m=\lfloor\sqrt{p-1}\rfloor +1$. Build the following two lists:
+	\begin{center}
+
+	\begin{tabular}{ll} 
+	\emph{baby-step}: & $[z]P,\ [z^{2}],\ldots,\ [z^m]P$ \\ 
+	\emph{giant-step}: & $[z^{-m}]Q,\ [z^{-2m}]Q,\ \ldots,\ [z^{-m^2}]Q$.\\
+\end{tabular}
+\end{center}
+There exists a match between the two lists, that can be found in $\mathcal{O}( m\log m)$ steps.
+\end{block}
+This idea can be improved if a divisor $d$ of $p-1$ is known. 
+\begin{itemize}
+	\item Let $z_d=z^{\frac{p-1}{d}}$  be a generator for the order $d$ subgroup of $\Zpstar$. Put $m:=\lfloor \sqrt{d}\rfloor+1$ and run the implicit baby step giant step by using $z_d$ instead of $z$. 
+	\item If $\alpha$ happens to lie in the $d$ order subgroup of $\Zpstar$, then the algorithm finds $\alpha$ in $\mathcal{O}(\sqrt{d}\log\sqrt{d})$ steps. 
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\section{Analysis of NIST standardized curves}
+\begin{frame}
+	\frametitle{Analysis of weak keys}
+	\begin{block}{Testing whether a key is weak}
+	\begin{itemize}
+		\item Set a	bound $B$ for the order of subgroups of $\Zpstar$.
+		\item Generate the list $R(p,B)$ of integers $d_1<d_2<\dots<d_t\leq B$ dividing $p-1$ such that $d_i\nmid d_j$ for all $1\leq i<j\leq t$. 
+		\item Run the implicit baby step giant step algorithm
+	\end{itemize}
+\end{block}
+	\begin{block}{Number of weak keys within the bound $B$ and computational costs}
+	\begin{itemize}
+		\item Set a	bound $B$ for the order of subgroups of $\Zpstar$.
+		\item $\log_2$ of the number of weak keys with order bounded by $B$; $n_B=\log_2\sum_{d|p-1\atop d\leq B}\phi(d);$
+		\item $\log_2$ of the worst-case number of elliptic curve scalar multiplications required to test a key within the bound $B$; $c_B=\log_2\sum_{d\in R(p,B)}2\lceil\sqrt{d}\rceil.$
+	\end{itemize}
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Numerical results}
+	\begin{table}\tiny
+		\caption{Weak keys analysis of some standardized curves}
+		\label{weakprime}
+		\centering
+\begin{tabular}{l c c c c c c c c c}
+	\hline\hline
+	Curve & $b(p)$ & $n_{2^{32}}$ & $c_{2^{32}}$ & $n_{2^{64}}$ & $c_{2^{64}}$ & $n_{2^{128}}$ & $c_{2^{128}}$& $n_{2^{160}}$ & $c_{2^{160}}$\\
+	\hline
+	\rowcolor{green}
+	secp224k1& 224 & 2.6 & 2.6 & 2.6 & 2.6 & 2.6 & 2.6 & 2.6 & 2.6 \\
+	\rowcolor{green}
+	brainpoolP224r1& 224 & 10.0 & 6.0 & 10.0 & 6.0& 10.0 & 6.0& 10.0 & 6.0\\
+	\rowcolor{green}
+	brainpoolP256r1& 256 & 4.2 & 3.3& 4.2 & 3.3 & 4.2 & 3.3 & 4.2 & 3.3  \\
+	\rowcolor{green}
+	ECCp-359& 359&5.2&3.6&5.2&3.6&5.2&3.6&5.2&3.6\\
+	\rowcolor{fuchsia}
+	sect193r2 &193& 2.0& 2.0& 2.0& 2.0&110.2&56.1&110.2&56.1\\
+	\rowcolor{fuchsia}
+	Curve25519 & 253 & 7.04 & 4.8& 7.04 & 4.8&114.3&58.2&144.7&73.4\\
+	\rowcolor{fuchsia}
+	ECCp-353 & 353&6.3& 4.3& 6.3&4.3&108.9 &55.5 & 158.3&80.2\\
+	\rowcolor{fuchsia}
+	c2pnb163v3 & 162 & 8.8& 5.4& 8.8&5.4&8.8&5.4&160.9&82.3 \\
+	\rowcolor{purple}
+	secp256k1 & 256 & 24.1 & 13.1 & 64.7 & 34.2 & 129.4 &67.0 &147.9&75.0\\
+	\rowcolor{purple}
+	secp256r1 & 256 & 36.0 & 21.5& 69.3&38.8&133.2&70.8&165.3&86.9 \\
+	\rowcolor{purple}
+	SM2 &256&32.5&18.13&59.7&30.8&59.7&30.8&59.7&30.8\\
+	\rowcolor{purple}
+	P-521 &  521 & 31.4 & 16.7&50.0&26.0&128.8&66.3&130.5&66.2\\
+	
+	\hline\hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	CLOSING SLIDE
+%----------------------------------------------------------------------------------------
+
+\begin{frame}[plain] % The optional argument 'plain' hides the headline and footline
+	\begin{center}
+		{\Huge The End}	
+	\end{center}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 
